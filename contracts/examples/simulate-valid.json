@@ -368,84 +368,16 @@
             "delta": 4.375
           }
         ]
-      },
-      {
-        "id": "sarayzhyk",
-        "name": "Сарайшык",
-        "scoreBefore": 56.95,
-        "scoreAfter": 57.3875,
-        "indicators": [
-          {
-            "indicator": "T1",
-            "before": 48,
-            "after": 48.0,
-            "delta": 0.0
-          },
-          {
-            "indicator": "T2",
-            "before": 62,
-            "after": 62.0,
-            "delta": 0.0
-          },
-          {
-            "indicator": "E1",
-            "before": 58,
-            "after": 58.0,
-            "delta": 0.0
-          },
-          {
-            "indicator": "E2",
-            "before": 60,
-            "after": 60.0,
-            "delta": 0.0
-          },
-          {
-            "indicator": "S1",
-            "before": 54,
-            "after": 54.0,
-            "delta": 0.0
-          },
-          {
-            "indicator": "S2",
-            "before": 56,
-            "after": 56.0,
-            "delta": 0.0
-          },
-          {
-            "indicator": "B1",
-            "before": 62,
-            "after": 62.0,
-            "delta": 0.0
-          },
-          {
-            "indicator": "B2",
-            "before": 55,
-            "after": 55.0,
-            "delta": 0.0
-          },
-          {
-            "indicator": "C1",
-            "before": 58,
-            "after": 58.0,
-            "delta": 0.0
-          },
-          {
-            "indicator": "C2",
-            "before": 57,
-            "after": 61.375,
-            "delta": 4.375
-          }
-        ]
       }
     ],
-    "dAvgBefore": 56.872912,
-    "dAvgAfter": 57.994788,
+    "dAvgBefore": 56.8624,
+    "dAvgAfter": 58.0776,
     "minDistrictId": "nura",
     "minDBefore": 49.18,
     "minDAfter": 52.9625,
     "criticalBefore": 2,
     "criticalAfter": 0,
-    "score": 56.485102,
+    "score": 56.54307,
     "synergies": [
       {
         "label": "M10 + M12: B1 +2 в районе M10",

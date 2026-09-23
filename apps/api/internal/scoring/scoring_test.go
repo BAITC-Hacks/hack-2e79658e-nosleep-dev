@@ -34,7 +34,7 @@ func TestEmbeddedDataLoadsWithoutDataDir(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got := e.Catalog(); got.Budget != 100 || len(got.Districts) != 6 || len(got.Initiatives) != 14 {
+	if got := e.Catalog(); got.Budget != 100 || len(got.Districts) != 5 || len(got.Initiatives) != 14 {
 		t.Fatalf("unexpected embedded catalog: %#v", got)
 	}
 }

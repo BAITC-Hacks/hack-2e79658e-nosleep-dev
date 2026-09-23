@@ -12,7 +12,7 @@ This is the exact algorithm `internal/scoring` (owned by AI+data) must implement
 
 1. **Validate** the decision set (see violation codes in `contracts/api.md`). An invalid set is never scored.
 2. **Realized fraction.** Horizon `H = 8` quarters. For an initiative with lag `L`, `realized = (H - L) / H`. This scales every effect of that initiative (not just some).
-3. **Accumulate deltas per district.** For a `district`-type initiative, its (realized) effects apply only to its `districtId`. For a `city`-type initiative, its (realized) effects apply to all 6 districts identically.
+3. **Accumulate deltas per district.** For a `district`-type initiative, its (realized) effects apply only to its `districtId`. For a `city`-type initiative, its (realized) effects apply to all 5 districts identically.
 4. **Synergies** (from `data/rules.json.synergies`): if both members of a pair are selected, add the *fixed* bonus (not scaled by lag) to the given indicator, in the district of the `anchor` initiative (always the district-type member of the pair).
 5. **New indicator value.** `I'_dk = clip(I_dk + Σ deltas_dk, 0, 100)` for every district `d` and indicator `k` (districts/indicators nobody touched keep their original value).
 6. **District score.** `D_d = Σ_k w_k * I'_dk` using `indicatorWeights` from `data/rules.json` (sums to 1.0).

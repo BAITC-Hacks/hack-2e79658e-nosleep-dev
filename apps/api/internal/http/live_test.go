@@ -40,7 +40,7 @@ func TestLiveServicesServeCalculatedScenario(t *testing.T) {
 	if err := json.Unmarshal(get("/api/v1/catalog").Body.Bytes(), &catalog); err != nil {
 		t.Fatal(err)
 	}
-	if len(catalog.Districts) != 6 || catalog.RequiredDecisions != 5 {
+	if len(catalog.Districts) != 5 || catalog.RequiredDecisions != 5 {
 		t.Fatalf("unexpected live catalog: %+v", catalog)
 	}
 	var optimum OptimumResult

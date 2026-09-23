@@ -270,8 +270,6 @@ func baselineDistrictScore(id string) float64 {
 		return 56.63
 	case "nura":
 		return 49.18
-	case "sarayzhyk":
-		return 56.95
 	default:
 		return 0
 	}

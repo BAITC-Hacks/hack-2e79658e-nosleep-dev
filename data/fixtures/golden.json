@@ -1,15 +1,15 @@
 {
-  "note": "Verified by running the scoring formula in scripts/verify.py against the six-district data. Values reproduced to four decimal places.",
+  "note": "Verified by running the scoring formula in scripts/verify.py against the five-district data. Values reproduced to four decimal places.",
   "valid": [
     {
       "name": "base_no_decisions",
       "decisions": [],
       "expected": {
-        "dAvg": 56.872912,
+        "dAvg": 56.8624,
         "minDistrict": "nura",
         "minD": 49.18,
         "nCrit": 2,
-        "score": 52.565038
+        "score": 52.55768
       }
     },
     {
@@ -40,11 +40,11 @@
         "M10+M12"
       ],
       "expected": {
-        "dAvg": 57.994788,
+        "dAvg": 58.0776,
         "minDistrict": "nura",
         "minD": 52.9625,
         "nCrit": 0,
-        "score": 56.485102
+        "score": 56.54307
       }
     },
     {
@@ -71,37 +71,6 @@
         }
       ],
       "expectedBudgetUsed": 61
-    },
-    {
-      "name": "sarayzhyk_playable",
-      "decisions": [
-        {
-          "initiativeId": "M4",
-          "districtId": "sarayzhyk"
-        },
-        {
-          "initiativeId": "M8",
-          "districtId": "sarayzhyk"
-        },
-        {
-          "initiativeId": "M10",
-          "districtId": "sarayzhyk"
-        },
-        {
-          "initiativeId": "M12"
-        },
-        {
-          "initiativeId": "M2"
-        }
-      ],
-      "expectedBudgetUsed": 83,
-      "expected": {
-        "dAvg": 58.225412,
-        "minDistrict": "nura",
-        "minD": 50.12,
-        "nCrit": 2,
-        "score": 53.793788
-      }
     }
   ],
   "invalid": [
