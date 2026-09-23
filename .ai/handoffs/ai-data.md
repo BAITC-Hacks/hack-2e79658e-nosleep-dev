@@ -1,6 +1,6 @@
-DONE: OpenAI chat-completions now returns grounded live explanations and comparisons; active local .env uses OpenAI, with the former config retained in an ignored backup.
-ON BRANCH / MERGED: codex/openai-verification / OpenAI default merged to main in PR #16.
-TESTED HOW: root .env + POST /explain returned source=live and Score 56.54307; /compare returned source=live with the contract examples; cd apps/api && go test ./... passed.
-BROKEN / RISKY: OpenAI key is local and must never be committed; DEMO_MODE=true remains the keyless fallback. Frontend comparison timeout (8s) is shorter than the API's LLM timeout (25s).
-NEEDS (from whom): teammate approval to merge this verification PR; frontend owner may want to align the compare timeout.
-NEXT: merge after approval; keep the judge demo on DEMO_MODE=true unless key/network are verified immediately beforehand.
+DONE: scoring/LLM are merged; the demo script and fresh-clone QA are ready; live OpenAI explanations and comparisons work with the local ignored .env.
+ON BRANCH / MERGED: ai/demo-qa / PR #15 pending; OpenAI default and verification merged to main via PRs #16 and #17.
+TESTED HOW: fresh clone make dev + Compose web/API 200, three browser rehearsals, cached fallback, Go/verify.py/web lint/build green; root .env gave source=live for /explain (Score 56.54307) and /compare.
+BROKEN / RISKY: OpenAI key is local and must never be committed; frontend /compare timeout is 8s vs API LLM 25s. Unsaved picks reset on reload.
+NEEDS (from whom): teammate review of shared STATUS/demo docs; frontend owner to check live comparison latency.
+NEXT: merge PR #15 after approval, tag final main, and rehearse the judge demo with DEMO_MODE=true unless live key/network are verified immediately beforehand.
