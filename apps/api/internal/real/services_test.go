@@ -20,7 +20,7 @@ func TestRealAdapterPreservesExplanationFacts(t *testing.T) {
 		t.Fatalf("valid scenario failed: result=%+v violations=%+v", result, violations)
 	}
 	llmResult := toScoringResult(result)
-	if !llmResult.Submittable || len(llmResult.Districts) != 5 || len(llmResult.Contributions) != 5 {
+	if !llmResult.Submittable || len(llmResult.Districts) != len(result.Districts) || len(llmResult.Contributions) != len(decisions) {
 		t.Fatalf("explanation lost scenario facts: districts=%d contributions=%d submittable=%t", len(llmResult.Districts), len(llmResult.Contributions), llmResult.Submittable)
 	}
 	for _, district := range llmResult.Districts {

@@ -12,7 +12,6 @@ import (
 	"time"
 
 	httpapi "akim5/api/internal/http"
-	"akim5/api/internal/real"
 	"github.com/gin-gonic/gin"
 )
 
@@ -33,9 +32,10 @@ func main() {
 		config.LLMTimeout = time.Duration(seconds) * time.Second
 	}
 
-	services := real.NewEngine()
-	explainer := real.NewExplainer()
-	deck := real.NewDeck()
+	engine, explainer, deck, err := httpapi.NewLiveServices()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	if mode := os.Getenv("GIN_MODE"); mode != "" {
 		gin.SetMode(mode)
@@ -44,7 +44,7 @@ func main() {
 	}
 	server := &http.Server{
 		Addr:              ":" + port,
-		Handler:           httpapi.NewRouter(services, explainer, deck, config),
+		Handler:           httpapi.NewRouter(engine, explainer, deck, config),
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 

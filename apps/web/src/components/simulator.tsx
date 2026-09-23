@@ -1,24 +1,26 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { ArrowRight, BookmarkPlus, Check, ChevronRight, CircleAlert, LoaderCircle, RotateCcw, X } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Activity, ArrowLeft, BookmarkPlus, ClipboardList, LoaderCircle, MapPin, PanelsTopLeft, TrendingDown, TrendingUp, X } from "lucide-react";
 
-import { CityMap } from "@/components/city-map";
+import { AstanaThreeMap } from "@/components/astana-three-map";
 import { ScenarioCompare } from "@/components/scenario-compare";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { api, USE_MOCKS } from "@/lib/api-client";
-import type { CatalogResponse, Decision, ExplainResponse, OptimumResponse, SavedScenario, SimulationResponse } from "@/lib/types";
+import type { Decision, Direction, District, DistrictResult, ExplainResponse, Initiative, OptimumResponse, SavedScenario, SimulationResponse, CatalogResponse } from "@/lib/types";
+import { DistrictPicker } from "@/components/simulator/district-picker";
+import { InitiativeCatalog } from "@/components/simulator/initiative-catalog";
+import { PlanTray } from "@/components/simulator/plan-tray";
+import { ScenarioHeader } from "@/components/simulator/scenario-header";
 
-const directionLabels = { transport: "Транспорт", ecology: "Экология", social: "Соцсфера", safety: "Безопасность", services: "Сервисы" };
-const SCENARIO_STORAGE_KEY = "akim-5h-scenarios-v1";
+type DirectionFilter = "all" | Direction;
+type MobileView = "catalog" | "district" | "plan";
+const SCENARIO_STORAGE_KEY = "bessheshim-scenarios-v1";
 
 export function Simulator() {
   const [catalog, setCatalog] = useState<CatalogResponse | null>(null);
   const [health, setHealth] = useState<"loading" | "ok" | "error">("loading");
   const [decisions, setDecisions] = useState<Decision[]>([]);
-  const [districtDrafts, setDistrictDrafts] = useState<Record<string, string>>({});
   const [simulation, setSimulation] = useState<SimulationResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [simulating, setSimulating] = useState(false);
@@ -27,9 +29,17 @@ export function Simulator() {
   const [optimum, setOptimum] = useState<OptimumResponse | null>(null);
   const [explaining, setExplaining] = useState(false);
   const [retryNonce, setRetryNonce] = useState(0);
+  const [query, setQuery] = useState("");
+  const [activeDirection, setActiveDirection] = useState<DirectionFilter>("all");
+  const [pendingInitiative, setPendingInitiative] = useState<Initiative | null>(null);
+  const [mobileView, setMobileView] = useState<MobileView>("catalog");
+  const [selectedDistrictId, setSelectedDistrictId] = useState<string | null>(null);
+  const [showHelp, setShowHelp] = useState(false);
   const [savedScenarios, setSavedScenarios] = useState<SavedScenario[]>([]);
   const [scenarioLabel, setScenarioLabel] = useState("Сценарий 1");
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [showCompare, setShowCompare] = useState(false);
+  const decisionVersion = useRef(0);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -39,10 +49,13 @@ export function Simulator() {
       setCatalog(nextCatalog);
       setHealth(nextHealth.status === "ok" ? "ok" : "error");
       setSimulation(await api.simulate([]));
+      setSelectedDistrictId((current) => current && nextCatalog.districts.some((district) => district.id === current) ? current : nextCatalog.districts.find((district) => district.id === "nura")?.id ?? nextCatalog.districts[0]?.id ?? null);
     } catch (reason) {
       setHealth("error");
       setError(reason instanceof Error ? reason.message : "Не удалось загрузить симулятор");
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -77,40 +90,74 @@ export function Simulator() {
         if (active) setSimulation(result);
       } catch (reason) {
         if (active) setError(reason instanceof Error ? reason.message : "Расчёт не выполнен");
-      } finally { if (active) setSimulating(false); }
+      } finally {
+        if (active) setSimulating(false);
+      }
     }, 120);
     return () => { active = false; window.clearTimeout(timer); };
   }, [catalog, decisions, retryNonce]);
 
   const selectedIds = useMemo(() => new Set(decisions.map((item) => item.initiativeId)), [decisions]);
+  const directionCounts = useMemo(() => {
+    if (!catalog) return {};
+    return decisions.reduce<Partial<Record<Direction, number>>>((counts, decision) => {
+      const direction = catalog.initiatives.find((initiative) => initiative.id === decision.initiativeId)?.direction;
+      if (direction) counts[direction] = (counts[direction] ?? 0) + 1;
+      return counts;
+    }, {});
+  }, [catalog, decisions]);
 
-  function addDecision(initiativeId: string, type: "district" | "city") {
-    if (selectedIds.has(initiativeId) || decisions.length >= 5) return;
-    const districtId = type === "district" ? districtDrafts[initiativeId] : undefined;
-    if (type === "district" && !districtId) { setError("Сначала выберите район для этой меры"); return; }
+  function addDecision(initiativeId: string, districtId?: string) {
+    if (selectedIds.has(initiativeId) || !catalog || decisions.length >= catalog.requiredDecisions) return;
+    decisionVersion.current += 1;
+    setSimulating(true);
     setExplanation(null);
     setOptimum(null);
+    setError(null);
     setDecisions((current) => [...current, { initiativeId, districtId }]);
+    setPendingInitiative(null);
+  }
+
+  function requestAdd(initiative: Initiative) {
+    if (initiative.type === "district" && selectedDistrictId) addDecision(initiative.id, selectedDistrictId);
+    else if (initiative.type === "district") setPendingInitiative(initiative);
+    else addDecision(initiative.id);
   }
 
   function removeDecision(initiativeId: string) {
+    decisionVersion.current += 1;
+    setSimulating(true);
     setExplanation(null);
     setOptimum(null);
     setDecisions((current) => current.filter((item) => item.initiativeId !== initiativeId));
   }
 
+  function reset() {
+    decisionVersion.current += 1;
+    setSimulating(true);
+    setDecisions([]);
+    setExplanation(null);
+    setOptimum(null);
+    setError(null);
+    setMobileView("catalog");
+  }
+
   async function submit() {
-    if (!simulation?.submittable) return;
+    if (!simulation?.submittable || simulating || error) return;
+    const version = decisionVersion.current;
     setExplaining(true);
     setError(null);
     try {
       const [nextExplanation, nextOptimum] = await Promise.all([api.explain(decisions), api.optimum()]);
-      setExplanation(nextExplanation);
-      setOptimum(nextOptimum);
-      window.setTimeout(() => document.getElementById("result")?.scrollIntoView({ behavior: "smooth" }), 0);
+      if (version === decisionVersion.current) {
+        setExplanation(nextExplanation);
+        setOptimum(nextOptimum);
+      }
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Не удалось получить разбор");
-    } finally { setExplaining(false); }
+      if (version === decisionVersion.current) setError(reason instanceof Error ? reason.message : "Не удалось получить разбор");
+    } finally {
+      setExplaining(false);
+    }
   }
 
   function persistScenarios(next: SavedScenario[]) {
@@ -120,15 +167,12 @@ export function Simulator() {
 
   function saveScenario() {
     const label = scenarioLabel.trim();
-    const currentSimulation = simulation;
-    if (!currentSimulation?.submittable || !currentSimulation.score) return;
+    if (!simulation?.submittable || !simulation.score) return;
     if (!label) { setSaveMessage("Добавьте название сценария"); return; }
     if (savedScenarios.length >= 3) { setSaveMessage("Можно сохранить не более трёх сценариев"); return; }
     const next = [...savedScenarios, {
-      id: window.crypto.randomUUID(),
-      label,
-      decisions: structuredClone(decisions),
-      result: structuredClone(currentSimulation),
+      id: window.crypto.randomUUID(), label,
+      decisions: structuredClone(decisions), result: structuredClone(simulation),
       createdAt: new Date().toISOString(),
     }];
     persistScenarios(next);
@@ -141,96 +185,109 @@ export function Simulator() {
     setSaveMessage(null);
   }
 
-  if (loading) return <div className="loading-state"><LoaderCircle className="spin" /> Загружаем городские данные…</div>;
-  if (!catalog || !simulation) {
-    return <div className="empty-state"><p>{error ?? "Каталог пока пуст"}</p><Button onClick={() => void load()}>Повторить</Button></div>;
-  }
+  if (loading) return <div className="cockpit-loading"><span className="cockpit-brand-mark">BS/5</span><LoaderCircle className="spin" /> Загружаем городскую модель…</div>;
+  if (!catalog || !simulation) return <div className="cockpit-loading"><p>{error ?? "Каталог пока пуст"}</p><Button onClick={() => void load()}>Повторить</Button></div>;
+
+  const selectedDistrict = catalog.districts.find((district) => district.id === selectedDistrictId);
+  const selectedResult = simulation.districts.find((district) => district.id === selectedDistrictId);
 
   return (
-    <>
-      <nav className="nav-bar">
-        <a className="wordmark" href="#top"><span />АКИМ / 5Ч</a>
-        <div className="nav-meta"><span className={`status-dot ${health}`} /> API {USE_MOCKS ? "mock" : health}<a href="#simulator">Симулятор</a>{savedScenarios.length > 0 && <a href="#compare">Сравнение</a>}</div>
-      </nav>
+    <div className="play-map-page" id="simulator">
+      <AstanaThreeMap districts={simulation.districts} selectedDistrictId={selectedDistrictId} onSelectDistrict={(id) => { setSelectedDistrictId(id); setMobileView("district"); }} />
+      <ScenarioHeader
+        budget={catalog.budget}
+        budgetRemaining={simulation.budgetRemaining}
+        decisionCount={decisions.length}
+        requiredDecisions={catalog.requiredDecisions}
+        health={health}
+        isMock={USE_MOCKS}
+        onReset={reset}
+        onHelp={() => setShowHelp(true)}
+        savedCount={savedScenarios.length}
+        onCompare={() => setShowCompare(true)}
+      />
 
-      <header className="hero" id="top">
-        <div className="eyebrow">ГОРОДСКАЯ ЛАБОРАТОРИЯ / АСТАНА</div>
-        <h1>Пять решений.<br /><span>Один город.</span></h1>
-        <div className="hero-bottom">
-          <p>Распределите 100 единиц бюджета и смотрите, как каждый выбор меняет качество жизни районов — до того, как решение принято.</p>
-          <a className="hero-cta" href="#simulator">Начать сценарий <ArrowRight size={18} /></a>
-        </div>
-      </header>
-
-      <main className="simulator" id="simulator">
-        <section className="sim-intro">
-          <div><div className="eyebrow dark">LIVE / СЦЕНАРИЙ 01</div><h2>Соберите пакет мер</h2></div>
-          <div className="budget-block"><span>Бюджет</span><strong>{simulation.budgetRemaining}</strong><small> / {catalog.budget}</small><Progress value={(simulation.budgetUsed / catalog.budget) * 100} /></div>
-        </section>
-
-        <section className="workspace">
-          <div className="catalog-panel">
-            <div className="panel-heading"><span>Каталог / {catalog.initiatives.length}</span><span>{decisions.length} из {catalog.requiredDecisions}</span></div>
-            <div className="initiative-list">
-              {catalog.initiatives.map((initiative) => {
-                const selected = selectedIds.has(initiative.id);
-                return (
-                  <article className={`initiative ${selected ? "selected" : ""}`} key={initiative.id}>
-                    <div className="initiative-copy">
-                      <div className="initiative-meta"><span>{initiative.id}</span><span>{directionLabels[initiative.direction]}</span><span>{initiative.cost} ед.</span></div>
-                      <h3>{initiative.name}</h3>
-                      {initiative.type === "district" && !selected && (
-                        <label><span className="sr-only">Район</span><select value={districtDrafts[initiative.id] ?? ""} onChange={(event) => setDistrictDrafts((current) => ({ ...current, [initiative.id]: event.target.value }))}>
-                          <option value="">Выберите район</option>
-                          {catalog.districts.map((district) => <option key={district.id} value={district.id}>{district.name}</option>)}
-                        </select></label>
-                      )}
-                    </div>
-                    {selected ? <button className="remove-button" onClick={() => removeDecision(initiative.id)} aria-label={`Убрать ${initiative.name}`}><X size={18} /></button> : <button className="add-button" onClick={() => addDecision(initiative.id, initiative.type)} disabled={decisions.length >= 5} aria-label={`Добавить ${initiative.name}`}><ChevronRight size={20} /></button>}
-                  </article>
-                );
-              })}
-            </div>
+      <main className="play-map-layout" id="cockpit-guide">
+        <aside className={`play-map-sidebar play-map-sidebar-left ${mobileView === "catalog" ? "is-mobile-active" : ""}`}>
+          <div className="play-map-sidebar-caption"><span className="cockpit-kicker">АСТАНА / ГОРОДСКАЯ ЛАБОРАТОРИЯ</span><strong>Выберите меры для города</strong><p>Выберите район на карте и вложите бюджет в его развитие.</p></div>
+          <div className="play-map-catalog-scroll">
+            <InitiativeCatalog
+              activeDirection={activeDirection}
+              budgetRemaining={simulation.budgetRemaining}
+              directionCounts={directionCounts}
+              initiatives={catalog.initiatives}
+              query={query}
+              requiredDecisions={catalog.requiredDecisions}
+              selectedIds={selectedIds}
+              selectedCount={decisions.length}
+              onDirectionChange={setActiveDirection}
+              onQueryChange={setQuery}
+              onRequestAdd={requestAdd}
+              onRemove={removeDecision}
+            />
           </div>
+        </aside>
 
-          <aside className="live-panel">
-            <div className="live-heading"><div><span className="pulse" /> LIVE SCORE</div>{simulating && <LoaderCircle className="spin" size={16} />}</div>
-            <div className="score-lockup"><strong>{(simulation.score ?? simulation.dAvgAfter).toFixed(1)}</strong><span>{simulation.score ? "официальный Score" : "средний балл"}</span><em>{simulation.dAvgAfter >= simulation.dAvgBefore ? "+" : ""}{(simulation.dAvgAfter - simulation.dAvgBefore).toFixed(2)}</em></div>
-            <CityMap districts={simulation.districts} />
-            <div className="critical-strip"><span>Критические показатели</span><strong>{simulation.criticalBefore} → {simulation.criticalAfter}</strong></div>
-            {simulation.violations.length > 0 && decisions.length > 0 && <div className="violations">{simulation.violations.map((violation) => <p key={violation.code}><CircleAlert size={15} />{violation.message}</p>)}</div>}
-            {error && <div className="api-error" role="alert"><CircleAlert size={16} /><span>{error}</span><button onClick={() => setRetryNonce((value) => value + 1)}>Повторить</button></div>}
-            <Button className="submit-button" disabled={!simulation.submittable || explaining} onClick={() => void submit()}>{explaining ? <><LoaderCircle className="spin" /> Сверяем правила и готовим разбор…</> : <>Зафиксировать решения <ArrowRight /></>}</Button>
-            <button className="reset-button" onClick={() => { setDecisions([]); setExplanation(null); setOptimum(null); }} disabled={decisions.length === 0}><RotateCcw size={14} /> Сбросить сценарий</button>
-          </aside>
-        </section>
+        <aside className="play-map-sidebar play-map-sidebar-right">
+          <div className={`play-map-mobile-panel ${mobileView === "district" ? "is-mobile-active" : ""}`}>
+            <DistrictDetails district={selectedDistrict} result={selectedResult} decisions={decisions} initiatives={catalog.initiatives} cityScore={simulation.dAvgAfter} simulating={simulating} />
+          </div>
+          <div className={`play-map-mobile-panel ${mobileView === "plan" ? "is-mobile-active" : ""}`}>
+            <PlanTray catalog={catalog} decisions={decisions} error={error} explaining={explaining} simulating={simulating} simulation={simulation} onRemove={removeDecision} onReset={reset} onRetry={() => setRetryNonce((value) => value + 1)} onSubmit={() => void submit()} />
+          </div>
+        </aside>
+
+        <div className="play-map-hint"><MapPin size={15} /><span>Перетащите карту, нажмите на район для деталей</span></div>
+
+        <nav className="play-map-mobile-tabs" aria-label="Разделы симулятора">
+          <button className={mobileView === "catalog" ? "is-active" : ""} type="button" onClick={() => setMobileView("catalog")}><PanelsTopLeft size={16} /> Меры</button>
+          <button className={mobileView === "district" ? "is-active" : ""} type="button" onClick={() => setMobileView("district")}><MapPin size={16} /> Район</button>
+          <button className={mobileView === "plan" ? "is-active" : ""} type="button" onClick={() => setMobileView("plan")}><ClipboardList size={16} /> План <span>{decisions.length}</span></button>
+        </nav>
       </main>
 
-      {explanation && (
-        <section className="result" id="result">
-          <div className="result-top"><div><div className="eyebrow">AI / РАЗБОР СЦЕНАРИЯ</div><h2>Город стал<br />сильнее.</h2></div><div className="result-score"><span>Итоговый Score</span><strong>{simulation.score?.toFixed(2)}</strong><Badge>{explanation.source === "cached" ? "Кэшированный разбор" : "Live AI"}</Badge></div></div>
-          {optimum && simulation.score && <div className="result-benchmark"><div><span>От лучшего сценария</span><strong>{Math.min(100, (simulation.score / optimum.bestScore) * 100).toFixed(1)}%</strong></div><Progress value={Math.min(100, (simulation.score / optimum.bestScore) * 100)} /><p>Ваш результат {simulation.score.toFixed(2)} из оптимальных {optimum.bestScore.toFixed(2)}</p></div>}
-          <p className="result-summary">{explanation.explanation.summary}</p>
-          <div className="result-grid"><ResultColumn title="Что сработало" items={explanation.explanation.strengths} positive /><ResultColumn title="Риски" items={explanation.explanation.risks} /><ResultColumn title="Следующий шаг" items={explanation.explanation.recommendations} /></div>
-          <div className="save-scenario">
-            <div><span>Сохранить для сравнения</span><p>Сценарий останется только в этом браузере.</p></div>
-            <label><span className="sr-only">Название сценария</span><input value={scenarioLabel} onChange={(event) => { setScenarioLabel(event.target.value); setSaveMessage(null); }} maxLength={80} /></label>
-            <Button onClick={saveScenario} disabled={savedScenarios.length >= 3}><BookmarkPlus size={16} /> Сохранить</Button>
-            {saveMessage && <small>{saveMessage}</small>}
-          </div>
-        </section>
-      )}
-
-      {savedScenarios.length > 0 && (
-        <section className="compare-section" id="compare">
-          <div className="compare-heading"><div className="eyebrow dark">A/B/C / ЛОКАЛЬНЫЕ СЦЕНАРИИ</div><h2>Сравните решения</h2></div>
-          <ScenarioCompare scenarios={savedScenarios} onRemove={removeScenario} />
-        </section>
-      )}
-    </>
+      {pendingInitiative && <DistrictPicker districts={catalog.districts} initiative={pendingInitiative} onCancel={() => setPendingInitiative(null)} onSelect={(districtId) => addDecision(pendingInitiative.id, districtId)} />}
+      {explanation && <ScenarioResultOverlay explanation={explanation} optimum={optimum} simulation={simulation} scenarioLabel={scenarioLabel} saveMessage={saveMessage} canSave={savedScenarios.length < 3} onLabelChange={(value) => { setScenarioLabel(value); setSaveMessage(null); }} onSave={saveScenario} onCompare={() => { setExplanation(null); setShowCompare(true); }} onClose={() => setExplanation(null)} />}
+      {showHelp && <div className="play-map-help-backdrop" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setShowHelp(false); }}><section className="play-map-help" role="dialog" aria-modal="true" aria-labelledby="play-map-help-title"><button type="button" onClick={() => setShowHelp(false)} aria-label="Закрыть помощь"><X size={18} /></button><span className="cockpit-kicker">КАК ИГРАТЬ</span><h2 id="play-map-help-title">Пять решений. Один город.</h2><ol><li>Выберите район на карте, чтобы увидеть его состояние.</li><li>Добавьте инициативы из панели слева. Районная мера применяется к выбранному району.</li><li>Следите за бюджетом и планом справа. После пяти решений откройте результат.</li></ol></section></div>}
+      {showCompare && <div className="play-map-compare-backdrop" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setShowCompare(false); }}><section className="play-map-compare-panel" role="dialog" aria-modal="true" aria-labelledby="compare-title"><div className="play-map-compare-top"><span className="cockpit-kicker">СОХРАНЁННЫЕ СЦЕНАРИИ</span><button type="button" onClick={() => setShowCompare(false)} aria-label="Закрыть сравнение"><X size={19} /></button></div><div className="compare-section" id="compare"><div className="compare-heading"><div className="eyebrow dark">A/B/C / ЛОКАЛЬНЫЕ СЦЕНАРИИ</div><h2 id="compare-title">Сравните решения</h2></div><ScenarioCompare scenarios={savedScenarios} onRemove={removeScenario} /></div></section></div>}
+    </div>
   );
 }
 
-function ResultColumn({ title, items, positive = false }: { title: string; items: string[]; positive?: boolean }) {
-  return <div><h3>{title}</h3>{items.map((item, index) => <p key={item}>{positive ? <Check size={16} /> : <span className="result-index">0{index + 1}</span>}{item}</p>)}</div>;
+function DistrictDetails({ district, result, decisions, initiatives, cityScore, simulating }: { district?: District; result?: DistrictResult; decisions: Decision[]; initiatives: Initiative[]; cityScore: number; simulating: boolean }) {
+  if (!district || !result) return <section className="play-map-district-card"><p>Выберите район на карте, чтобы увидеть его показатели.</p></section>;
+  const delta = result.scoreAfter - result.scoreBefore;
+  const measures = decisions.filter((decision) => decision.districtId === district.id).map((decision) => initiatives.find((initiative) => initiative.id === decision.initiativeId)).filter((initiative): initiative is Initiative => Boolean(initiative));
+  return (
+    <section className="play-map-district-card" aria-labelledby="play-map-district-title">
+      <div className="play-map-district-top"><span className="cockpit-kicker"><MapPin size={12} /> ВЫБРАННЫЙ РАЙОН</span>{simulating ? <LoaderCircle className="spin" size={16} /> : <Activity size={16} />}</div>
+      <h2 id="play-map-district-title">{district.name}</h2>
+      <p className="play-map-district-profile">{district.profile}</p>
+      <div className="play-map-district-score"><div><span>Индекс района</span><strong>{result.scoreAfter.toFixed(1)}</strong></div><span className={delta >= 0 ? "is-positive" : "is-negative"}>{delta >= 0 ? <TrendingUp size={15} /> : <TrendingDown size={15} />}{delta >= 0 ? "+" : ""}{delta.toFixed(1)}</span></div>
+      <div className="play-map-district-comparison"><span>Средний по городу</span><strong>{cityScore.toFixed(1)}</strong></div>
+      <div className="play-map-district-measures"><span>Меры в районе <strong>{measures.length}</strong></span>{measures.length ? measures.map((measure) => <p key={measure.id}>{measure.name}</p>) : <p>Пока нет мер. Выберите инициативу слева, чтобы развить этот район.</p>}</div>
+    </section>
+  );
+}
+
+function ScenarioResultOverlay({ explanation, optimum, simulation, scenarioLabel, saveMessage, canSave, onLabelChange, onSave, onCompare, onClose }: { explanation: ExplainResponse; optimum: OptimumResponse | null; simulation: SimulationResponse; scenarioLabel: string; saveMessage: string | null; canSave: boolean; onLabelChange: (value: string) => void; onSave: () => void; onCompare: () => void; onClose: () => void }) {
+  const benchmark = optimum && simulation.score ? Math.min(100, (simulation.score / optimum.bestScore) * 100) : null;
+  return <div className="play-map-result-backdrop" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) onClose(); }}>
+    <section className="play-map-result" role="dialog" aria-modal="true" aria-labelledby="play-map-result-title">
+      <div className="play-map-result-head"><span className="cockpit-kicker">РАЗБОР СЦЕНАРИЯ · {explanation.source === "cached" ? "КЭШИРОВАННЫЙ" : "LIVE AI"}</span><button type="button" onClick={onClose} aria-label="Закрыть результат"><X size={19} /></button></div>
+      <h2 id="play-map-result-title">Город ответил.</h2>
+      <div className="play-map-result-score"><span>Итоговый индекс</span><strong>{simulation.score?.toFixed(2)}</strong>{benchmark !== null && <small>{benchmark.toFixed(1)}% от лучшего сценария</small>}</div>
+      <p className="play-map-result-summary">{explanation.explanation.summary}</p>
+      <ResultList title="Что сработало" items={explanation.explanation.strengths} />
+      <ResultList title="Риски" items={explanation.explanation.risks} />
+      <ResultList title="Следующий шаг" items={explanation.explanation.recommendations} />
+      <div className="save-scenario"><div><span>Сохранить для сравнения</span><p>Сценарий останется только в этом браузере.</p></div><label><span className="sr-only">Название сценария</span><input value={scenarioLabel} onChange={(event) => onLabelChange(event.target.value)} maxLength={80} /></label><Button onClick={onSave} disabled={!canSave}><BookmarkPlus size={16} /> Сохранить</Button>{saveMessage && <small>{saveMessage}</small>}</div>
+      {saveMessage === "Сценарий сохранён" && <button className="play-map-result-back" type="button" onClick={onCompare}>Открыть сравнение</button>}
+      <button className="play-map-result-back" type="button" onClick={onClose}><ArrowLeft size={16} /> Вернуться к карте</button>
+    </section>
+  </div>;
+}
+
+function ResultList({ title, items }: { title: string; items: string[] }) {
+  return <div className="play-map-result-list"><h3>{title}</h3>{items.map((item, index) => <p key={`${title}-${index}`}>{item}</p>)}</div>;
 }

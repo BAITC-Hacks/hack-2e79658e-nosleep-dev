@@ -1,63 +1,31 @@
-<svg width="1200" height="320" viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Akim na 5 chasov — AI gorodskoi simulyator">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="BesSheshim — Five decisions. One city.">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0b1220"/>
-      <stop offset="55%" stop-color="#111a2e"/>
-      <stop offset="100%" stop-color="#182544"/>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071910"/>
+      <stop offset="0.58" stop-color="#123c28"/>
+      <stop offset="1" stop-color="#06120d"/>
     </linearGradient>
-    <linearGradient id="chip" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#f87171"/>
-      <stop offset="100%" stop-color="#34d399"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="82%" cy="35%" r="60%">
-      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.35"/>
-      <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
+    <radialGradient id="glow" cx="0.76" cy="0.12" r="0.74">
+      <stop offset="0" stop-color="#5dbb8a" stop-opacity="0.46"/>
+      <stop offset="1" stop-color="#5dbb8a" stop-opacity="0"/>
     </radialGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#ffffff" stroke-opacity="0.055"/>
+    </pattern>
   </defs>
-
-  <rect width="1200" height="320" fill="url(#bg)"/>
-  <rect width="1200" height="320" fill="url(#glow)"/>
-
-  <g font-family="Helvetica, Arial, sans-serif">
-    <text x="56" y="108" fill="#f8fafc" font-size="46" font-weight="700" letter-spacing="0.2">Аким на 5 часов</text>
-    <text x="56" y="140" fill="#94a3b8" font-size="18" letter-spacing="0.3">AI-симулятор городского бюджета · Astana Quality of Life Score</text>
-
-    <g transform="translate(56,168)">
-      <rect width="286" height="40" rx="20" fill="#0f172a" stroke="#334155"/>
-      <rect x="4" y="4" width="278" height="32" rx="16" fill="url(#chip)" opacity="0.18"/>
-      <text x="20" y="26" fill="#e2e8f0" font-size="16" font-weight="600">Score: 52.56</text>
-      <text x="128" y="26" fill="#64748b" font-size="16">&#8594;</text>
-      <text x="150" y="26" fill="#4ade80" font-size="16" font-weight="700">56.54</text>
-      <text x="212" y="26" fill="#64748b" font-size="13">(+3.99)</text>
-    </g>
-
-    <text x="56" y="244" fill="#64748b" font-size="14">5 районов · 14 мероприятий · 5 решений · бюджет 100 у.е.</text>
-    <text x="56" y="270" fill="#475569" font-size="13">Go + Gin · Next.js · NVIDIA NIM · DEMO_MODE</text>
-  </g>
-
-  <!-- schematic districts, not a real map: 5 blocks colored by district score, low to high -->
-  <g font-family="Helvetica, Arial, sans-serif" transform="translate(780,42)">
-    <g transform="translate(0,0)">
-      <rect width="150" height="70" rx="10" fill="#22c55e"/>
-      <text x="75" y="42" text-anchor="middle" fill="#052e16" font-size="15" font-weight="700">Есиль</text>
-    </g>
-    <g transform="translate(0,86)">
-      <rect width="72" height="60" rx="10" fill="#84cc16"/>
-      <text x="36" y="35" text-anchor="middle" fill="#1a2e05" font-size="12" font-weight="700">Алматы</text>
-    </g>
-    <g transform="translate(78,86)">
-      <rect width="72" height="60" rx="10" fill="#a3e635"/>
-      <text x="36" y="35" text-anchor="middle" fill="#1a2e05" font-size="11" font-weight="700">Сарыарка</text>
-    </g>
-    <g transform="translate(0,152)">
-      <rect width="150" height="56" rx="10" fill="#84cc16"/>
-      <text x="75" y="33" text-anchor="middle" fill="#1a2e05" font-size="13" font-weight="700">Байконур</text>
-    </g>
-    <g transform="translate(0,214)">
-      <rect width="150" height="56" rx="10" fill="#ef4444">
-        <animate attributeName="fill" values="#ef4444;#f59e0b;#ef4444" dur="4s" repeatCount="indefinite"/>
-      </rect>
-      <text x="75" y="33" text-anchor="middle" fill="#450a0a" font-size="13" font-weight="700">Нура</text>
-    </g>
-  </g>
+  <rect width="1200" height="300" rx="24" fill="url(#background)"/>
+  <rect width="1200" height="300" rx="24" fill="url(#glow)"/>
+  <rect width="1200" height="300" rx="24" fill="url(#grid)"/>
+  <rect x="52" y="47" width="72" height="52" rx="13" fill="#ffffff" transform="skewX(-8) translate(7)"/>
+  <text x="87" y="80" text-anchor="middle" fill="#102019" font-family="Menlo, Consolas, monospace" font-size="19" font-weight="700">BS/5</text>
+  <text x="148" y="82" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" letter-spacing="-1.2">BES SHESHIM</text>
+  <text x="54" y="161" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="47" font-weight="700" letter-spacing="-1.5">Five decisions. One city.</text>
+  <text x="56" y="202" fill="#d2e7d8" font-family="Arial, Helvetica, sans-serif" font-size="20">AI city budget simulator · Астана, Казахстан</text>
+  <line x1="56" y1="232" x2="1144" y2="232" stroke="#ffffff" stroke-opacity="0.22"/>
+  <text x="56" y="264" fill="#d5eadc" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="0.3">5 РЕШЕНИЙ</text>
+  <circle cx="213" cy="258" r="3" fill="#e57061"/>
+  <text x="232" y="264" fill="#d5eadc" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="0.3">100 ЕДИНИЦ БЮДЖЕТА</text>
+  <circle cx="488" cy="258" r="3" fill="#e57061"/>
+  <text x="507" y="264" fill="#d5eadc" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="0.3">5 РАЙОНОВ</text>
+  <text x="1144" y="264" text-anchor="end" fill="#a4cab1" font-family="Menlo, Consolas, monospace" font-size="13">NoSleep.dev / BAITC 2026</text>
 </svg>
