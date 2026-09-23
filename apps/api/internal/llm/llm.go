@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"unicode"
 
 	"akim5/api/internal/scoring"
 )
@@ -53,14 +54,14 @@ func NewFromEnv() *Client {
 	return &Client{baseURL: strings.TrimRight(base, "/"), apiKey: os.Getenv("LLM_API_KEY"), model: os.Getenv("LLM_MODEL"), demo: strings.EqualFold(os.Getenv("DEMO_MODE"), "true"), http: &http.Client{Timeout: timeout}}
 }
 
-func (c *Client) Explain(ctx context.Context, decisions []scoring.Decision, result *scoring.Result) Explanation {
+func (c *Client) Explain(ctx context.Context, _ []scoring.Decision, result *scoring.Result) Explanation {
 	fallback := cachedExplanation(result)
-	if c.demo || c.apiKey == "" || c.model == "" {
+	if c.demo || c.apiKey == "" || c.model == "" || result == nil {
 		return fallback
 	}
-	payload := map[string]any{"decisions": decisions, "result": result}
+	payload := map[string]any{"verifiedFacts": explanationFacts(result)}
 	var out Explanation
-	if c.request(ctx, explanationSystemPrompt, payload, &out) == nil && validExplanation(out) {
+	if c.request(ctx, explanationSystemPrompt, payload, &out, func() bool { return validExplanation(out) }) == nil {
 		out.Source = "live"
 		return out
 	}
@@ -74,18 +75,21 @@ func (c *Client) Compare(ctx context.Context, scenarios []NamedResult) Compariso
 	var out struct {
 		Summary string `json:"summary"`
 	}
-	if c.request(ctx, comparisonSystemPrompt, map[string]any{"scenarios": scenarios}, &out) == nil && strings.TrimSpace(out.Summary) != "" {
+	if c.request(ctx, comparisonSystemPrompt, map[string]any{"verifiedFacts": comparisonFacts(scenarios)}, &out, func() bool { return validPlainText(out.Summary) }) == nil {
 		return Comparison{Summary: out.Summary, Source: "live"}
 	}
 	return fallback
 }
 
 // request retries once if transport, provider, JSON, or shape validation fails.
-func (c *Client) request(ctx context.Context, system string, payload any, out any) error {
+func (c *Client) request(ctx context.Context, system string, payload any, out any, valid func() bool) error {
 	var last error
 	for attempt := 1; attempt <= 2; attempt++ {
 		start := time.Now()
 		err := c.requestOnce(ctx, system, payload, out)
+		if err == nil && !valid() {
+			err = fmt.Errorf("llm returned output outside required shape or grounded text rules")
+		}
 		log.Printf("llm call attempt=%d latency=%s success=%t", attempt, time.Since(start).Round(time.Millisecond), err == nil)
 		if err == nil {
 			return nil
@@ -145,7 +149,105 @@ func jsonSchema(out any) map[string]any {
 	return map[string]any{"type": "json_schema", "json_schema": map[string]any{"name": "city_explanation", "strict": true, "schema": map[string]any{"type": "object", "properties": properties, "required": required, "additionalProperties": false}}}
 }
 func validExplanation(e Explanation) bool {
-	return strings.TrimSpace(e.Summary) != "" && len(e.Strengths) > 0 && len(e.Risks) > 0 && len(e.Recommendations) > 0
+	if !validPlainText(e.Summary) || len(e.Strengths) == 0 || len(e.Risks) == 0 || len(e.Recommendations) == 0 {
+		return false
+	}
+	for _, group := range [][]string{e.Strengths, e.Risks, e.Recommendations} {
+		for _, item := range group {
+			if !validPlainText(item) {
+				return false
+			}
+		}
+	}
+	return true
+}
+func validPlainText(s string) bool {
+	if strings.TrimSpace(s) == "" {
+		return false
+	}
+	for _, r := range s {
+		if unicode.IsDigit(r) || r == '%' {
+			return false
+		}
+	}
+	for _, word := range strings.FieldsFunc(strings.ToLower(s), func(r rune) bool { return !unicode.IsLetter(r) }) {
+		switch word {
+		case "один", "одна", "одно", "две", "два", "двух", "три", "трёх", "трех", "четыре", "четырёх", "четырех", "пять", "пяти", "несколько", "нескольких":
+			return false
+		}
+	}
+	return true
+}
+func explanationFacts(r *scoring.Result) []string {
+	facts := []string{}
+	if r.DAvgAfter > r.DAvgBefore {
+		facts = append(facts, "Взвешенный городской показатель улучшился после решений.")
+	} else if r.DAvgAfter < r.DAvgBefore {
+		facts = append(facts, "Взвешенный городской показатель ухудшился после решений.")
+	} else {
+		facts = append(facts, "Взвешенный городской показатель не изменился после решений.")
+	}
+	if r.CriticalAfter == 0 {
+		facts = append(facts, "После решений критических показателей не осталось.")
+	} else if r.CriticalAfter < r.CriticalBefore {
+		facts = append(facts, "Критических показателей стало меньше, но они ещё остались.")
+	} else if r.CriticalAfter > r.CriticalBefore {
+		facts = append(facts, "Критических показателей стало больше.")
+	} else {
+		facts = append(facts, "Число критических показателей не изменилось.")
+	}
+	names := map[string]string{}
+	for _, district := range r.Districts {
+		names[district.ID] = district.Name
+	}
+	weakest := names[r.MinDistrictID]
+	if weakest == "" {
+		weakest = r.MinDistrictID
+	}
+	if weakest != "" {
+		facts = append(facts, "Самый слабый по итоговому районному показателю район — "+weakest+".")
+	}
+	if r.BudgetUsed > 0 && r.BudgetRemaining >= 0 && r.BudgetRemaining*10 <= r.BudgetUsed+r.BudgetRemaining {
+		facts = append(facts, "Почти весь доступный бюджет использован.")
+	}
+	if len(r.Synergies) > 0 {
+		facts = append(facts, "Сработала синергия выбранных инициатив.")
+	}
+	for _, item := range r.Contributions {
+		if item.DistrictID == "" {
+			facts = append(facts, "Выбрана общегородская инициатива: "+item.Name+".")
+		} else {
+			facts = append(facts, "Выбрана инициатива «"+item.Name+"» для района "+names[item.DistrictID]+".")
+		}
+	}
+	return facts
+}
+func comparisonFacts(scenarios []NamedResult) []string {
+	facts := make([]string, 0, len(scenarios)*2+1)
+	var best *NamedResult
+	for i := range scenarios {
+		s := &scenarios[i]
+		if s.Result == nil || s.Result.Score == nil {
+			continue
+		}
+		if best == nil || *s.Result.Score > *best.Result.Score {
+			best = s
+		}
+		if s.Result.DAvgAfter > s.Result.DAvgBefore {
+			facts = append(facts, "В сценарии «"+s.Label+"» городской показатель улучшился.")
+		} else if s.Result.DAvgAfter < s.Result.DAvgBefore {
+			facts = append(facts, "В сценарии «"+s.Label+"» городской показатель ухудшился.")
+		}
+		if s.Result.CriticalAfter == 0 {
+			facts = append(facts, "В сценарии «"+s.Label+"» критических показателей не осталось.")
+		} else if s.Result.CriticalAfter < s.Result.CriticalBefore {
+			facts = append(facts, "В сценарии «"+s.Label+"» критических показателей стало меньше, но они остались.")
+		}
+	}
+	if best != nil {
+		facts = append(facts, "По итоговому Score лидирует сценарий «"+best.Label+"».")
+	}
+	return facts
 }
 func cachedExplanation(r *scoring.Result) Explanation {
 	if r == nil {

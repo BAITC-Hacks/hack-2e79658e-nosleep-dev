@@ -1,6 +1,6 @@
-DONE: real adapter now wires scoring, LLM, optimizer and event deck into Gin; scoring synergy shape matches the API contract.
-ON BRANCH / MERGED: ai/real-services / pending push and review.
-TESTED HOW: cd apps/api && go test ./... (PASS); manual DEMO_MODE endpoint checks: /simulate=56.54307, /explain source=cached, /optimum, seeded /events/draw.
-BROKEN / RISKY: root data and embedded Go assets must be kept in sync when authoring data.
-NEEDS (from whom): Backend review only; adapter intentionally preserves HTTP DTO ownership.
-NEXT: merge PR, then validate frontend against live API.
+DONE: scoring/optimizer/events remain green; LLM now gets concise verified facts, rejects numeric hallucinations, retries once, then returns honest cached fallback.
+ON BRANCH / MERGED: ai/llm-grounding / PR pending review.
+TESTED HOW: cd apps/api && go test ./...; local Ollama qwen3:4b-instruct returned source=live for /explain and /compare.
+BROKEN / RISKY: local Ollama model download and root .env are machine-local; DEMO_MODE=true remains the keyless fallback.
+NEEDS (from whom): teammate approval to merge; never commit credentials or machine-local .env.
+NEXT: merge PR, then rehearse demo with DEMO_MODE=true and optional local live AI.
