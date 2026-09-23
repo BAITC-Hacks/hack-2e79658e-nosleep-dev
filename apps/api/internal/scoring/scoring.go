@@ -46,6 +46,10 @@ type Contribution struct {
 	RealizedFraction float64            `json:"realizedFraction"`
 	EffectsApplied   map[string]float64 `json:"effectsApplied"`
 }
+type Synergy struct {
+	Label      string `json:"label"`
+	DistrictID string `json:"districtId,omitempty"`
+}
 type Result struct {
 	Submittable     bool             `json:"submittable"`
 	Violations      []Violation      `json:"violations,omitempty"`
@@ -60,7 +64,7 @@ type Result struct {
 	CriticalBefore  int              `json:"criticalBefore"`
 	CriticalAfter   int              `json:"criticalAfter"`
 	Score           *float64         `json:"score"`
-	Synergies       []string         `json:"synergies"`
+	Synergies       []Synergy        `json:"synergies"`
 	Contributions   []Contribution   `json:"contributions"`
 }
 type Catalog struct {
@@ -263,7 +267,7 @@ func (e *engine) calculate(ds []Decision) *Result {
 		}
 		contributions = append(contributions, Contribution{in.ID, in.Name, in.Direction, d.DistrictID, in.Cost, in.Lag, fraction, applied})
 	}
-	synergies := []string{}
+	synergies := []Synergy{}
 	for _, s := range e.rules.Synergies {
 		_, a := selected[s.Pair[0]]
 		_, b := selected[s.Pair[1]]
@@ -271,7 +275,7 @@ func (e *engine) calculate(ds []Decision) *Result {
 			anchor := selected[s.Anchor]
 			if _, ok := e.districts[anchor.DistrictID]; ok {
 				deltas[anchor.DistrictID][s.Indicator] += s.Bonus
-				synergies = append(synergies, fmt.Sprintf("%s+%s", s.Pair[0], s.Pair[1]))
+				synergies = append(synergies, Synergy{Label: s.Label, DistrictID: anchor.DistrictID})
 			}
 		}
 	}

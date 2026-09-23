@@ -1,6 +1,6 @@
-DONE: scoring + LLM merged; optimizer/events merged; scoring now embeds district/initiative/rule JSON and supports DATA_DIR only as a test override.
-ON BRANCH / MERGED: ai/scoring / changes pending push/review.
-TESTED HOW: GO111MODULE=off go test ./apps/api/internal/scoring and ./apps/api/internal/events (PASS); table test reads all current golden fixtures.
-BROKEN / RISKY: root data and embedded Go assets must be kept in sync when authoring data; production no longer depends on working directory.
-NEEDS (from whom): Backend: add apps/api/go.mod; wire optimizer.New(scoring.MustNew()), llm.NewFromEnv(), events.MustNew().
-NEXT: full module/API integration test when backend pushes its scaffold.
+DONE: scoring/LLM are merged; the demo script and fresh-clone QA are ready; live OpenAI explanations and comparisons work with the local ignored .env.
+ON BRANCH / MERGED: ai/demo-qa / PR #15 pending; OpenAI default and verification merged to main via PRs #16 and #17.
+TESTED HOW: fresh clone make dev + Compose web/API 200, three browser rehearsals, cached fallback, Go/verify.py/web lint/build green; root .env gave source=live for /explain (Score 56.54307) and /compare.
+BROKEN / RISKY: OpenAI key is local and must never be committed; frontend /compare timeout is 8s vs API LLM 25s. Unsaved picks reset on reload.
+NEEDS (from whom): teammate review of shared STATUS/demo docs; frontend owner to check live comparison latency.
+NEXT: merge PR #15 after approval, tag final main, and rehearse the judge demo with DEMO_MODE=true unless live key/network are verified immediately beforehand.

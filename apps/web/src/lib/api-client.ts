@@ -1,9 +1,10 @@
 import catalogExample from "../../../../contracts/examples/catalog.json";
+import compareExample from "../../../../contracts/examples/compare.json";
 import explainExample from "../../../../contracts/examples/explain-cached.json";
 import optimumExample from "../../../../contracts/examples/optimum.json";
 import rules from "../../../../data/rules.json";
 
-import type { CatalogResponse, Decision, DistrictResult, ExplainResponse, HealthResponse, IndicatorCode, OptimumResponse, SimulationResponse, Violation } from "@/lib/types";
+import type { CatalogResponse, CompareResponse, Decision, DistrictResult, ExplainResponse, HealthResponse, IndicatorCode, OptimumResponse, SimulationResponse, Violation } from "@/lib/types";
 
 const configuredApiUrl = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const API_URL = configuredApiUrl.endsWith("/api/v1") ? configuredApiUrl : `${configuredApiUrl}/api/v1`;
@@ -109,6 +110,18 @@ export const api = {
   optimum: async (reveal = false): Promise<OptimumResponse> => USE_MOCKS
     ? structuredClone(reveal ? optimumExample.revealed : optimumExample.default)
     : request<OptimumResponse>(`/optimum${reveal ? "?reveal=true" : ""}`),
+  compare: async (scenarios: Array<{ label: string; decisions: Decision[] }>): Promise<CompareResponse> => {
+    if (!USE_MOCKS) return request<CompareResponse>("/compare", { method: "POST", body: JSON.stringify({ scenarios }) });
+    return {
+      scenarios: scenarios.map((scenario) => {
+        const result = mockSimulation(scenario.decisions);
+        return result.submittable
+          ? { label: scenario.label, result }
+          : { label: scenario.label, violations: result.violations };
+      }),
+      comparison: structuredClone(compareExample.response.comparison) as CompareResponse["comparison"],
+    };
+  },
 };
 
 export { ApiError };

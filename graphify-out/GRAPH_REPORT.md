@@ -1,16 +1,16 @@
 # Graph Report - hack-2e79658e-nosleep-dev  (2026-09-23)
 
 ## Corpus Check
-- 95 files · ~209,072 words
+- 99 files · ~213,000 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 701 nodes · 1028 edges · 53 communities (37 shown, 16 thin omitted)
-- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 33 edges (avg confidence: 0.87)
+- 765 nodes · 1163 edges · 54 communities (38 shown, 16 thin omitted)
+- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 45 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4f5db652`
+- Built from commit: `8095662a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -59,6 +59,7 @@
 - [[_COMMUNITY_Community 45|Community 45]]
 - [[_COMMUNITY_Community 46|Community 46]]
 - [[_COMMUNITY_Community 52|Community 52]]
+- [[_COMMUNITY_Community 53|Community 53]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `FixtureServices` - 25 edges
@@ -69,14 +70,14 @@
 6. `Engine` - 12 edges
 7. `explain()` - 11 edges
 8. `testRouter()` - 11 edges
-9. `NewLiveServices()` - 10 edges
-10. `compare()` - 10 edges
+9. `T` - 11 edges
+10. `NewLiveServices()` - 10 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `nextConfig` --implements--> `Next.js /api/v1/* rewrite to loopback Go API`  [INFERRED]
-  apps/web/next.config.ts → README.md
 - `Optional LLM environment passthrough: base URL, API key, model, timeout` --shares_data_with--> `NewFromEnv()`  [INFERRED]
   docker-compose.yml → apps/api/internal/llm/llm.go
+- `nextConfig` --implements--> `Next.js /api/v1/* rewrite to loopback Go API`  [INFERRED]
+  apps/web/next.config.ts → README.md
 - `Inputs` --references--> `Six-district population and indicator dataset`  [EXTRACTED]
   contracts/scoring.md → data/districts.json
 - `Steps` --references--> `Six-district population and indicator dataset`  [EXTRACTED]
@@ -90,23 +91,23 @@
 ## Hyperedges (group relationships)
 - **** — assets_banner_ai_city_budget_simulator, assets_banner_five_decisions, assets_banner_hundred_budget_units, assets_banner_five_districts [EXTRACTED 1.00]
 
-## Communities (53 total, 16 thin omitted)
+## Communities (54 total, 16 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
-Nodes (43): CityMap(), shapes, DirectionFilter, MobileView, Simulator(), ApiError, catalog, configuredApiUrl (+35 more)
+Nodes (49): CityMap(), shapes, ScenarioCompare(), DirectionFilter, MobileView, Simulator(), api, ApiError (+41 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.06
-Nodes (47): Compose app service, APP_BIND and APP_PORT host mapping to container port 3000, Compose restart unless stopped policy, Go API build stage, Container startup command, HTTP health check via web and API, Multi-stage API and web Docker image, Web port 3000 and internal API port 8000 (+39 more)
+Cohesion: 0.05
+Nodes (51): DEMO_MODE, Compose app service, APP_BIND and APP_PORT host mapping to container port 3000, Optional LLM environment passthrough: base URL, API key, model, timeout, Compose restart unless stopped policy, Go API build stage, Container startup command, HTTP health check via web and API (+43 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.05
 Nodes (46): AI city budget simulator, Astana, Kazakhstan, BesSheshim, Five decisions, Five decisions. One city., Five districts, 100 budget units, NoSleep.dev / BAITC 2026 (+38 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.07
-Nodes (37): Comparison, Context, Decision, Deck, Engine, Event, Explainer, Explanation (+29 more)
+Cohesion: 0.08
+Nodes (35): Comparison, Context, Decision, Deck, Engine, Event, Explainer, Explanation (+27 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.11
@@ -118,31 +119,31 @@ Nodes (22): Catalog, Comparison, Context, Decision, Event, Explanation, Initiati
 
 ### Community 6 - "Community 6"
 Cohesion: 0.10
-Nodes (24): metadata, ArrowFillButton(), ArrowFillButtonProps, ArrowFillButtonStyle, clamp01(), DottedGrid(), getCircleRingStrength(), getPlusStrength() (+16 more)
+Nodes (23): metadata, ArrowFillButton(), ArrowFillButtonProps, ArrowFillButtonStyle, clamp01(), DottedGrid(), getCircleRingStrength(), getPlusStrength() (+15 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.06
 Nodes (34): dependencies, @base-ui/react, class-variance-authority, clsx, cn, @fontsource/ibm-plex-mono, @fontsource-variable/inter, gsap (+26 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.11
-Nodes (27): District, Initiative, synergy, Decision, T, incompatibility, Catalog, Contribution (+19 more)
+Cohesion: 0.12
+Nodes (26): District, Initiative, Decision, T, incompatibility, Catalog, Contribution, Decision (+18 more)
 
 ### Community 9 - "Community 9"
-Cohesion: 0.13
-Nodes (14): Catalog, `GET /catalog`, Inputs, Scoring formula (source of truth: `data/rules.json`), Steps, Validation rules (all must pass, in this order — first failure wins), Worked examples (verified in `scripts/verify.py`, mirrored in `data/fixtures/golden.json`), Almaty district (population share 0.2112) (+6 more)
+Cohesion: 0.09
+Nodes (26): Catalog, Catalog, Decision, Initiative, OptimumResult, Result, Violation, `GET /catalog` (+18 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.09
-Nodes (24): District, Initiative, Synergy, Contribution, DistrictResult, Catalog, Comparison, Contribution (+16 more)
+Nodes (24): District, Initiative, Contribution, DistrictResult, Catalog, Comparison, Contribution, Decision (+16 more)
 
 ### Community 11 - "Community 11"
 Cohesion: 0.10
 Nodes (22): Brand Governance, Graphify incremental update, AI agent knowledge graph workflow, Abstract Amber Architectural Hero Background, Vertical Panel Rhythm, Warm Civic Ambience, AI city budget simulator, BES SHESHIM Logo Treatment (+14 more)
 
 ### Community 12 - "Community 12"
-Cohesion: 0.17
-Nodes (16): Context, Decision, Result, T, Optional LLM environment passthrough: base URL, API key, model, timeout, Sample optional LLM configuration for NVIDIA NIM or another OpenAI-compatible service, Client, Comparison (+8 more)
+Cohesion: 0.12
+Nodes (33): Context, Decision, Result, Result, T, Client, Comparison, Explanation (+25 more)
 
 ### Community 13 - "Community 13"
 Cohesion: 0.09
@@ -201,28 +202,32 @@ Cohesion: 0.67
 Nodes (3): Graph Maintenance Workflow, Repository Knowledge Graph, Source Files as Final Authority
 
 ### Community 52 - "Community 52"
-Cohesion: 0.25
-Nodes (12): Catalog, Decision, Initiative, OptimumResult, Result, Violation, Engine, cloneResult() (+4 more)
+Cohesion: 0.09
+Nodes (28): Catalog, Comparison, Context, Decision, District, Event, Explanation, Initiative (+20 more)
+
+### Community 53 - "Community 53"
+Cohesion: 0.40
+Nodes (4): Демо за 60 секунд — «Аким на 5 часов», Подготовка (не входит в минуту), Речь и действия, Что проверить прямо перед выходом
 
 ## Knowledge Gaps
-- **257 isolated node(s):** `T`, `simulationFixture`, `Initiative`, `Catalog`, `Violation` (+252 more)
+- **269 isolated node(s):** `T`, `simulationFixture`, `Initiative`, `Catalog`, `Violation` (+264 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `NewLiveServices()` connect `Community 3` to `Community 8`, `Community 12`, `Community 4`, `Community 52`?**
-  _High betweenness centrality (0.098) - this node is a cross-community bridge._
-- **Why does `NewFromEnv()` connect `Community 12` to `Community 3`, `Community 4`?**
-  _High betweenness centrality (0.092) - this node is a cross-community bridge._
-- **Why does `Compose app service` connect `Community 1` to `Community 3`, `Community 12`?**
-  _High betweenness centrality (0.091) - this node is a cross-community bridge._
+- **Why does `NewFromEnv()` connect `Community 12` to `Community 1`, `Community 3`, `Community 4`, `Community 52`?**
+  _High betweenness centrality (0.133) - this node is a cross-community bridge._
+- **Why does `NewLiveServices()` connect `Community 3` to `Community 8`, `Community 9`, `Community 12`, `Community 4`?**
+  _High betweenness centrality (0.103) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `NewRouter()` (e.g. with `TestLiveServicesServeCalculatedScenario()` and `testRouter()`) actually correct?**
   _`NewRouter()` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 2 inferred relationships involving `NewFixtureServices()` (e.g. with `testRouter()` and `main()`) actually correct?**
   _`NewFixtureServices()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `T`, `simulationFixture`, `Initiative` to the rest of the system?**
-  _260 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _272 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.054987212276214836 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05228070175438596 - nodes in this community are weakly interconnected._
+- **Should `Community 1` be split into smaller, more focused modules?**
+  _Cohesion score 0.0517120894479385 - nodes in this community are weakly interconnected._

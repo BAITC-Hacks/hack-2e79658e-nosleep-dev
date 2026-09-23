@@ -104,8 +104,8 @@ func fromScoringResult(source *scoring.Result) *Result {
 		}
 		out.Districts = append(out.Districts, converted)
 	}
-	for _, label := range source.Synergies {
-		out.Synergies = append(out.Synergies, Synergy{Label: label})
+	for _, synergy := range source.Synergies {
+		out.Synergies = append(out.Synergies, Synergy{Label: synergy.Label, DistrictID: synergy.DistrictID})
 	}
 	for _, contribution := range source.Contributions {
 		out.Contributions = append(out.Contributions, Contribution(contribution))
@@ -131,7 +131,7 @@ func toScoringResult(source *Result) *scoring.Result {
 		out.Districts = append(out.Districts, converted)
 	}
 	for _, synergy := range source.Synergies {
-		out.Synergies = append(out.Synergies, synergy.Label)
+		out.Synergies = append(out.Synergies, scoring.Synergy{Label: synergy.Label, DistrictID: synergy.DistrictID})
 	}
 	for _, contribution := range source.Contributions {
 		out.Contributions = append(out.Contributions, scoring.Contribution(contribution))

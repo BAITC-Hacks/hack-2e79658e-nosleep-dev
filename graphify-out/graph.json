@@ -1436,7 +1436,7 @@
       "source_file": "apps/api/internal/http/types.go",
       "source_location": "L55",
       "_origin": "ast",
-      "id": "apps_api_internal_http_types_go_synergy",
+      "id": "synergy",
       "community": 10,
       "norm_label": "synergy"
     },
@@ -1594,7 +1594,7 @@
       "label": "Explanation",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L19",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "llm_explanation",
       "community": 12,
@@ -1604,7 +1604,7 @@
       "label": "NamedResult",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L26",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "llm_namedresult",
       "community": 12,
@@ -1614,7 +1614,7 @@
       "label": "Result",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L28",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "apps_api_internal_llm_llm_go_result",
       "community": 12,
@@ -1624,17 +1624,27 @@
       "label": "Comparison",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L30",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "llm_comparison",
       "community": 12,
       "norm_label": "comparison"
     },
     {
+      "label": "recommendationResponse",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L35",
+      "_origin": "ast",
+      "id": "llm_recommendationresponse",
+      "community": 12,
+      "norm_label": "recommendationresponse"
+    },
+    {
       "label": "Explainer",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L34",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "llm_explainer",
       "community": 3,
@@ -1644,7 +1654,7 @@
       "label": "Client",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L38",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "llm_client",
       "community": 12,
@@ -1654,7 +1664,7 @@
       "label": "NewFromEnv()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L44",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "llm_llm_newfromenv",
       "community": 12,
@@ -1664,7 +1674,7 @@
       "label": ".Explain()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L56",
+      "source_location": "L65",
       "_origin": "ast",
       "id": "llm_client_explain",
       "community": 12,
@@ -1674,7 +1684,7 @@
       "label": "Context",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L56",
+      "source_location": "L65",
       "_origin": "ast",
       "id": "apps_api_internal_llm_llm_go_context",
       "community": 12,
@@ -1684,7 +1694,7 @@
       "label": "Decision",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L56",
+      "source_location": "L65",
       "_origin": "ast",
       "id": "apps_api_internal_llm_llm_go_decision",
       "community": 12,
@@ -1694,7 +1704,7 @@
       "label": ".Compare()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L69",
+      "source_location": "L80",
       "_origin": "ast",
       "id": "llm_client_compare",
       "community": 12,
@@ -1704,7 +1714,7 @@
       "label": ".request()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L84",
+      "source_location": "L95",
       "_origin": "ast",
       "id": "llm_client_request",
       "community": 12,
@@ -1714,7 +1724,7 @@
       "label": ".requestOnce()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L97",
+      "source_location": "L111",
       "_origin": "ast",
       "id": "llm_client_requestonce",
       "community": 12,
@@ -1724,27 +1734,87 @@
       "label": "jsonSchema()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L135",
+      "source_location": "L149",
       "_origin": "ast",
       "id": "llm_llm_jsonschema",
       "community": 12,
       "norm_label": "jsonschema()"
     },
     {
-      "label": "validExplanation()",
+      "label": "validRecommendations()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L147",
+      "source_location": "L163",
       "_origin": "ast",
-      "id": "llm_llm_validexplanation",
+      "id": "llm_llm_validrecommendations",
       "community": 12,
-      "norm_label": "validexplanation()"
+      "norm_label": "validrecommendations()"
+    },
+    {
+      "label": "validScenarioClaim()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L180",
+      "_origin": "ast",
+      "id": "llm_llm_validscenarioclaim",
+      "community": 12,
+      "norm_label": "validscenarioclaim()"
+    },
+    {
+      "label": "validPlainText()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L199",
+      "_origin": "ast",
+      "id": "llm_llm_validplaintext",
+      "community": 12,
+      "norm_label": "validplaintext()"
+    },
+    {
+      "label": "explanationFacts()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L216",
+      "_origin": "ast",
+      "id": "llm_llm_explanationfacts",
+      "community": 12,
+      "norm_label": "explanationfacts()"
+    },
+    {
+      "label": "groundedExplanation()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L260",
+      "_origin": "ast",
+      "id": "llm_llm_groundedexplanation",
+      "community": 12,
+      "norm_label": "groundedexplanation()"
+    },
+    {
+      "label": "recommendationOptions()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L308",
+      "_origin": "ast",
+      "id": "llm_llm_recommendationoptions",
+      "community": 12,
+      "norm_label": "recommendationoptions()"
+    },
+    {
+      "label": "comparisonFacts()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L331",
+      "_origin": "ast",
+      "id": "llm_llm_comparisonfacts",
+      "community": 12,
+      "norm_label": "comparisonfacts()"
     },
     {
       "label": "cachedExplanation()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L150",
+      "source_location": "L358",
       "_origin": "ast",
       "id": "llm_llm_cachedexplanation",
       "community": 12,
@@ -1754,7 +1824,7 @@
       "label": "cachedComparison()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L162",
+      "source_location": "L370",
       "_origin": "ast",
       "id": "llm_llm_cachedcomparison",
       "community": 12,
@@ -1771,24 +1841,144 @@
       "norm_label": "llm_test.go"
     },
     {
+      "label": "TestNewFromEnvUsesOpenAIDefaults()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "llm_llm_test_testnewfromenvusesopenaidefaults",
+      "community": 12,
+      "norm_label": "testnewfromenvusesopenaidefaults()"
+    },
+    {
+      "label": "T",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "apps_api_internal_llm_llm_test_go_t",
+      "community": 12,
+      "norm_label": "t"
+    },
+    {
       "label": "TestDemoModeNeverUsesNetworkAndIsClearlyCached()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm_test.go",
-      "source_location": "L10",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "llm_llm_test_testdemomodeneverusesnetworkandisclearlycached",
       "community": 12,
       "norm_label": "testdemomodeneverusesnetworkandisclearlycached()"
     },
     {
-      "label": "T",
+      "label": "TestExplainRetriesUngroundedText()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm_test.go",
-      "source_location": "L10",
+      "source_location": "L39",
       "_origin": "ast",
-      "id": "apps_api_internal_llm_llm_test_go_t",
+      "id": "llm_llm_test_testexplainretriesungroundedtext",
       "community": 12,
-      "norm_label": "t"
+      "norm_label": "testexplainretriesungroundedtext()"
+    },
+    {
+      "label": "TestExplainFallsBackAfterUngroundedRetries()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L68",
+      "_origin": "ast",
+      "id": "llm_llm_test_testexplainfallsbackafterungroundedretries",
+      "community": 12,
+      "norm_label": "testexplainfallsbackafterungroundedretries()"
+    },
+    {
+      "label": "TestExplanationFactsCriticalPairsNotDistricts()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L82",
+      "_origin": "ast",
+      "id": "llm_llm_test_testexplanationfactscriticalpairsnotdistricts",
+      "community": 12,
+      "norm_label": "testexplanationfactscriticalpairsnotdistricts()"
+    },
+    {
+      "label": "TestGroundedExplanationDoesNotAssignCriticalIndicatorsToWeakestDistrict()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L89",
+      "_origin": "ast",
+      "id": "llm_llm_test_testgroundedexplanationdoesnotassigncriticalindicatorstoweakestdistrict",
+      "community": 12,
+      "norm_label": "testgroundedexplanationdoesnotassigncriticalindicatorstoweakestdistrict()"
+    },
+    {
+      "label": "TestRecommendationOptionsKeepCriticalIndicatorsSeparateFromDistrict()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L101",
+      "_origin": "ast",
+      "id": "llm_llm_test_testrecommendationoptionskeepcriticalindicatorsseparatefromdistrict",
+      "community": 12,
+      "norm_label": "testrecommendationoptionskeepcriticalindicatorsseparatefromdistrict()"
+    },
+    {
+      "label": "TestValidPlainTextAllowsVagueQuantity()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L116",
+      "_origin": "ast",
+      "id": "llm_llm_test_testvalidplaintextallowsvaguequantity",
+      "community": 12,
+      "norm_label": "testvalidplaintextallowsvaguequantity()"
+    },
+    {
+      "label": "TestRecommendationSchemaRequiresOneOrTwoItems()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L125",
+      "_origin": "ast",
+      "id": "llm_llm_test_testrecommendationschemarequiresoneortwoitems",
+      "community": 12,
+      "norm_label": "testrecommendationschemarequiresoneortwoitems()"
+    },
+    {
+      "label": "TestScenarioClaimsRejectImplementedWorkAndUnsupportedBudgetJudgment()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L139",
+      "_origin": "ast",
+      "id": "llm_llm_test_testscenarioclaimsrejectimplementedworkandunsupportedbudgetjudgment",
+      "community": 12,
+      "norm_label": "testscenarioclaimsrejectimplementedworkandunsupportedbudgetjudgment()"
+    },
+    {
+      "label": "TestCompareSendsVerifiedFactsOnly()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L156",
+      "_origin": "ast",
+      "id": "llm_llm_test_testcomparesendsverifiedfactsonly",
+      "community": 12,
+      "norm_label": "testcomparesendsverifiedfactsonly()"
+    },
+    {
+      "label": "testResult()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L182",
+      "_origin": "ast",
+      "id": "llm_llm_test_testresult",
+      "community": 12,
+      "norm_label": "testresult()"
+    },
+    {
+      "label": "Result",
+      "file_type": "code",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L182",
+      "_origin": "ast",
+      "id": "apps_api_internal_llm_llm_test_go_result",
+      "community": 12,
+      "norm_label": "result"
     },
     {
       "label": "prompt.go",
@@ -1807,7 +1997,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "optimizer_optimizer",
-      "community": 52,
+      "community": 9,
       "norm_label": "optimizer.go"
     },
     {
@@ -1817,7 +2007,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "optimizer_engine",
-      "community": 52,
+      "community": 9,
       "norm_label": "engine"
     },
     {
@@ -1827,7 +2017,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_api_internal_optimizer_optimizer_go_optimumresult",
-      "community": 52,
+      "community": 9,
       "norm_label": "optimumresult"
     },
     {
@@ -1837,7 +2027,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "optimizer_optimizer_new",
-      "community": 52,
+      "community": 9,
       "norm_label": "new()"
     },
     {
@@ -1847,7 +2037,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "optimizer_engine_catalog",
-      "community": 52,
+      "community": 9,
       "norm_label": ".catalog()"
     },
     {
@@ -1857,7 +2047,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_api_internal_optimizer_optimizer_go_catalog",
-      "community": 52,
+      "community": 9,
       "norm_label": "catalog"
     },
     {
@@ -1867,7 +2057,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "optimizer_engine_simulate",
-      "community": 52,
+      "community": 9,
       "norm_label": ".simulate()"
     },
     {
@@ -1877,7 +2067,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_api_internal_optimizer_optimizer_go_decision",
-      "community": 52,
+      "community": 9,
       "norm_label": "decision"
     },
     {
@@ -1887,7 +2077,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_api_internal_optimizer_optimizer_go_result",
-      "community": 52,
+      "community": 9,
       "norm_label": "result"
     },
     {
@@ -1897,7 +2087,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_api_internal_optimizer_optimizer_go_violation",
-      "community": 52,
+      "community": 9,
       "norm_label": "violation"
     },
     {
@@ -1907,7 +2097,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "optimizer_engine_optimum",
-      "community": 52,
+      "community": 9,
       "norm_label": ".optimum()"
     },
     {
@@ -1917,7 +2107,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "optimizer_optimizer_cloneresult",
-      "community": 52,
+      "community": 9,
       "norm_label": "cloneresult()"
     },
     {
@@ -1927,7 +2117,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "optimizer_optimizer_search",
-      "community": 52,
+      "community": 9,
       "norm_label": "search()"
     },
     {
@@ -1937,7 +2127,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "optimizer_optimizer_overbudget",
-      "community": 52,
+      "community": 9,
       "norm_label": "overbudget()"
     },
     {
@@ -1947,7 +2137,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "apps_api_internal_optimizer_optimizer_go_initiative",
-      "community": 52,
+      "community": 9,
       "norm_label": "initiative"
     },
     {
@@ -1957,7 +2147,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "optimizer_optimizer_evaluateplacements",
-      "community": 52,
+      "community": 9,
       "norm_label": "evaluateplacements()"
     },
     {
@@ -1988,6 +2178,366 @@
       "_origin": "ast",
       "id": "apps_api_internal_optimizer_optimizer_test_go_t",
       "community": 32,
+      "norm_label": "t"
+    },
+    {
+      "label": "services.go",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "real_services",
+      "community": 52,
+      "norm_label": "services.go"
+    },
+    {
+      "label": "Engine",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "real_engine",
+      "community": 52,
+      "norm_label": "engine"
+    },
+    {
+      "label": "NewEngine()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "real_services_newengine",
+      "community": 52,
+      "norm_label": "newengine()"
+    },
+    {
+      "label": ".Catalog()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "real_engine_catalog",
+      "community": 52,
+      "norm_label": ".catalog()"
+    },
+    {
+      "label": "Catalog",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_catalog",
+      "community": 52,
+      "norm_label": "catalog"
+    },
+    {
+      "label": ".Simulate()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "real_engine_simulate",
+      "community": 52,
+      "norm_label": ".simulate()"
+    },
+    {
+      "label": "Decision",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_decision",
+      "community": 52,
+      "norm_label": "decision"
+    },
+    {
+      "label": "Result",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_result",
+      "community": 52,
+      "norm_label": "result"
+    },
+    {
+      "label": "Violation",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_violation",
+      "community": 52,
+      "norm_label": "violation"
+    },
+    {
+      "label": ".Optimum()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "real_engine_optimum",
+      "community": 52,
+      "norm_label": ".optimum()"
+    },
+    {
+      "label": "OptimumResult",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_optimumresult",
+      "community": 52,
+      "norm_label": "optimumresult"
+    },
+    {
+      "label": "Explainer",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L30",
+      "_origin": "ast",
+      "id": "real_explainer",
+      "community": 52,
+      "norm_label": "explainer"
+    },
+    {
+      "label": "NewExplainer()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "real_services_newexplainer",
+      "community": 52,
+      "norm_label": "newexplainer()"
+    },
+    {
+      "label": ".Explain()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "real_explainer_explain",
+      "community": 52,
+      "norm_label": ".explain()"
+    },
+    {
+      "label": "Context",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_context",
+      "community": 52,
+      "norm_label": "context"
+    },
+    {
+      "label": "Explanation",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_explanation",
+      "community": 52,
+      "norm_label": "explanation"
+    },
+    {
+      "label": ".Compare()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "real_explainer_compare",
+      "community": 52,
+      "norm_label": ".compare()"
+    },
+    {
+      "label": "NamedResult",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_namedresult",
+      "community": 52,
+      "norm_label": "namedresult"
+    },
+    {
+      "label": "Comparison",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_comparison",
+      "community": 52,
+      "norm_label": "comparison"
+    },
+    {
+      "label": "Deck",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "real_deck",
+      "community": 52,
+      "norm_label": "deck"
+    },
+    {
+      "label": "NewDeck()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "real_services_newdeck",
+      "community": 52,
+      "norm_label": "newdeck()"
+    },
+    {
+      "label": ".Draw()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L49",
+      "_origin": "ast",
+      "id": "real_deck_draw",
+      "community": 52,
+      "norm_label": ".draw()"
+    },
+    {
+      "label": "Event",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L49",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_event",
+      "community": 52,
+      "norm_label": "event"
+    },
+    {
+      "label": "toScoringDecisions()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L54",
+      "_origin": "ast",
+      "id": "real_services_toscoringdecisions",
+      "community": 52,
+      "norm_label": "toscoringdecisions()"
+    },
+    {
+      "label": "decisions()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "real_services_decisions",
+      "community": 52,
+      "norm_label": "decisions()"
+    },
+    {
+      "label": "districts()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L68",
+      "_origin": "ast",
+      "id": "real_services_districts",
+      "community": 52,
+      "norm_label": "districts()"
+    },
+    {
+      "label": "District",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L68",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_district",
+      "community": 52,
+      "norm_label": "district"
+    },
+    {
+      "label": "initiatives()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L75",
+      "_origin": "ast",
+      "id": "real_services_initiatives",
+      "community": 52,
+      "norm_label": "initiatives()"
+    },
+    {
+      "label": "Initiative",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L75",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_go_initiative",
+      "community": 52,
+      "norm_label": "initiative"
+    },
+    {
+      "label": "violations()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L82",
+      "_origin": "ast",
+      "id": "real_services_violations",
+      "community": 52,
+      "norm_label": "violations()"
+    },
+    {
+      "label": "result()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L89",
+      "_origin": "ast",
+      "id": "real_services_result",
+      "community": 52,
+      "norm_label": "result()"
+    },
+    {
+      "label": "toScoringResult()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L111",
+      "_origin": "ast",
+      "id": "real_services_toscoringresult",
+      "community": 52,
+      "norm_label": "toscoringresult()"
+    },
+    {
+      "label": "explanation()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L133",
+      "_origin": "ast",
+      "id": "real_services_explanation",
+      "community": 52,
+      "norm_label": "explanation()"
+    },
+    {
+      "label": "services_test.go",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services_test.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "real_services_test",
+      "community": 52,
+      "norm_label": "services_test.go"
+    },
+    {
+      "label": "TestRealAdapterPreservesExplanationFacts()",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services_test.go",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "real_services_test_testrealadapterpreservesexplanationfacts",
+      "community": 52,
+      "norm_label": "testrealadapterpreservesexplanationfacts()"
+    },
+    {
+      "label": "T",
+      "file_type": "code",
+      "source_file": "apps/api/internal/real/services_test.go",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "apps_api_internal_real_services_test_go_t",
+      "community": 52,
       "norm_label": "t"
     },
     {
@@ -2051,10 +2601,20 @@
       "norm_label": "contribution"
     },
     {
-      "label": "Result",
+      "label": "Synergy",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
       "source_location": "L49",
+      "_origin": "ast",
+      "id": "scoring_synergy",
+      "community": 8,
+      "norm_label": "synergy"
+    },
+    {
+      "label": "Result",
+      "file_type": "code",
+      "source_file": "apps/api/internal/scoring/scoring.go",
+      "source_location": "L53",
       "_origin": "ast",
       "id": "scoring_result",
       "community": 8,
@@ -2064,7 +2624,7 @@
       "label": "Catalog",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L66",
+      "source_location": "L70",
       "_origin": "ast",
       "id": "scoring_catalog",
       "community": 8,
@@ -2074,7 +2634,7 @@
       "label": "District",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L69",
+      "source_location": "L73",
       "_origin": "ast",
       "id": "apps_api_internal_scoring_scoring_go_district",
       "community": 8,
@@ -2084,7 +2644,7 @@
       "label": "Initiative",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L70",
+      "source_location": "L74",
       "_origin": "ast",
       "id": "apps_api_internal_scoring_scoring_go_initiative",
       "community": 8,
@@ -2094,7 +2654,7 @@
       "label": "OptimumResult",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L72",
+      "source_location": "L76",
       "_origin": "ast",
       "id": "scoring_optimumresult",
       "community": 8,
@@ -2104,7 +2664,7 @@
       "label": "Engine",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L76",
+      "source_location": "L80",
       "_origin": "ast",
       "id": "scoring_engine",
       "community": 8,
@@ -2114,7 +2674,7 @@
       "label": "District",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L81",
+      "source_location": "L85",
       "_origin": "ast",
       "id": "scoring_district",
       "community": 8,
@@ -2124,7 +2684,7 @@
       "label": "Initiative",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L88",
+      "source_location": "L92",
       "_origin": "ast",
       "id": "scoring_initiative",
       "community": 8,
@@ -2134,47 +2694,27 @@
       "label": "rules",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L97",
+      "source_location": "L101",
       "_origin": "ast",
       "id": "scoring_rules",
       "community": 8,
       "norm_label": "rules"
     },
     {
-      "label": "synergy",
-      "file_type": "code",
-      "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L102",
-      "_origin": "ast",
-      "id": "apps_api_internal_scoring_scoring_go_synergy",
-      "community": 8,
-      "norm_label": "synergy"
-    },
-    {
       "label": "incompatibility",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L103",
+      "source_location": "L107",
       "_origin": "ast",
       "id": "incompatibility",
       "community": 8,
       "norm_label": "incompatibility"
     },
     {
-      "label": "synergy",
-      "file_type": "code",
-      "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L105",
-      "_origin": "ast",
-      "id": "scoring_synergy",
-      "community": 8,
-      "norm_label": "synergy"
-    },
-    {
       "label": "incompatibility",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L111",
+      "source_location": "L115",
       "_origin": "ast",
       "id": "scoring_incompatibility",
       "community": 8,
@@ -2184,7 +2724,7 @@
       "label": "New()",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L126",
+      "source_location": "L130",
       "_origin": "ast",
       "id": "scoring_scoring_new",
       "community": 8,
@@ -2194,7 +2734,7 @@
       "label": "MustNew()",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L148",
+      "source_location": "L152",
       "_origin": "ast",
       "id": "scoring_scoring_mustnew",
       "community": 8,
@@ -2204,7 +2744,7 @@
       "label": ".Catalog()",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L155",
+      "source_location": "L159",
       "_origin": "ast",
       "id": "scoring_engine_catalog",
       "community": 8,
@@ -2214,7 +2754,7 @@
       "label": ".Optimum()",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L156",
+      "source_location": "L160",
       "_origin": "ast",
       "id": "scoring_engine_optimum",
       "community": 8,
@@ -2224,7 +2764,7 @@
       "label": "loadJSON()",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L157",
+      "source_location": "L161",
       "_origin": "ast",
       "id": "scoring_scoring_loadjson",
       "community": 8,
@@ -2234,7 +2774,7 @@
       "label": ".Simulate()",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L171",
+      "source_location": "L175",
       "_origin": "ast",
       "id": "scoring_engine_simulate",
       "community": 8,
@@ -2244,7 +2784,7 @@
       "label": ".validate()",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L182",
+      "source_location": "L186",
       "_origin": "ast",
       "id": "scoring_engine_validate",
       "community": 8,
@@ -2254,7 +2794,7 @@
       "label": ".calculate()",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L237",
+      "source_location": "L241",
       "_origin": "ast",
       "id": "scoring_engine_calculate",
       "community": 8,
@@ -2264,7 +2804,7 @@
       "label": "clip()",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L311",
+      "source_location": "L315",
       "_origin": "ast",
       "id": "scoring_scoring_clip",
       "community": 8,
@@ -2274,7 +2814,7 @@
       "label": "score()",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L320",
+      "source_location": "L324",
       "_origin": "ast",
       "id": "scoring_scoring_score",
       "community": 8,
@@ -2344,7 +2884,7 @@
       "label": "close()",
       "file_type": "code",
       "source_file": "apps/api/internal/scoring/scoring_test.go",
-      "source_location": "L98",
+      "source_location": "L101",
       "_origin": "ast",
       "id": "scoring_scoring_test_close",
       "community": 8,
@@ -3531,6 +4071,26 @@
       "norm_label": "landingpage()"
     },
     {
+      "label": "scenario-compare.tsx",
+      "file_type": "code",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "components_scenario_compare",
+      "community": 0,
+      "norm_label": "scenario-compare.tsx"
+    },
+    {
+      "label": "ScenarioCompare()",
+      "file_type": "code",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "components_scenario_compare_scenariocompare",
+      "community": 0,
+      "norm_label": "scenariocompare()"
+    },
+    {
       "label": "score-counter.tsx",
       "file_type": "code",
       "source_file": "apps/web/src/components/score-counter.tsx",
@@ -3594,7 +4154,7 @@
       "label": "DirectionFilter",
       "file_type": "code",
       "source_file": "apps/web/src/components/simulator.tsx",
-      "source_location": "L15",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "components_simulator_directionfilter",
       "community": 0,
@@ -3604,7 +4164,7 @@
       "label": "MobileView",
       "file_type": "code",
       "source_file": "apps/web/src/components/simulator.tsx",
-      "source_location": "L16",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "components_simulator_mobileview",
       "community": 0,
@@ -3614,7 +4174,7 @@
       "label": "Simulator()",
       "file_type": "code",
       "source_file": "apps/web/src/components/simulator.tsx",
-      "source_location": "L18",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "components_simulator_simulator",
       "community": 0,
@@ -3624,7 +4184,7 @@
       "label": "DistrictDetails()",
       "file_type": "code",
       "source_file": "apps/web/src/components/simulator.tsx",
-      "source_location": "L207",
+      "source_location": "L257",
       "_origin": "ast",
       "id": "components_simulator_districtdetails",
       "community": 0,
@@ -3634,7 +4194,7 @@
       "label": "ScenarioResultOverlay()",
       "file_type": "code",
       "source_file": "apps/web/src/components/simulator.tsx",
-      "source_location": "L223",
+      "source_location": "L273",
       "_origin": "ast",
       "id": "components_simulator_scenarioresultoverlay",
       "community": 0,
@@ -3644,7 +4204,7 @@
       "label": "ResultList()",
       "file_type": "code",
       "source_file": "apps/web/src/components/simulator.tsx",
-      "source_location": "L239",
+      "source_location": "L291",
       "_origin": "ast",
       "id": "components_simulator_resultlist",
       "community": 0,
@@ -3814,7 +4374,7 @@
       "label": "ScenarioHeader()",
       "file_type": "code",
       "source_file": "apps/web/src/components/simulator/scenario-header.tsx",
-      "source_location": "L17",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "simulator_scenario_header_scenarioheader",
       "community": 0,
@@ -4244,7 +4804,7 @@
       "label": "configuredApiUrl",
       "file_type": "code",
       "source_file": "apps/web/src/lib/api-client.ts",
-      "source_location": "L8",
+      "source_location": "L9",
       "_origin": "ast",
       "id": "lib_api_client_configuredapiurl",
       "community": 0,
@@ -4254,7 +4814,7 @@
       "label": "catalog",
       "file_type": "code",
       "source_file": "apps/web/src/lib/api-client.ts",
-      "source_location": "L11",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "lib_api_client_catalog",
       "community": 0,
@@ -4264,7 +4824,7 @@
       "label": "ApiError",
       "file_type": "code",
       "source_file": "apps/web/src/lib/api-client.ts",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "lib_api_client_apierror",
       "community": 0,
@@ -4274,7 +4834,7 @@
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "apps/web/src/lib/api-client.ts",
-      "source_location": "L14",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "lib_api_client_apierror_constructor",
       "community": 0,
@@ -4284,7 +4844,7 @@
       "label": "request()",
       "file_type": "code",
       "source_file": "apps/web/src/lib/api-client.ts",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "lib_api_client_request",
       "community": 0,
@@ -4294,7 +4854,7 @@
       "label": "validate()",
       "file_type": "code",
       "source_file": "apps/web/src/lib/api-client.ts",
-      "source_location": "L38",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "lib_api_client_validate",
       "community": 0,
@@ -4304,7 +4864,7 @@
       "label": "mockSimulation()",
       "file_type": "code",
       "source_file": "apps/web/src/lib/api-client.ts",
-      "source_location": "L52",
+      "source_location": "L53",
       "_origin": "ast",
       "id": "lib_api_client_mocksimulation",
       "community": 0,
@@ -4314,10 +4874,10 @@
       "label": "api",
       "file_type": "code",
       "source_file": "apps/web/src/lib/api-client.ts",
-      "source_location": "L104",
+      "source_location": "L105",
       "_origin": "ast",
       "id": "lib_api_client_api",
-      "community": 6,
+      "community": 0,
       "norm_label": "api"
     },
     {
@@ -4459,6 +5019,46 @@
       "id": "lib_types_explainresponse",
       "community": 0,
       "norm_label": "explainresponse"
+    },
+    {
+      "label": "SavedScenario",
+      "file_type": "code",
+      "source_file": "apps/web/src/lib/types.ts",
+      "source_location": "L78",
+      "_origin": "ast",
+      "id": "lib_types_savedscenario",
+      "community": 0,
+      "norm_label": "savedscenario"
+    },
+    {
+      "label": "SimulationResult",
+      "file_type": "code",
+      "source_file": "apps/web/src/lib/types.ts",
+      "source_location": "L86",
+      "_origin": "ast",
+      "id": "lib_types_simulationresult",
+      "community": 0,
+      "norm_label": "simulationresult"
+    },
+    {
+      "label": "CompareScenarioResult",
+      "file_type": "code",
+      "source_file": "apps/web/src/lib/types.ts",
+      "source_location": "L88",
+      "_origin": "ast",
+      "id": "lib_types_comparescenarioresult",
+      "community": 0,
+      "norm_label": "comparescenarioresult"
+    },
+    {
+      "label": "CompareResponse",
+      "file_type": "code",
+      "source_file": "apps/web/src/lib/types.ts",
+      "source_location": "L94",
+      "_origin": "ast",
+      "id": "lib_types_compareresponse",
+      "community": 0,
+      "norm_label": "compareresponse"
     },
     {
       "label": "utils.ts",
@@ -4941,24 +5541,14 @@
       "norm_label": "status.md"
     },
     {
-      "label": "STATUS",
+      "label": "STATUS \u2014 demo readiness",
       "file_type": "document",
       "source_file": ".ai/STATUS.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "ai_status_status",
+      "id": "ai_status_status_demo_readiness",
       "community": 29,
-      "norm_label": "status"
-    },
-    {
-      "label": "T+0:00 \u2014 docs bootstrap",
-      "file_type": "document",
-      "source_file": ".ai/STATUS.md",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "ai_status_t_0_00_docs_bootstrap",
-      "community": 29,
-      "norm_label": "t+0:00 \u2014 docs bootstrap"
+      "norm_label": "status \u2014 demo readiness"
     },
     {
       "label": "WORKFLOW.md",
@@ -5189,6 +5779,56 @@
       "id": "agents_knowledge_graph",
       "community": 25,
       "norm_label": "knowledge graph"
+    },
+    {
+      "label": "DEMO.md",
+      "file_type": "document",
+      "source_file": "DEMO.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "demo",
+      "community": 53,
+      "norm_label": "demo.md"
+    },
+    {
+      "label": "\u0414\u0435\u043c\u043e \u0437\u0430 60 \u0441\u0435\u043a\u0443\u043d\u0434 \u2014 \u00ab\u0410\u043a\u0438\u043c \u043d\u0430 5 \u0447\u0430\u0441\u043e\u0432\u00bb",
+      "file_type": "document",
+      "source_file": "DEMO.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "demo_\u0434\u0435\u043c\u043e_\u0437\u0430_60_\u0441\u0435\u043a\u0443\u043d\u0434_\u0430\u043a\u0438\u043c_\u043d\u0430_5_\u0447\u0430\u0441\u043e\u0432",
+      "community": 53,
+      "norm_label": "\u0434\u0435\u043c\u043e \u0437\u0430 60 \u0441\u0435\u043a\u0443\u043d\u0434 \u2014 \u00ab\u0430\u043a\u0438\u043c \u043d\u0430 5 \u0447\u0430\u0441\u043e\u0432\u00bb"
+    },
+    {
+      "label": "\u041f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430 (\u043d\u0435 \u0432\u0445\u043e\u0434\u0438\u0442 \u0432 \u043c\u0438\u043d\u0443\u0442\u0443)",
+      "file_type": "document",
+      "source_file": "DEMO.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "demo_\u043f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430_\u043d\u0435_\u0432\u0445\u043e\u0434\u0438\u0442_\u0432_\u043c\u0438\u043d\u0443\u0442\u0443",
+      "community": 53,
+      "norm_label": "\u043f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430 (\u043d\u0435 \u0432\u0445\u043e\u0434\u0438\u0442 \u0432 \u043c\u0438\u043d\u0443\u0442\u0443)"
+    },
+    {
+      "label": "\u0420\u0435\u0447\u044c \u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f",
+      "file_type": "document",
+      "source_file": "DEMO.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "demo_\u0440\u0435\u0447\u044c_\u0438_\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f",
+      "community": 53,
+      "norm_label": "\u0440\u0435\u0447\u044c \u0438 \u0434\u0435\u0438\u0441\u0442\u0432\u0438\u044f"
+    },
+    {
+      "label": "\u0427\u0442\u043e \u043f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u043f\u0440\u044f\u043c\u043e \u043f\u0435\u0440\u0435\u0434 \u0432\u044b\u0445\u043e\u0434\u043e\u043c",
+      "file_type": "document",
+      "source_file": "DEMO.md",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "demo_\u0447\u0442\u043e_\u043f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c_\u043f\u0440\u044f\u043c\u043e_\u043f\u0435\u0440\u0435\u0434_\u0432\u044b\u0445\u043e\u0434\u043e\u043c",
+      "community": 53,
+      "norm_label": "\u0447\u0442\u043e \u043f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u043f\u0440\u044f\u043c\u043e \u043f\u0435\u0440\u0435\u0434 \u0432\u044b\u0445\u043e\u0434\u043e\u043c"
     },
     {
       "label": "README.md",
@@ -5807,7 +6447,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "contracts_api_demo_mode",
-      "community": 3,
+      "community": 1,
       "norm_label": "demo_mode"
     },
     {
@@ -7241,7 +7881,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Each setting has a default, allowing the single app service to start without an LLM key.",
-      "community": 12,
+      "community": 1,
       "norm_label": "optional llm environment passthrough: base url, api key, model, timeout",
       "id": "docker_compose_optional_llm_environment"
     },
@@ -7255,7 +7895,7 @@
       "author": null,
       "contributor": null,
       "rationale": "The sample leaves the key and model blank and specifies a 25-second timeout.",
-      "community": 12,
+      "community": 1,
       "norm_label": "sample optional llm configuration for nvidia nim or another openai-compatible service",
       "id": "env_example_optional_llm_configuration"
     },
@@ -7268,7 +7908,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 1,
       "norm_label": "demo_mode cached ai responses without an api key",
       "id": "env_example_demo_mode"
     },
@@ -9899,6 +10539,39 @@
     {
       "relation": "calls",
       "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L158",
+      "weight": 1.0,
+      "source": "llm_llm_test_testcomparesendsverifiedfactsonly",
+      "target": "handlerfunc"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L70",
+      "weight": 1.0,
+      "source": "llm_llm_test_testexplainfallsbackafterungroundedretries",
+      "target": "handlerfunc"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "llm_llm_test_testexplainretriesungroundedtext",
+      "target": "handlerfunc"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/internal/http/router.go",
       "source_location": "L104",
@@ -10764,17 +11437,6 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/internal/http/types.go",
-      "source_location": "L55",
-      "weight": 1.0,
-      "context": "field",
-      "confidence_score": 1.0,
-      "source": "http_result",
-      "target": "apps_api_internal_http_types_go_synergy"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/internal/http/types.go",
       "source_location": "L56",
       "weight": 1.0,
       "context": "field",
@@ -10792,6 +11454,17 @@
       "confidence_score": 1.0,
       "source": "http_result",
       "target": "districtresult"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/http/types.go",
+      "source_location": "L55",
+      "weight": 1.0,
+      "context": "field",
+      "source": "http_result",
+      "target": "synergy",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -10868,6 +11541,36 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L331",
+      "weight": 1.0,
+      "source": "llm_llm",
+      "target": "llm_llm_comparisonfacts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L216",
+      "weight": 1.0,
+      "source": "llm_llm",
+      "target": "llm_llm_explanationfacts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L260",
+      "weight": 1.0,
+      "source": "llm_llm",
+      "target": "llm_llm_groundedexplanation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L135",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -10888,11 +11591,41 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L147",
+      "source_location": "L308",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "llm_llm",
-      "target": "llm_llm_validexplanation"
+      "target": "llm_llm_recommendationoptions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L199",
+      "weight": 1.0,
+      "source": "llm_llm",
+      "target": "llm_llm_validplaintext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L163",
+      "weight": 1.0,
+      "source": "llm_llm",
+      "target": "llm_llm_validrecommendations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L180",
+      "weight": 1.0,
+      "source": "llm_llm",
+      "target": "llm_llm_validscenarioclaim",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -10903,6 +11636,16 @@
       "confidence_score": 1.0,
       "source": "llm_llm",
       "target": "llm_namedresult"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "llm_llm",
+      "target": "llm_recommendationresponse",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -10930,12 +11673,12 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L147",
+      "source_location": "L260",
       "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "llm_llm_validexplanation",
-      "target": "llm_explanation"
+      "context": "return_type",
+      "source": "llm_llm_groundedexplanation",
+      "target": "llm_explanation",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -10958,6 +11701,17 @@
       "confidence_score": 1.0,
       "source": "llm_llm_cachedcomparison",
       "target": "llm_namedresult"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L331",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_comparisonfacts",
+      "target": "llm_namedresult",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -10991,6 +11745,39 @@
       "confidence_score": 1.0,
       "source": "llm_llm_cachedexplanation",
       "target": "apps_api_internal_llm_llm_go_result"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L216",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_explanationfacts",
+      "target": "apps_api_internal_llm_llm_go_result",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L260",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_groundedexplanation",
+      "target": "apps_api_internal_llm_llm_go_result",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L308",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_recommendationoptions",
+      "target": "apps_api_internal_llm_llm_go_result",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -11076,6 +11863,28 @@
       "target": "llm_llm_newfromenv"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "llm_llm_test_testnewfromenvusesopenaidefaults",
+      "target": "llm_llm_newfromenv"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "real_services_newexplainer",
+      "target": "llm_llm_newfromenv"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/internal/llm/llm.go",
@@ -11124,11 +11933,44 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L63",
+      "source_location": "L71",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "llm_client_explain",
-      "target": "llm_llm_validexplanation"
+      "target": "llm_llm_explanationfacts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "llm_client_explain",
+      "target": "llm_llm_groundedexplanation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L70",
+      "weight": 1.0,
+      "source": "llm_client_explain",
+      "target": "llm_llm_recommendationoptions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "llm_client_explain",
+      "target": "llm_llm_validrecommendations",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -11192,6 +12034,28 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L88",
       "weight": 1.0,
+      "source": "llm_client_compare",
+      "target": "llm_llm_comparisonfacts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "llm_client_compare",
+      "target": "llm_llm_validscenarioclaim",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L88",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "llm_client_request",
       "target": "llm_client_requestonce"
@@ -11208,6 +12072,93 @@
       "target": "llm_llm_jsonschema"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L126",
+      "weight": 1.0,
+      "source": "llm_llm_test_testrecommendationschemarequiresoneortwoitems",
+      "target": "llm_llm_jsonschema"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L147",
+      "weight": 1.0,
+      "source": "llm_llm_test_testscenarioclaimsrejectimplementedworkandunsupportedbudgetjudgment",
+      "target": "llm_llm_validscenarioclaim"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm.go",
+      "source_location": "L181",
+      "weight": 1.0,
+      "source": "llm_llm_validscenarioclaim",
+      "target": "llm_llm_validplaintext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L117",
+      "weight": 1.0,
+      "source": "llm_llm_test_testvalidplaintextallowsvaguequantity",
+      "target": "llm_llm_validplaintext"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "llm_llm_test_testexplanationfactscriticalpairsnotdistricts",
+      "target": "llm_llm_explanationfacts"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L92",
+      "weight": 1.0,
+      "source": "llm_llm_test_testgroundedexplanationdoesnotassigncriticalindicatorstoweakestdistrict",
+      "target": "llm_llm_groundedexplanation"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L104",
+      "weight": 1.0,
+      "source": "llm_llm_test_testrecommendationoptionskeepcriticalindicatorsseparatefromdistrict",
+      "target": "llm_llm_recommendationoptions"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L156",
+      "weight": 1.0,
+      "source": "llm_llm_test",
+      "target": "llm_llm_test_testcomparesendsverifiedfactsonly",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/internal/llm/llm_test.go",
@@ -11216,6 +12167,128 @@
       "confidence_score": 1.0,
       "source": "llm_llm_test",
       "target": "llm_llm_test_testdemomodeneverusesnetworkandisclearlycached"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "llm_llm_test",
+      "target": "llm_llm_test_testexplainfallsbackafterungroundedretries",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "llm_llm_test",
+      "target": "llm_llm_test_testexplainretriesungroundedtext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "llm_llm_test",
+      "target": "llm_llm_test_testexplanationfactscriticalpairsnotdistricts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L89",
+      "weight": 1.0,
+      "source": "llm_llm_test",
+      "target": "llm_llm_test_testgroundedexplanationdoesnotassigncriticalindicatorstoweakestdistrict",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "llm_llm_test",
+      "target": "llm_llm_test_testnewfromenvusesopenaidefaults",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L101",
+      "weight": 1.0,
+      "source": "llm_llm_test",
+      "target": "llm_llm_test_testrecommendationoptionskeepcriticalindicatorsseparatefromdistrict",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L125",
+      "weight": 1.0,
+      "source": "llm_llm_test",
+      "target": "llm_llm_test_testrecommendationschemarequiresoneortwoitems",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L182",
+      "weight": 1.0,
+      "source": "llm_llm_test",
+      "target": "llm_llm_test_testresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L139",
+      "weight": 1.0,
+      "source": "llm_llm_test",
+      "target": "llm_llm_test_testscenarioclaimsrejectimplementedworkandunsupportedbudgetjudgment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "llm_llm_test",
+      "target": "llm_llm_test_testvalidplaintextallowsvaguequantity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_test_testnewfromenvusesopenaidefaults",
+      "target": "apps_api_internal_llm_llm_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L156",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_test_testcomparesendsverifiedfactsonly",
+      "target": "apps_api_internal_llm_llm_test_go_t",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -11227,6 +12300,171 @@
       "confidence_score": 1.0,
       "source": "llm_llm_test_testdemomodeneverusesnetworkandisclearlycached",
       "target": "apps_api_internal_llm_llm_test_go_t"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L68",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_test_testexplainfallsbackafterungroundedretries",
+      "target": "apps_api_internal_llm_llm_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_test_testexplainretriesungroundedtext",
+      "target": "apps_api_internal_llm_llm_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L82",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_test_testexplanationfactscriticalpairsnotdistricts",
+      "target": "apps_api_internal_llm_llm_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L89",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_test_testgroundedexplanationdoesnotassigncriticalindicatorstoweakestdistrict",
+      "target": "apps_api_internal_llm_llm_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L101",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_test_testrecommendationoptionskeepcriticalindicatorsseparatefromdistrict",
+      "target": "apps_api_internal_llm_llm_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L125",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_test_testrecommendationschemarequiresoneortwoitems",
+      "target": "apps_api_internal_llm_llm_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L139",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_test_testscenarioclaimsrejectimplementedworkandunsupportedbudgetjudgment",
+      "target": "apps_api_internal_llm_llm_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L116",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "llm_llm_test_testvalidplaintextallowsvaguequantity",
+      "target": "apps_api_internal_llm_llm_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "llm_llm_test_testexplainretriesungroundedtext",
+      "target": "llm_llm_test_testresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "llm_llm_test_testexplainfallsbackafterungroundedretries",
+      "target": "llm_llm_test_testresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "llm_llm_test_testexplanationfactscriticalpairsnotdistricts",
+      "target": "llm_llm_test_testresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "llm_llm_test_testgroundedexplanationdoesnotassigncriticalindicatorstoweakestdistrict",
+      "target": "llm_llm_test_testresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "llm_llm_test_testrecommendationoptionskeepcriticalindicatorsseparatefromdistrict",
+      "target": "llm_llm_test_testresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L175",
+      "weight": 1.0,
+      "source": "llm_llm_test_testcomparesendsverifiedfactsonly",
+      "target": "llm_llm_test_testresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/llm/llm_test.go",
+      "source_location": "L182",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "llm_llm_test_testresult",
+      "target": "apps_api_internal_llm_llm_test_go_result",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -11573,6 +12811,612 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_deck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_engine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_explainer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_services_decisions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_services_districts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L133",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_services_explanation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_services_initiatives",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_services_newdeck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_services_newengine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_services_newexplainer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L89",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_services_result",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_services_toscoringdecisions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_services_toscoringresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "real_services",
+      "target": "real_services_violations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "real_engine",
+      "target": "real_engine_catalog",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "real_engine",
+      "target": "real_engine_optimum",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "real_engine",
+      "target": "real_engine_simulate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_services_newengine",
+      "target": "real_engine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/api/internal/real/services_test.go",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "real_services_test_testrealadapterpreservesexplanationfacts",
+      "target": "real_services_newengine"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "real_engine_catalog",
+      "target": "apps_api_internal_real_services_go_catalog",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "real_engine_catalog",
+      "target": "real_services_districts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "real_engine_catalog",
+      "target": "real_services_initiatives",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "real_engine_simulate",
+      "target": "apps_api_internal_real_services_go_decision",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_engine_simulate",
+      "target": "apps_api_internal_real_services_go_result",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_engine_simulate",
+      "target": "apps_api_internal_real_services_go_violation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "real_engine_simulate",
+      "target": "real_services_result",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "real_engine_simulate",
+      "target": "real_services_toscoringdecisions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "real_engine_simulate",
+      "target": "real_services_violations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "real_explainer_explain",
+      "target": "apps_api_internal_real_services_go_decision",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L61",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_services_decisions",
+      "target": "apps_api_internal_real_services_go_decision",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L54",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_services_toscoringdecisions",
+      "target": "apps_api_internal_real_services_go_decision",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "real_explainer_explain",
+      "target": "apps_api_internal_real_services_go_result",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L89",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_services_result",
+      "target": "apps_api_internal_real_services_go_result",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L111",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_services_toscoringresult",
+      "target": "apps_api_internal_real_services_go_result",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L82",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_services_violations",
+      "target": "apps_api_internal_real_services_go_violation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_engine_optimum",
+      "target": "apps_api_internal_real_services_go_optimumresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "real_engine_optimum",
+      "target": "real_services_decisions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "real_explainer",
+      "target": "real_explainer_compare",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "real_explainer",
+      "target": "real_explainer_explain",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_services_newexplainer",
+      "target": "real_explainer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "real_explainer_explain",
+      "target": "apps_api_internal_real_services_go_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_explainer_explain",
+      "target": "apps_api_internal_real_services_go_explanation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "real_explainer_explain",
+      "target": "real_services_explanation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "real_explainer_explain",
+      "target": "real_services_toscoringdecisions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "real_explainer_explain",
+      "target": "real_services_toscoringresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "real_explainer_compare",
+      "target": "apps_api_internal_real_services_go_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L133",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_services_explanation",
+      "target": "apps_api_internal_real_services_go_explanation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_explainer_compare",
+      "target": "apps_api_internal_real_services_go_comparison",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "real_explainer_compare",
+      "target": "apps_api_internal_real_services_go_namedresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "real_explainer_compare",
+      "target": "real_services_toscoringresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "real_deck",
+      "target": "real_deck_draw",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_services_newdeck",
+      "target": "real_deck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L49",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_deck_draw",
+      "target": "apps_api_internal_real_services_go_event",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L68",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_services_districts",
+      "target": "apps_api_internal_real_services_go_district",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services.go",
+      "source_location": "L75",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "real_services_initiatives",
+      "target": "apps_api_internal_real_services_go_initiative",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services_test.go",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "real_services_test",
+      "target": "real_services_test_testrealadapterpreservesexplanationfacts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/real/services_test.go",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "real_services_test_testrealadapterpreservesexplanationfacts",
+      "target": "apps_api_internal_real_services_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "apps/api/internal/scoring/scoring.go",
       "source_location": "L66",
       "weight": 1.0,
@@ -11874,6 +13718,28 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/internal/scoring/scoring.go",
+      "source_location": "L67",
+      "weight": 1.0,
+      "context": "field",
+      "source": "scoring_result",
+      "target": "scoring_synergy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/scoring/scoring.go",
+      "source_location": "L106",
+      "weight": 1.0,
+      "context": "field",
+      "source": "scoring_rules",
+      "target": "scoring_synergy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/internal/scoring/scoring.go",
       "source_location": "L237",
       "weight": 1.0,
       "context": "return_type",
@@ -12051,17 +13917,6 @@
       "confidence_score": 1.0,
       "source": "scoring_scoring_new",
       "target": "scoring_engine"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/internal/scoring/scoring.go",
-      "source_location": "L102",
-      "weight": 1.0,
-      "context": "field",
-      "confidence_score": 1.0,
-      "source": "scoring_rules",
-      "target": "apps_api_internal_scoring_scoring_go_synergy"
     },
     {
       "relation": "references",
@@ -12987,9 +14842,9 @@
       "source_file": "apps/web/src/components/astana-three-map.tsx",
       "source_location": "L119",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_astana_three_map",
-      "target": "components_astana_three_map_createmaptiles",
-      "confidence_score": 1.0
+      "target": "components_astana_three_map_createmaptiles"
     },
     {
       "relation": "contains",
@@ -13127,9 +14982,9 @@
       "source_file": "apps/web/src/components/astana-three-map.tsx",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_astana_three_map",
-      "target": "components_astana_three_map_unproject",
-      "confidence_score": 1.0
+      "target": "components_astana_three_map_unproject"
     },
     {
       "relation": "imports_from",
@@ -13171,9 +15026,9 @@
       "source_file": "apps/web/src/components/astana-three-map.tsx",
       "source_location": "L164",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_astana_three_map_createmaptiles",
-      "target": "components_astana_three_map_project",
-      "confidence_score": 1.0
+      "target": "components_astana_three_map_project"
     },
     {
       "relation": "calls",
@@ -13182,9 +15037,9 @@
       "source_file": "apps/web/src/components/astana-three-map.tsx",
       "source_location": "L133",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_astana_three_map_createmaptiles",
-      "target": "components_astana_three_map_unproject",
-      "confidence_score": 1.0
+      "target": "components_astana_three_map_unproject"
     },
     {
       "relation": "calls",
@@ -13215,9 +15070,9 @@
       "source_file": "apps/web/src/components/astana-three-map.tsx",
       "source_location": "L138",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_astana_three_map_createmaptiles",
-      "target": "components_astana_three_map_tilex",
-      "confidence_score": 1.0
+      "target": "components_astana_three_map_tilex"
     },
     {
       "relation": "calls",
@@ -13226,9 +15081,9 @@
       "source_file": "apps/web/src/components/astana-three-map.tsx",
       "source_location": "L140",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_astana_three_map_createmaptiles",
-      "target": "components_astana_three_map_tiley",
-      "confidence_score": 1.0
+      "target": "components_astana_three_map_tiley"
     },
     {
       "relation": "calls",
@@ -13237,9 +15092,9 @@
       "source_file": "apps/web/src/components/astana-three-map.tsx",
       "source_location": "L164",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_astana_three_map_createmaptiles",
-      "target": "components_astana_three_map_tilelon",
-      "confidence_score": 1.0
+      "target": "components_astana_three_map_tilelon"
     },
     {
       "relation": "calls",
@@ -13248,9 +15103,9 @@
       "source_file": "apps/web/src/components/astana-three-map.tsx",
       "source_location": "L164",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_astana_three_map_createmaptiles",
-      "target": "components_astana_three_map_tilelat",
-      "confidence_score": 1.0
+      "target": "components_astana_three_map_tilelat"
     },
     {
       "relation": "imports",
@@ -13981,6 +15836,137 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "components_scenario_compare",
+      "target": "components_scenario_compare_scenariocompare",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "components_scenario_compare",
+      "target": "lib_api_client",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "components_scenario_compare",
+      "target": "lib_api_client_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "components_scenario_compare",
+      "target": "lib_types",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "components_scenario_compare",
+      "target": "lib_types_compareresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "components_scenario_compare",
+      "target": "lib_types_savedscenario",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_scenario_compare",
+      "target": "ui_badge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "components_scenario_compare",
+      "target": "ui_badge_badge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "components_scenario_compare",
+      "target": "ui_button",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/scenario-compare.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "components_scenario_compare",
+      "target": "ui_button_button",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/simulator.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "components_simulator",
+      "target": "components_scenario_compare",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/simulator.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "components_simulator",
+      "target": "components_scenario_compare_scenariocompare",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "apps/web/src/components/score-counter.tsx",
       "source_location": "L12",
       "weight": 1.0,
@@ -14210,6 +16196,17 @@
       "confidence_score": 1.0,
       "source": "components_simulator",
       "target": "lib_types_optimumresponse"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/components/simulator.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "components_simulator",
+      "target": "lib_types_savedscenario",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -15245,6 +17242,17 @@
       "source_file": "apps/web/src/lib/api-client.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "source": "lib_api_client",
+      "target": "lib_types_compareresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/lib/api-client.ts",
+      "source_location": "L7",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "lib_api_client",
       "target": "lib_types_decision"
@@ -15361,6 +17369,26 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/src/lib/types.ts",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "lib_types",
+      "target": "lib_types_compareresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/lib/types.ts",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "lib_types",
+      "target": "lib_types_comparescenarioresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/lib/types.ts",
       "source_location": "L29",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -15461,11 +17489,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/src/lib/types.ts",
+      "source_location": "L78",
+      "weight": 1.0,
+      "source": "lib_types",
+      "target": "lib_types_savedscenario",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/lib/types.ts",
       "source_location": "L47",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "lib_types",
       "target": "lib_types_simulationresponse"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/lib/types.ts",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "lib_types",
+      "target": "lib_types_simulationresult",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -15914,19 +17962,9 @@
       "source_file": ".ai/STATUS.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "ai_status",
-      "target": "ai_status_status"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".ai/STATUS.md",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "ai_status_status",
-      "target": "ai_status_t_0_00_docs_bootstrap"
+      "target": "ai_status_status_demo_readiness",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -16077,6 +18115,46 @@
       "confidence_score": 1.0,
       "source": "agents_repository_instructions_for_ai_agents",
       "target": "agents_knowledge_graph"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEMO.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "demo",
+      "target": "demo_\u0434\u0435\u043c\u043e_\u0437\u0430_60_\u0441\u0435\u043a\u0443\u043d\u0434_\u0430\u043a\u0438\u043c_\u043d\u0430_5_\u0447\u0430\u0441\u043e\u0432",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEMO.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "demo_\u0434\u0435\u043c\u043e_\u0437\u0430_60_\u0441\u0435\u043a\u0443\u043d\u0434_\u0430\u043a\u0438\u043c_\u043d\u0430_5_\u0447\u0430\u0441\u043e\u0432",
+      "target": "demo_\u043f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430_\u043d\u0435_\u0432\u0445\u043e\u0434\u0438\u0442_\u0432_\u043c\u0438\u043d\u0443\u0442\u0443",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEMO.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "demo_\u0434\u0435\u043c\u043e_\u0437\u0430_60_\u0441\u0435\u043a\u0443\u043d\u0434_\u0430\u043a\u0438\u043c_\u043d\u0430_5_\u0447\u0430\u0441\u043e\u0432",
+      "target": "demo_\u0440\u0435\u0447\u044c_\u0438_\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEMO.md",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "demo_\u0434\u0435\u043c\u043e_\u0437\u0430_60_\u0441\u0435\u043a\u0443\u043d\u0434_\u0430\u043a\u0438\u043c_\u043d\u0430_5_\u0447\u0430\u0441\u043e\u0432",
+      "target": "demo_\u0447\u0442\u043e_\u043f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c_\u043f\u0440\u044f\u043c\u043e_\u043f\u0435\u0440\u0435\u0434_\u0432\u044b\u0445\u043e\u0434\u043e\u043c",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -18085,5 +20163,5 @@
       "weight": 1.0
     }
   ],
-  "built_at_commit": "4f5db65216873dec13c255d2e8767a63b20ee25a"
+  "built_at_commit": "8095662a739b91629fb52c76d4bd1483192b1fa5"
 }

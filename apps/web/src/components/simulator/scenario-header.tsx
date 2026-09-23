@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CircleHelp, House, RotateCcw } from "lucide-react";
+import { CircleHelp, House, Layers3, RotateCcw } from "lucide-react";
 
 import { Progress } from "@/components/ui/progress";
 
@@ -12,9 +12,11 @@ type ScenarioHeaderProps = {
   isMock: boolean;
   onReset: () => void;
   onHelp: () => void;
+  savedCount: number;
+  onCompare: () => void;
 };
 
-export function ScenarioHeader({ budget, budgetRemaining, decisionCount, requiredDecisions, health, isMock, onReset, onHelp }: ScenarioHeaderProps) {
+export function ScenarioHeader({ budget, budgetRemaining, decisionCount, requiredDecisions, health, isMock, onReset, onHelp, savedCount, onCompare }: ScenarioHeaderProps) {
   const budgetUsed = budget - budgetRemaining;
 
   return (
@@ -39,6 +41,7 @@ export function ScenarioHeader({ budget, budgetRemaining, decisionCount, require
 
       <div className="cockpit-header-actions">
         <span className={`cockpit-api ${health}`}><i /> {isMock ? "DEMO" : health}</span>
+        {savedCount > 0 && <button className="cockpit-icon-button" type="button" onClick={onCompare} aria-label={`Сравнить сценарии (${savedCount})`}><Layers3 size={18} /></button>}
         <button className="cockpit-icon-button" type="button" onClick={onHelp} aria-label="Как пользоваться симулятором"><CircleHelp size={18} /></button>
         <button className="cockpit-icon-button" type="button" onClick={onReset} disabled={decisionCount === 0} aria-label="Сбросить сценарий"><RotateCcw size={18} /></button>
         <Link className="cockpit-home" href="/"><House size={16} /> <span>Главная</span></Link>

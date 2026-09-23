@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"unicode"
 
 	"akim5/api/internal/scoring"
 )
@@ -31,6 +32,10 @@ type Comparison struct {
 	Summary string `json:"summary"`
 	Source  string `json:"source"`
 }
+type recommendationResponse struct {
+	Recommendations []string `json:"recommendations"`
+	allowed         []string
+}
 type Explainer interface {
 	Explain(context.Context, []scoring.Decision, *scoring.Result) Explanation
 	Compare(context.Context, []NamedResult) Comparison
@@ -46,23 +51,29 @@ func NewFromEnv() *Client {
 	if n, err := strconv.Atoi(os.Getenv("LLM_TIMEOUT_SECONDS")); err == nil && n > 0 {
 		timeout = time.Duration(n) * time.Second
 	}
-	base := os.Getenv("LLM_BASE_URL")
+	base := strings.TrimSpace(os.Getenv("LLM_BASE_URL"))
 	if base == "" {
-		base = "https://integrate.api.nvidia.com/v1"
+		base = "https://api.openai.com/v1"
 	}
-	return &Client{baseURL: strings.TrimRight(base, "/"), apiKey: os.Getenv("LLM_API_KEY"), model: os.Getenv("LLM_MODEL"), demo: strings.EqualFold(os.Getenv("DEMO_MODE"), "true"), http: &http.Client{Timeout: timeout}}
+	model := strings.TrimSpace(os.Getenv("LLM_MODEL"))
+	if model == "" {
+		model = "gpt-4.1-mini"
+	}
+	return &Client{baseURL: strings.TrimRight(base, "/"), apiKey: strings.TrimSpace(os.Getenv("OPENAI_API_KEY")), model: model, demo: strings.EqualFold(os.Getenv("DEMO_MODE"), "true"), http: &http.Client{Timeout: timeout}}
 }
 
-func (c *Client) Explain(ctx context.Context, decisions []scoring.Decision, result *scoring.Result) Explanation {
+func (c *Client) Explain(ctx context.Context, _ []scoring.Decision, result *scoring.Result) Explanation {
 	fallback := cachedExplanation(result)
-	if c.demo || c.apiKey == "" || c.model == "" {
+	if c.demo || c.apiKey == "" || c.model == "" || result == nil {
 		return fallback
 	}
-	payload := map[string]any{"decisions": decisions, "result": result}
-	var out Explanation
-	if c.request(ctx, explanationSystemPrompt, payload, &out) == nil && validExplanation(out) {
-		out.Source = "live"
-		return out
+	out := recommendationResponse{allowed: recommendationOptions(result)}
+	payload := map[string]any{"verifiedFacts": explanationFacts(result), "allowedRecommendations": out.allowed}
+	if c.request(ctx, recommendationSystemPrompt, payload, &out, func() bool { return validRecommendations(out.Recommendations, out.allowed) }) == nil {
+		explanation := groundedExplanation(result)
+		explanation.Recommendations = out.Recommendations
+		explanation.Source = "live"
+		return explanation
 	}
 	return fallback
 }
@@ -74,18 +85,21 @@ func (c *Client) Compare(ctx context.Context, scenarios []NamedResult) Compariso
 	var out struct {
 		Summary string `json:"summary"`
 	}
-	if c.request(ctx, comparisonSystemPrompt, map[string]any{"scenarios": scenarios}, &out) == nil && strings.TrimSpace(out.Summary) != "" {
+	if c.request(ctx, comparisonSystemPrompt, map[string]any{"verifiedFacts": comparisonFacts(scenarios)}, &out, func() bool { return validScenarioClaim(out.Summary) }) == nil {
 		return Comparison{Summary: out.Summary, Source: "live"}
 	}
 	return fallback
 }
 
 // request retries once if transport, provider, JSON, or shape validation fails.
-func (c *Client) request(ctx context.Context, system string, payload any, out any) error {
+func (c *Client) request(ctx context.Context, system string, payload any, out any, valid func() bool) error {
 	var last error
 	for attempt := 1; attempt <= 2; attempt++ {
 		start := time.Now()
 		err := c.requestOnce(ctx, system, payload, out)
+		if err == nil && !valid() {
+			err = fmt.Errorf("llm returned output outside required shape or grounded text rules")
+		}
 		log.Printf("llm call attempt=%d latency=%s success=%t", attempt, time.Since(start).Round(time.Millisecond), err == nil)
 		if err == nil {
 			return nil
@@ -133,19 +147,213 @@ func (c *Client) requestOnce(ctx context.Context, system string, payload, out an
 	return json.Unmarshal([]byte(wire.Choices[0].Message.Content), out)
 }
 func jsonSchema(out any) map[string]any {
-	properties := map[string]any{"summary": map[string]string{"type": "string"}}
-	required := []string{"summary"}
-	if _, ok := out.(*Explanation); ok {
-		items := map[string]string{"type": "string"}
-		properties["strengths"] = map[string]any{"type": "array", "items": items}
-		properties["risks"] = map[string]any{"type": "array", "items": items}
-		properties["recommendations"] = map[string]any{"type": "array", "items": items}
-		required = append(required, "strengths", "risks", "recommendations")
+	properties := map[string]any{}
+	required := []string{}
+	switch out.(type) {
+	case *recommendationResponse:
+		selection := out.(*recommendationResponse)
+		properties["recommendations"] = map[string]any{"type": "array", "items": map[string]any{"type": "string", "enum": selection.allowed}, "minItems": 1, "maxItems": 2}
+		required = append(required, "recommendations")
+	default:
+		properties["summary"] = map[string]string{"type": "string"}
+		required = append(required, "summary")
 	}
 	return map[string]any{"type": "json_schema", "json_schema": map[string]any{"name": "city_explanation", "strict": true, "schema": map[string]any{"type": "object", "properties": properties, "required": required, "additionalProperties": false}}}
 }
-func validExplanation(e Explanation) bool {
-	return strings.TrimSpace(e.Summary) != "" && len(e.Strengths) > 0 && len(e.Risks) > 0 && len(e.Recommendations) > 0
+func validRecommendations(items, allowed []string) bool {
+	if len(items) == 0 || len(items) > 2 {
+		return false
+	}
+	options := make(map[string]bool, len(allowed))
+	for _, item := range allowed {
+		options[item] = true
+	}
+	seen := map[string]bool{}
+	for _, item := range items {
+		if !options[item] || seen[item] {
+			return false
+		}
+		seen[item] = true
+	}
+	return true
+}
+func validScenarioClaim(s string) bool {
+	if !validPlainText(s) {
+		return false
+	}
+	lower := strings.ToLower(s)
+	for _, phrase := range []string{"проблемы решены", "проблемы полностью решены", "проблем больше нет", "критические проблемы"} {
+		if strings.Contains(lower, phrase) {
+			return false
+		}
+	}
+	for _, word := range strings.FieldsFunc(lower, func(r rune) bool { return !unicode.IsLetter(r) }) {
+		for _, prefix := range []string{"внедрен", "внедрён", "внедря", "реализован", "реализу", "запущен", "построен", "создан", "устранен", "устранён", "эффектив", "активн", "значительн"} {
+			if strings.HasPrefix(word, prefix) {
+				return false
+			}
+		}
+	}
+	return true
+}
+func validPlainText(s string) bool {
+	if strings.TrimSpace(s) == "" {
+		return false
+	}
+	for _, r := range s {
+		if unicode.IsDigit(r) || r == '%' {
+			return false
+		}
+	}
+	for _, word := range strings.FieldsFunc(strings.ToLower(s), func(r rune) bool { return !unicode.IsLetter(r) }) {
+		switch word {
+		case "один", "одна", "одно", "две", "два", "двух", "три", "трёх", "трех", "четыре", "четырёх", "четырех", "пять", "пяти":
+			return false
+		}
+	}
+	return true
+}
+func explanationFacts(r *scoring.Result) []string {
+	facts := make([]string, 0, len(r.Contributions)+6)
+	if r.DAvgAfter > r.DAvgBefore {
+		facts = append(facts, "В расчётном сценарии взвешенный городской показатель улучшился.")
+	} else if r.DAvgAfter < r.DAvgBefore {
+		facts = append(facts, "В расчётном сценарии взвешенный городской показатель ухудшился.")
+	} else {
+		facts = append(facts, "В расчётном сценарии взвешенный городской показатель не изменился.")
+	}
+	if r.CriticalAfter == 0 {
+		facts = append(facts, "В расчётном сценарии критических показателей не осталось.")
+	} else if r.CriticalAfter < r.CriticalBefore {
+		facts = append(facts, "В расчётном сценарии критических показателей стало меньше, но они ещё остались; их районы не указаны.")
+	} else if r.CriticalAfter > r.CriticalBefore {
+		facts = append(facts, "В расчётном сценарии критических показателей стало больше; их районы не указаны.")
+	} else {
+		facts = append(facts, "В расчётном сценарии число критических показателей не изменилось; их районы не указаны.")
+	}
+	names := map[string]string{}
+	for _, district := range r.Districts {
+		names[district.ID] = district.Name
+	}
+	weakest := names[r.MinDistrictID]
+	if weakest == "" {
+		weakest = r.MinDistrictID
+	}
+	if weakest != "" {
+		facts = append(facts, "Самый слабый по итоговому районному показателю район — "+weakest+".")
+	}
+	if r.BudgetUsed > 0 && r.BudgetRemaining >= 0 && r.BudgetRemaining*10 <= r.BudgetUsed+r.BudgetRemaining {
+		facts = append(facts, "Почти весь доступный бюджет распределён между выбранными инициативами.")
+	}
+	if len(r.Synergies) > 0 {
+		facts = append(facts, "Расчёт учитывает синергию выбранных инициатив.")
+	}
+	for _, item := range r.Contributions {
+		if item.DistrictID == "" {
+			facts = append(facts, "Выбрана общегородская инициатива: "+item.Name+".")
+		} else {
+			facts = append(facts, "Выбрана инициатива «"+item.Name+"» для района "+names[item.DistrictID]+".")
+		}
+	}
+	return facts
+}
+func groundedExplanation(r *scoring.Result) Explanation {
+	city := "городской показатель не изменился"
+	strengths := []string{}
+	if r.DAvgAfter > r.DAvgBefore {
+		city = "городской показатель улучшился"
+		strengths = append(strengths, "Взвешенный городской показатель улучшился по расчёту.")
+	} else if r.DAvgAfter < r.DAvgBefore {
+		city = "городской показатель ухудшился"
+	}
+	critical := "число критических показателей не изменилось"
+	if r.CriticalAfter == 0 {
+		critical = "критических показателей не осталось"
+	} else if r.CriticalAfter < r.CriticalBefore {
+		critical = "критических показателей стало меньше, но они ещё остались"
+	} else if r.CriticalAfter > r.CriticalBefore {
+		critical = "критических показателей стало больше"
+	}
+	if r.CriticalAfter < r.CriticalBefore {
+		strengths = append(strengths, "Критических показателей стало меньше по расчёту.")
+	}
+	if len(r.Synergies) > 0 {
+		strengths = append(strengths, "Расчёт учитывает синергию выбранных инициатив.")
+	}
+	if len(strengths) == 0 {
+		strengths = append(strengths, "Выбранные инициативы включены в расчёт сценария.")
+	}
+	risks := []string{}
+	if r.CriticalAfter > 0 {
+		risks = append(risks, "В расчётном сценарии критические показатели ещё остаются.")
+	}
+	weakest := r.MinDistrictID
+	for _, district := range r.Districts {
+		if district.ID == r.MinDistrictID && district.Name != "" {
+			weakest = district.Name
+			break
+		}
+	}
+	if weakest != "" {
+		risks = append(risks, "Самый слабый по итоговому показателю район — "+weakest+".")
+	}
+	if len(risks) < 2 && r.BudgetUsed > 0 && r.BudgetRemaining >= 0 && r.BudgetRemaining*10 <= r.BudgetUsed+r.BudgetRemaining {
+		risks = append(risks, "Почти весь доступный бюджет распределён между выбранными инициативами.")
+	}
+	if len(risks) == 0 {
+		risks = append(risks, "Следует проверить показатели после расчётного сценария.")
+	}
+	return Explanation{Summary: "В расчётном сценарии " + city + "; " + critical + ".", Strengths: strengths, Risks: risks}
+}
+func recommendationOptions(r *scoring.Result) []string {
+	options := []string{"Сравните расчётный результат с альтернативным набором инициатив."}
+	weakest := r.MinDistrictID
+	for _, district := range r.Districts {
+		if district.ID == r.MinDistrictID && district.Name != "" {
+			weakest = district.Name
+			break
+		}
+	}
+	if weakest != "" {
+		options = append(options, "Проверьте показатели района "+weakest+" в альтернативном сценарии.")
+	}
+	if r.CriticalAfter > 0 {
+		options = append(options, "Проверьте, какие показатели остаются критическими после расчёта.")
+	}
+	if r.BudgetUsed > 0 && r.BudgetRemaining >= 0 && r.BudgetRemaining*10 <= r.BudgetUsed+r.BudgetRemaining {
+		options = append(options, "Сравните этот сценарий с вариантом, оставляющим больше бюджетного резерва.")
+	}
+	if len(r.Synergies) > 0 {
+		options = append(options, "Оцените вклад синергии, сравнив сценарий с набором без неё.")
+	}
+	return options
+}
+func comparisonFacts(scenarios []NamedResult) []string {
+	facts := make([]string, 0, len(scenarios)*2+1)
+	var best *NamedResult
+	for i := range scenarios {
+		s := &scenarios[i]
+		if s.Result == nil || s.Result.Score == nil {
+			continue
+		}
+		if best == nil || *s.Result.Score > *best.Result.Score {
+			best = s
+		}
+		if s.Result.DAvgAfter > s.Result.DAvgBefore {
+			facts = append(facts, "В сценарии «"+s.Label+"» городской показатель улучшился.")
+		} else if s.Result.DAvgAfter < s.Result.DAvgBefore {
+			facts = append(facts, "В сценарии «"+s.Label+"» городской показатель ухудшился.")
+		}
+		if s.Result.CriticalAfter == 0 {
+			facts = append(facts, "В сценарии «"+s.Label+"» критических показателей не осталось.")
+		} else if s.Result.CriticalAfter < s.Result.CriticalBefore {
+			facts = append(facts, "В сценарии «"+s.Label+"» критических показателей стало меньше, но они остались.")
+		}
+	}
+	if best != nil {
+		facts = append(facts, "По итоговому Score лидирует сценарий «"+best.Label+"».")
+	}
+	return facts
 }
 func cachedExplanation(r *scoring.Result) Explanation {
 	if r == nil {
