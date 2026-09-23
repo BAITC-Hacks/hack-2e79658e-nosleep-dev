@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="BesSheshim">
+  <path
+    fill="#0b0b0b"
+    d="M18 8h34a8 8 0 0 1 8 8v24a16 16 0 0 1-16 16H12a8 8 0 0 1-8-8V22A14 14 0 0 1 18 8Z"
+    transform="skewX(-8) translate(4)"
+  />
+  <text
+    x="32"
+    y="37"
+    fill="#fff"
+    font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+    font-size="15"
+    font-weight="700"
+    letter-spacing="-1.25"
+    text-anchor="middle"
+  >BS/5</text>
+</svg>

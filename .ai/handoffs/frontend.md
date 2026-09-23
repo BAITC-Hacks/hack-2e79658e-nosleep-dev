@@ -1,6 +1,8 @@
-DONE: Scenario naming/save/delete in localStorage; 2–3 selection; responsive /compare results with source badge, loading/error/invalid states.
-ON BRANCH / MERGED: fe/scenario-compare (not merged)
-TESTED HOW: lint/build green; Playwright saves 2 scenarios, reloads, compares 2 cards; desktop + 390px screenshots checked.
-BROKEN / RISKY: OSM now has 6 Astana districts, mismatching the 5-district contract; using agreed stylized SVG fallback.
-NEEDS (from whom): Backend: cmd/server still uses NewFixtureServices; wire merged scoring/LLM/optimizer/events so partial picks change map live.
-NEXT: commit/push/PR; after merge, frontend polish only (keyboard/accessibility and demo rehearsal fixes).
+DONE: Built the English landing page at `/`; preserved the simulator at `/play`.
+DONE: Added ObsidianUI text reveal + dotted hero field, reusable score ticker, and scroll reveals.
+ON BRANCH / MERGED: codex/landing-page (not merged)
+TESTED HOW: `npm run lint && npm run build`; Chrome at 1280px, 390px, and forced reduced motion.
+TESTED HOW: Verified static reduced-motion output and repaired the hero reveal's load-time fallback.
+BROKEN / RISKY: `/play` still ignores the example query string until scenario URL parsing lands.
+NEEDS: None for the landing page.
+NEXT: Add scenario URL parsing when `/play` routing work begins.

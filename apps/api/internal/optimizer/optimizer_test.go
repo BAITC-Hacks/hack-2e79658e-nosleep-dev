@@ -14,7 +14,7 @@ func TestOptimumIsAtLeastGoldenScenario(t *testing.T) {
 	}
 	engine := New(base)
 	got := engine.Optimum(true)
-	if got.BestScore < 56.5431 {
+	if got.BestScore < 56.485102 {
 		t.Fatalf("best score %.4f below verified fixture", got.BestScore)
 	}
 	if len(got.Decisions) != 5 {

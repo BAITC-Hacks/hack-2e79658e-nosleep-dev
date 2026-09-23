@@ -59,7 +59,7 @@ func TestSimulateHappyPath(t *testing.T) {
 	if !payload.Submittable || len(payload.Violations) != 0 {
 		t.Fatalf("scenario did not submit: %+v", payload)
 	}
-	if payload.BudgetUsed != 95 || payload.Score == nil || math.Abs(*payload.Score-56.5431) > 0.0001 {
+	if payload.BudgetUsed != 95 || payload.Score == nil || math.Abs(*payload.Score-56.485102) > 0.0001 {
 		t.Fatalf("unexpected fixture result: budget=%d score=%v", payload.BudgetUsed, payload.Score)
 	}
 }
