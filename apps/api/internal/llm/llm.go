@@ -32,6 +32,10 @@ type Comparison struct {
 	Summary string `json:"summary"`
 	Source  string `json:"source"`
 }
+type recommendationResponse struct {
+	Recommendations []string `json:"recommendations"`
+	allowed         []string
+}
 type Explainer interface {
 	Explain(context.Context, []scoring.Decision, *scoring.Result) Explanation
 	Compare(context.Context, []NamedResult) Comparison
@@ -63,11 +67,13 @@ func (c *Client) Explain(ctx context.Context, _ []scoring.Decision, result *scor
 	if c.demo || c.apiKey == "" || c.model == "" || result == nil {
 		return fallback
 	}
-	payload := map[string]any{"verifiedFacts": explanationFacts(result)}
-	var out Explanation
-	if c.request(ctx, explanationSystemPrompt, payload, &out, func() bool { return validExplanation(out) }) == nil {
-		out.Source = "live"
-		return out
+	out := recommendationResponse{allowed: recommendationOptions(result)}
+	payload := map[string]any{"verifiedFacts": explanationFacts(result), "allowedRecommendations": out.allowed}
+	if c.request(ctx, recommendationSystemPrompt, payload, &out, func() bool { return validRecommendations(out.Recommendations, out.allowed) }) == nil {
+		explanation := groundedExplanation(result)
+		explanation.Recommendations = out.Recommendations
+		explanation.Source = "live"
+		return explanation
 	}
 	return fallback
 }
@@ -79,7 +85,7 @@ func (c *Client) Compare(ctx context.Context, scenarios []NamedResult) Compariso
 	var out struct {
 		Summary string `json:"summary"`
 	}
-	if c.request(ctx, comparisonSystemPrompt, map[string]any{"verifiedFacts": comparisonFacts(scenarios)}, &out, func() bool { return validPlainText(out.Summary) }) == nil {
+	if c.request(ctx, comparisonSystemPrompt, map[string]any{"verifiedFacts": comparisonFacts(scenarios)}, &out, func() bool { return validScenarioClaim(out.Summary) }) == nil {
 		return Comparison{Summary: out.Summary, Source: "live"}
 	}
 	return fallback
@@ -141,24 +147,49 @@ func (c *Client) requestOnce(ctx context.Context, system string, payload, out an
 	return json.Unmarshal([]byte(wire.Choices[0].Message.Content), out)
 }
 func jsonSchema(out any) map[string]any {
-	properties := map[string]any{"summary": map[string]string{"type": "string"}}
-	required := []string{"summary"}
-	if _, ok := out.(*Explanation); ok {
-		items := map[string]string{"type": "string"}
-		properties["strengths"] = map[string]any{"type": "array", "items": items, "minItems": 1}
-		properties["risks"] = map[string]any{"type": "array", "items": items, "minItems": 1}
-		properties["recommendations"] = map[string]any{"type": "array", "items": items, "minItems": 1}
-		required = append(required, "strengths", "risks", "recommendations")
+	properties := map[string]any{}
+	required := []string{}
+	switch out.(type) {
+	case *recommendationResponse:
+		selection := out.(*recommendationResponse)
+		properties["recommendations"] = map[string]any{"type": "array", "items": map[string]any{"type": "string", "enum": selection.allowed}, "minItems": 1, "maxItems": 2}
+		required = append(required, "recommendations")
+	default:
+		properties["summary"] = map[string]string{"type": "string"}
+		required = append(required, "summary")
 	}
 	return map[string]any{"type": "json_schema", "json_schema": map[string]any{"name": "city_explanation", "strict": true, "schema": map[string]any{"type": "object", "properties": properties, "required": required, "additionalProperties": false}}}
 }
-func validExplanation(e Explanation) bool {
-	if !validPlainText(e.Summary) || len(e.Strengths) == 0 || len(e.Risks) == 0 || len(e.Recommendations) == 0 {
+func validRecommendations(items, allowed []string) bool {
+	if len(items) == 0 || len(items) > 2 {
 		return false
 	}
-	for _, group := range [][]string{e.Strengths, e.Risks, e.Recommendations} {
-		for _, item := range group {
-			if !validPlainText(item) {
+	options := make(map[string]bool, len(allowed))
+	for _, item := range allowed {
+		options[item] = true
+	}
+	seen := map[string]bool{}
+	for _, item := range items {
+		if !options[item] || seen[item] {
+			return false
+		}
+		seen[item] = true
+	}
+	return true
+}
+func validScenarioClaim(s string) bool {
+	if !validPlainText(s) {
+		return false
+	}
+	lower := strings.ToLower(s)
+	for _, phrase := range []string{"проблемы решены", "проблемы полностью решены", "проблем больше нет", "критические проблемы"} {
+		if strings.Contains(lower, phrase) {
+			return false
+		}
+	}
+	for _, word := range strings.FieldsFunc(lower, func(r rune) bool { return !unicode.IsLetter(r) }) {
+		for _, prefix := range []string{"внедрен", "внедрён", "внедря", "реализован", "реализу", "запущен", "построен", "создан", "устранен", "устранён", "эффектив", "активн", "значительн"} {
+			if strings.HasPrefix(word, prefix) {
 				return false
 			}
 		}
@@ -183,22 +214,22 @@ func validPlainText(s string) bool {
 	return true
 }
 func explanationFacts(r *scoring.Result) []string {
-	facts := []string{}
+	facts := make([]string, 0, len(r.Contributions)+6)
 	if r.DAvgAfter > r.DAvgBefore {
-		facts = append(facts, "Взвешенный городской показатель улучшился после решений.")
+		facts = append(facts, "В расчётном сценарии взвешенный городской показатель улучшился.")
 	} else if r.DAvgAfter < r.DAvgBefore {
-		facts = append(facts, "Взвешенный городской показатель ухудшился после решений.")
+		facts = append(facts, "В расчётном сценарии взвешенный городской показатель ухудшился.")
 	} else {
-		facts = append(facts, "Взвешенный городской показатель не изменился после решений.")
+		facts = append(facts, "В расчётном сценарии взвешенный городской показатель не изменился.")
 	}
 	if r.CriticalAfter == 0 {
-		facts = append(facts, "После решений критических показателей не осталось.")
+		facts = append(facts, "В расчётном сценарии критических показателей не осталось.")
 	} else if r.CriticalAfter < r.CriticalBefore {
-		facts = append(facts, "Критических показателей стало меньше, но они ещё остались.")
+		facts = append(facts, "В расчётном сценарии критических показателей стало меньше, но они ещё остались; их районы не указаны.")
 	} else if r.CriticalAfter > r.CriticalBefore {
-		facts = append(facts, "Критических показателей стало больше.")
+		facts = append(facts, "В расчётном сценарии критических показателей стало больше; их районы не указаны.")
 	} else {
-		facts = append(facts, "Число критических показателей не изменилось.")
+		facts = append(facts, "В расчётном сценарии число критических показателей не изменилось; их районы не указаны.")
 	}
 	names := map[string]string{}
 	for _, district := range r.Districts {
@@ -212,10 +243,10 @@ func explanationFacts(r *scoring.Result) []string {
 		facts = append(facts, "Самый слабый по итоговому районному показателю район — "+weakest+".")
 	}
 	if r.BudgetUsed > 0 && r.BudgetRemaining >= 0 && r.BudgetRemaining*10 <= r.BudgetUsed+r.BudgetRemaining {
-		facts = append(facts, "Почти весь доступный бюджет использован.")
+		facts = append(facts, "Почти весь доступный бюджет распределён между выбранными инициативами.")
 	}
 	if len(r.Synergies) > 0 {
-		facts = append(facts, "Сработала синергия выбранных инициатив.")
+		facts = append(facts, "Расчёт учитывает синергию выбранных инициатив.")
 	}
 	for _, item := range r.Contributions {
 		if item.DistrictID == "" {
@@ -225,6 +256,77 @@ func explanationFacts(r *scoring.Result) []string {
 		}
 	}
 	return facts
+}
+func groundedExplanation(r *scoring.Result) Explanation {
+	city := "городской показатель не изменился"
+	strengths := []string{}
+	if r.DAvgAfter > r.DAvgBefore {
+		city = "городской показатель улучшился"
+		strengths = append(strengths, "Взвешенный городской показатель улучшился по расчёту.")
+	} else if r.DAvgAfter < r.DAvgBefore {
+		city = "городской показатель ухудшился"
+	}
+	critical := "число критических показателей не изменилось"
+	if r.CriticalAfter == 0 {
+		critical = "критических показателей не осталось"
+	} else if r.CriticalAfter < r.CriticalBefore {
+		critical = "критических показателей стало меньше, но они ещё остались"
+	} else if r.CriticalAfter > r.CriticalBefore {
+		critical = "критических показателей стало больше"
+	}
+	if r.CriticalAfter < r.CriticalBefore {
+		strengths = append(strengths, "Критических показателей стало меньше по расчёту.")
+	}
+	if len(r.Synergies) > 0 {
+		strengths = append(strengths, "Расчёт учитывает синергию выбранных инициатив.")
+	}
+	if len(strengths) == 0 {
+		strengths = append(strengths, "Выбранные инициативы включены в расчёт сценария.")
+	}
+	risks := []string{}
+	if r.CriticalAfter > 0 {
+		risks = append(risks, "В расчётном сценарии критические показатели ещё остаются.")
+	}
+	weakest := r.MinDistrictID
+	for _, district := range r.Districts {
+		if district.ID == r.MinDistrictID && district.Name != "" {
+			weakest = district.Name
+			break
+		}
+	}
+	if weakest != "" {
+		risks = append(risks, "Самый слабый по итоговому показателю район — "+weakest+".")
+	}
+	if len(risks) < 2 && r.BudgetUsed > 0 && r.BudgetRemaining >= 0 && r.BudgetRemaining*10 <= r.BudgetUsed+r.BudgetRemaining {
+		risks = append(risks, "Почти весь доступный бюджет распределён между выбранными инициативами.")
+	}
+	if len(risks) == 0 {
+		risks = append(risks, "Следует проверить показатели после расчётного сценария.")
+	}
+	return Explanation{Summary: "В расчётном сценарии " + city + "; " + critical + ".", Strengths: strengths, Risks: risks}
+}
+func recommendationOptions(r *scoring.Result) []string {
+	options := []string{"Сравните расчётный результат с альтернативным набором инициатив."}
+	weakest := r.MinDistrictID
+	for _, district := range r.Districts {
+		if district.ID == r.MinDistrictID && district.Name != "" {
+			weakest = district.Name
+			break
+		}
+	}
+	if weakest != "" {
+		options = append(options, "Проверьте показатели района "+weakest+" в альтернативном сценарии.")
+	}
+	if r.CriticalAfter > 0 {
+		options = append(options, "Проверьте, какие показатели остаются критическими после расчёта.")
+	}
+	if r.BudgetUsed > 0 && r.BudgetRemaining >= 0 && r.BudgetRemaining*10 <= r.BudgetUsed+r.BudgetRemaining {
+		options = append(options, "Сравните этот сценарий с вариантом, оставляющим больше бюджетного резерва.")
+	}
+	if len(r.Synergies) > 0 {
+		options = append(options, "Оцените вклад синергии, сравнив сценарий с набором без неё.")
+	}
+	return options
 }
 func comparisonFacts(scenarios []NamedResult) []string {
 	facts := make([]string, 0, len(scenarios)*2+1)

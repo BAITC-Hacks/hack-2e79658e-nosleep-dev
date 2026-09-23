@@ -1,6 +1,6 @@
-DONE: OpenAI integration live on port 8000; all 12 golden JSON cases match expected scoring or validation results.
-ON BRANCH / MERGED: codex/openai-api-default pushed; PR creation pending.
-TESTED HOW: /explain 6/6 live (2 full golden cases x3), /compare 3/3 live; median 2.8-3.0s and 1.25s; verify.py matches base/example scores.
-BROKEN / RISKY: LLM sometimes describes simulated actions as implemented and infers "high activity" from budget use; cheapest case has no expected Score in golden.json.
-NEEDS (from whom): AI+data prompt/grounding review; user/team to open PR (GitHub connector 404, credential workaround rejected); peer approval.
-NEXT: tighten hypothetical wording if requested; merge reviewed PR.
+DONE: /explain facts now come from scoring; OpenAI selects 1-2 recommendations from scenario-safe options. /compare guards hypothetical language.
+ON BRANCH / MERGED: codex/openai-api-default; PR pending.
+TESTED HOW: Go tests pass; 12/12 golden HTTP cases pass; /explain 6/6 live median 0.925s (was ~2.8-3.0s), /compare 3/3 live median 1.327s.
+BROKEN / RISKY: Current port 8000 still runs the older build until restart; cheapest fixture has no expected Score.
+NEEDS (from whom): AI+data review changes to owned internal/llm via PR; teammate to open/approve PR (GitHub connector 404).
+NEXT: Push branch, open/merge PR after review, restart API 8000 to load improved build.
