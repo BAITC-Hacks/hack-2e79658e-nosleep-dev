@@ -8,4 +8,4 @@ _Updated 2026-09-23, Asia/Almaty. Keep this short for teammates and their agents
 
 **Verified:** clean-worktree `docker compose up --build -d` starts healthy API and web (HTTP 200); three browser rehearsals with `DEMO_MODE=true` and no key reached Score 56.54, a labeled cached explanation, optimum gauge, and two-scenario comparison. Fresh-worktree `make dev` installed dependencies and served both apps. Web image rebuild after local `npm ci` kept Docker context near 451 kB.
 
-**Next:** get one teammate approval, merge the demo-readiness PR, then tag and rehearse the merged `main` once more. The city-event endpoint has no web flow; keep it out of the 60-second demo.
+**Next:** get one teammate approval on PR #13, merge it, then tag and rehearse the merged `main` once more. The city-event endpoint has no web flow; keep it out of the 60-second demo.
