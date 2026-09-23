@@ -74,6 +74,27 @@ func TestExplanationFactsCriticalPairsNotDistricts(t *testing.T) {
 	}
 }
 
+func TestValidPlainTextAllowsVagueQuantity(t *testing.T) {
+	if !validPlainText("Для района выбраны несколько инициатив.") {
+		t.Fatal("a vague count of selected initiatives should not force a cached fallback")
+	}
+	if validPlainText("Выбраны пять инициатив.") {
+		t.Fatal("exact counts remain excluded from AI prose")
+	}
+}
+
+func TestExplanationSchemaRequiresNonemptyLists(t *testing.T) {
+	jsonSchemaBody := jsonSchema(&Explanation{})["json_schema"].(map[string]any)
+	schema := jsonSchemaBody["schema"].(map[string]any)
+	properties := schema["properties"].(map[string]any)
+	for _, field := range []string{"strengths", "risks", "recommendations"} {
+		list := properties[field].(map[string]any)
+		if list["minItems"] != 1 {
+			t.Fatalf("%s must have at least one item in the provider schema", field)
+		}
+	}
+}
+
 func TestCompareSendsVerifiedFactsOnly(t *testing.T) {
 	requests := 0
 	provider := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

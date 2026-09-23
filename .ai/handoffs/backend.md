@@ -1,6 +1,6 @@
-DONE: OpenAI API is now the default LLM endpoint; OPENAI_API_KEY is the only secret needed and gpt-4.1-mini is the default model.
-ON BRANCH / MERGED: codex/openai-api-default pushed; PR creation pending.
-TESTED HOW: Go packages compile with go build ./...; no live call without a user key.
-BROKEN / RISKY: Missing or invalid OpenAI key returns cached; GitHub connector returned 404 and credential-based PR creation was rejected by auto-review.
-NEEDS (from whom): User/team to open PR from pushed branch; AI+data review of internal/llm and one teammate approval before merge.
-NEXT: Add key locally, restart make dev, confirm /explain reports source=live.
+DONE: OpenAI key verified; schema now requires nonempty explanation lists and permits grounded vague quantities.
+ON BRANCH / MERGED: codex/openai-api-default; PR creation pending.
+TESTED HOW: OpenAI auth/chat HTTP 200; /explain and /compare HTTP 200 source=live; go test ./... passed.
+BROKEN / RISKY: Existing port 8000 process may need restart to load the key and new code; missing/invalid key still returns cached.
+NEEDS (from whom): User/team to open PR (GitHub connector 404; credential workaround rejected by auto-review); AI+data review and peer approval.
+NEXT: Push fix, restart make dev, merge reviewed PR.

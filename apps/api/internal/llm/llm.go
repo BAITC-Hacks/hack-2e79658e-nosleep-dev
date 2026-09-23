@@ -145,9 +145,9 @@ func jsonSchema(out any) map[string]any {
 	required := []string{"summary"}
 	if _, ok := out.(*Explanation); ok {
 		items := map[string]string{"type": "string"}
-		properties["strengths"] = map[string]any{"type": "array", "items": items}
-		properties["risks"] = map[string]any{"type": "array", "items": items}
-		properties["recommendations"] = map[string]any{"type": "array", "items": items}
+		properties["strengths"] = map[string]any{"type": "array", "items": items, "minItems": 1}
+		properties["risks"] = map[string]any{"type": "array", "items": items, "minItems": 1}
+		properties["recommendations"] = map[string]any{"type": "array", "items": items, "minItems": 1}
 		required = append(required, "strengths", "risks", "recommendations")
 	}
 	return map[string]any{"type": "json_schema", "json_schema": map[string]any{"name": "city_explanation", "strict": true, "schema": map[string]any{"type": "object", "properties": properties, "required": required, "additionalProperties": false}}}
@@ -176,7 +176,7 @@ func validPlainText(s string) bool {
 	}
 	for _, word := range strings.FieldsFunc(strings.ToLower(s), func(r rune) bool { return !unicode.IsLetter(r) }) {
 		switch word {
-		case "один", "одна", "одно", "две", "два", "двух", "три", "трёх", "трех", "четыре", "четырёх", "четырех", "пять", "пяти", "несколько", "нескольких":
+		case "один", "одна", "одно", "две", "два", "двух", "три", "трёх", "трех", "четыре", "четырёх", "четырех", "пять", "пяти":
 			return false
 		}
 	}
