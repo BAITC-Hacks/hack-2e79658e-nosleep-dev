@@ -60,7 +60,7 @@ func TestExplainRetriesUngroundedText(t *testing.T) {
 	defer provider.Close()
 	c := &Client{baseURL: provider.URL, apiKey: "test", model: "test", http: provider.Client()}
 	got := c.Explain(context.Background(), nil, testResult())
-	if requests != 2 || got.Source != "live" || strings.Contains(got.Summary, "%") || !strings.Contains(got.Summary, "критических показателей не осталось") {
+	if requests != 2 || got.Source != "live" || strings.Contains(got.Summary, "%") || !strings.Contains(got.Summary, "ниже критического порога больше нет") {
 		t.Fatalf("want grounded live result after retry; requests=%d result=%#v", requests, got)
 	}
 }
@@ -90,7 +90,7 @@ func TestGroundedExplanationDoesNotAssignCriticalIndicatorsToWeakestDistrict(t *
 	r := testResult()
 	r.CriticalAfter = 1
 	got := groundedExplanation(r)
-	if !strings.Contains(got.Summary, "критических показателей стало меньше") || strings.Contains(got.Summary, "Нура") {
+	if !strings.Contains(got.Summary, "ниже критического порога стало меньше") || strings.Contains(got.Summary, "Нура") {
 		t.Fatalf("summary must describe the calculation without inventing a district: %q", got.Summary)
 	}
 	if len(got.Risks) != 2 || !strings.Contains(got.Risks[0], "критические показатели") || !strings.Contains(got.Risks[1], "Нура") {

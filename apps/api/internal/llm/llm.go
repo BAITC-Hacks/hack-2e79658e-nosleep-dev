@@ -258,21 +258,25 @@ func explanationFacts(r *scoring.Result) []string {
 	return facts
 }
 func groundedExplanation(r *scoring.Result) Explanation {
-	city := "городской показатель не изменился"
+	city := "средний показатель качества жизни в городе не изменился."
 	strengths := []string{}
 	if r.DAvgAfter > r.DAvgBefore {
-		city = "городской показатель улучшился"
+		city = "средний показатель качества жизни в городе вырос."
 		strengths = append(strengths, "Взвешенный городской показатель улучшился по расчёту.")
 	} else if r.DAvgAfter < r.DAvgBefore {
-		city = "городской показатель ухудшился"
+		city = "средний показатель качества жизни в городе снизился."
 	}
-	critical := "число критических показателей не изменилось"
+	critical := "Число показателей ниже критического порога не изменилось."
 	if r.CriticalAfter == 0 {
-		critical = "критических показателей не осталось"
+		if r.CriticalBefore == 0 {
+			critical = "Показателей ниже критического порога нет."
+		} else {
+			critical = "Показателей ниже критического порога больше нет."
+		}
 	} else if r.CriticalAfter < r.CriticalBefore {
-		critical = "критических показателей стало меньше, но они ещё остались"
+		critical = "Показателей ниже критического порога стало меньше, но они ещё есть."
 	} else if r.CriticalAfter > r.CriticalBefore {
-		critical = "критических показателей стало больше"
+		critical = "Показателей ниже критического порога стало больше."
 	}
 	if r.CriticalAfter < r.CriticalBefore {
 		strengths = append(strengths, "Критических показателей стало меньше по расчёту.")
@@ -303,7 +307,7 @@ func groundedExplanation(r *scoring.Result) Explanation {
 	if len(risks) == 0 {
 		risks = append(risks, "Следует проверить показатели после расчётного сценария.")
 	}
-	return Explanation{Summary: "В расчётном сценарии " + city + "; " + critical + ".", Strengths: strengths, Risks: risks}
+	return Explanation{Summary: "По расчёту " + city + " " + critical, Strengths: strengths, Risks: risks}
 }
 func recommendationOptions(r *scoring.Result) []string {
 	options := []string{"Сравните расчётный результат с альтернативным набором инициатив."}
