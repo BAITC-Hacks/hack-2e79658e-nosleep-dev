@@ -64,8 +64,34 @@ export interface SimulationResponse {
 
 export interface HealthResponse { status: "ok" }
 
+export interface OptimumResponse {
+  bestScore: number;
+  decisions?: Decision[];
+}
+
 export interface ExplainResponse {
   result: unknown;
   explanation: { summary: string; strengths: string[]; risks: string[]; recommendations: string[] };
   source: "live" | "cached";
+}
+
+export interface SavedScenario {
+  id: string;
+  label: string;
+  decisions: Decision[];
+  result: SimulationResponse;
+  createdAt: string;
+}
+
+export type SimulationResult = Omit<SimulationResponse, "submittable" | "violations">;
+
+export interface CompareScenarioResult {
+  label: string;
+  result?: SimulationResult;
+  violations?: Violation[];
+}
+
+export interface CompareResponse {
+  scenarios: CompareScenarioResult[];
+  comparison: { summary: string; source: "live" | "cached" };
 }
