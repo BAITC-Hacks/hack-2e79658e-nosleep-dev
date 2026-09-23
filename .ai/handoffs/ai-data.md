@@ -1,6 +1,6 @@
-DONE:
-ON BRANCH / MERGED:
-TESTED HOW:
-BROKEN / RISKY:
-NEEDS (from whom):
-NEXT: implement internal/scoring exactly per contracts/scoring.md, loading data/districts.json, data/initiatives.json, data/rules.json via go:embed. Write it as a table-driven test over every case in data/fixtures/golden.json (9 invalid + 3 valid) — that's your acceptance bar for Checkpoint 1. Then internal/llm (NVIDIA NIM client, structured output, DEMO_MODE + 1-retry-then-cached-fallback per contracts/api.md). See .ai/PLAN.md's task table and .ai/prompts/ai-data.md if pasting into a fresh agent.
+DONE: deterministic scoring engine + JSON-driven golden table test (3 valid / 9 invalid).
+ON BRANCH / MERGED: ai/scoring / not yet pushed.
+TESTED HOW: GO111MODULE=off go test ./apps/api/internal/scoring (PASS).
+BROKEN / RISKY: Go cannot go:embed root data/ from module apps/api; loader uses canonical root data/ and supports DATA_DIR.
+NEEDS (from whom): Backend: create apps/api/go.mod and wire scoring.New() as Engine; decide whether to mirror data under module for embedded release assets.
+NEXT: commit/push scoring; then implement internal/llm with DEMO_MODE cached fallback.
