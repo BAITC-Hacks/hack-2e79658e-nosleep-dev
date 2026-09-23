@@ -12,6 +12,7 @@ import (
 	"time"
 
 	httpapi "akim5/api/internal/http"
+	"akim5/api/internal/real"
 	"github.com/gin-gonic/gin"
 )
 
@@ -32,11 +33,9 @@ func main() {
 		config.LLMTimeout = time.Duration(seconds) * time.Second
 	}
 
-	// Replace this fixture service constructor when the AI/data packages land.
-	services, err := httpapi.NewFixtureServices(os.Getenv("CONTRACTS_DIR"))
-	if err != nil {
-		log.Fatal(err)
-	}
+	services := real.NewEngine()
+	explainer := real.NewExplainer()
+	deck := real.NewDeck()
 
 	if mode := os.Getenv("GIN_MODE"); mode != "" {
 		gin.SetMode(mode)
@@ -45,7 +44,7 @@ func main() {
 	}
 	server := &http.Server{
 		Addr:              ":" + port,
-		Handler:           httpapi.NewRouter(services, services, services, config),
+		Handler:           httpapi.NewRouter(services, explainer, deck, config),
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 

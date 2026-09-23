@@ -70,6 +70,9 @@ func TestGoldenFixtures(t *testing.T) {
 			if tc.ExpectedBudgetUsed != nil && r.BudgetUsed != *tc.ExpectedBudgetUsed {
 				t.Fatalf("budget=%d", r.BudgetUsed)
 			}
+			if tc.Name == "brief_example_set" && (len(r.Synergies) != 1 || r.Synergies[0].Label != "M10 + M12: B1 +2 в районе M10" || r.Synergies[0].DistrictID != "nura") {
+				t.Fatalf("unexpected synergies: %#v", r.Synergies)
+			}
 			if tc.Expected != nil {
 				close(t, "dAvg", r.DAvgAfter, tc.Expected.DAvg)
 				close(t, "minD", r.MinDAfter, tc.Expected.MinD)
