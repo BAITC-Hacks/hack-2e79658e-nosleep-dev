@@ -2,7 +2,11 @@
 
 dev:
 	@test -f .env || (echo "Copy .env.example to .env first."; exit 1)
-	@test -f apps/web/package.json || (echo "apps/web/package.json is not present yet."; exit 1)
+	@test -f apps/web/package.json || (echo "apps/web/package.json is missing."; exit 1)
+	@if [ ! -x apps/web/node_modules/.bin/next ]; then \
+	  echo "Installing frontend dependencies from package-lock.json..."; \
+	  (cd apps/web && npm ci); \
+	fi
 	@set -eu; \
 	  set -a; . ./.env; set +a; \
 	  if [ -n "$${DATA_DIR:-}" ]; then case "$$DATA_DIR" in /*) ;; *) DATA_DIR="$$(pwd)/$$DATA_DIR"; export DATA_DIR;; esac; fi; \

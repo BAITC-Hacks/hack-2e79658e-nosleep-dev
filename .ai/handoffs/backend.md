@@ -1,6 +1,6 @@
-DONE: Resolved DATA_DIR for make dev; packaged data for Compose; passed full scenario facts to LLM; extended frontend explain timeout.
-ON BRANCH / MERGED: be/startup-integration pushed; PR #10 open against main.
-TESTED HOW: Go suite, frontend lint/build, make dev, seven API paths and web 200 in DEMO_MODE=true; Compose API healthy with event data.
-BROKEN / RISKY: no known runtime blocker from these checks.
-NEEDS (from whom): AI+data review internal/real adapter; frontend review api-client timeout in the PR.
-NEXT: collect AI+data and frontend review on PR #10, then merge after approval.
+DONE: PR #10 merged; main synced. make dev bootstraps npm; web image packages shared JSON; README and STATUS updated.
+ON BRANCH / MERGED: be/demo-readiness in isolated worktree; PR pending.
+TESTED HOW: Go suite, npm lint/build, verify.py; full Compose API healthy/web 200; three browser rehearsals incl. cached badge, optimum, compare; fresh make dev auto npm ci; Docker context 451 kB.
+BROKEN / RISKY: main Compose web stays HTTP 500 until this PR merges.
+NEEDS (from whom): AI+data and frontend review shared README/STATUS; one peer approval.
+NEXT: push PR, merge after peer approval, rehearse merged main.
