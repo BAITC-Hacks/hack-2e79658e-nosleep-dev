@@ -1794,7 +1794,7 @@
       "label": "recommendationOptions()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L308",
+      "source_location": "L312",
       "_origin": "ast",
       "id": "llm_llm_recommendationoptions",
       "community": 12,
@@ -1804,7 +1804,7 @@
       "label": "comparisonFacts()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L331",
+      "source_location": "L335",
       "_origin": "ast",
       "id": "llm_llm_comparisonfacts",
       "community": 12,
@@ -1814,7 +1814,7 @@
       "label": "cachedExplanation()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L358",
+      "source_location": "L362",
       "_origin": "ast",
       "id": "llm_llm_cachedexplanation",
       "community": 12,
@@ -1824,7 +1824,7 @@
       "label": "cachedComparison()",
       "file_type": "code",
       "source_file": "apps/api/internal/llm/llm.go",
-      "source_location": "L370",
+      "source_location": "L374",
       "_origin": "ast",
       "id": "llm_llm_cachedcomparison",
       "community": 12,
@@ -11462,9 +11462,9 @@
       "source_location": "L55",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "http_result",
-      "target": "synergy",
-      "confidence_score": 1.0
+      "target": "synergy"
     },
     {
       "relation": "references",
@@ -11543,9 +11543,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L331",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm",
-      "target": "llm_llm_comparisonfacts",
-      "confidence_score": 1.0
+      "target": "llm_llm_comparisonfacts"
     },
     {
       "relation": "contains",
@@ -11553,9 +11553,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L216",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm",
-      "target": "llm_llm_explanationfacts",
-      "confidence_score": 1.0
+      "target": "llm_llm_explanationfacts"
     },
     {
       "relation": "contains",
@@ -11563,9 +11563,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L260",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm",
-      "target": "llm_llm_groundedexplanation",
-      "confidence_score": 1.0
+      "target": "llm_llm_groundedexplanation"
     },
     {
       "relation": "contains",
@@ -11593,9 +11593,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L308",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm",
-      "target": "llm_llm_recommendationoptions",
-      "confidence_score": 1.0
+      "target": "llm_llm_recommendationoptions"
     },
     {
       "relation": "contains",
@@ -11603,9 +11603,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L199",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm",
-      "target": "llm_llm_validplaintext",
-      "confidence_score": 1.0
+      "target": "llm_llm_validplaintext"
     },
     {
       "relation": "contains",
@@ -11613,9 +11613,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L163",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm",
-      "target": "llm_llm_validrecommendations",
-      "confidence_score": 1.0
+      "target": "llm_llm_validrecommendations"
     },
     {
       "relation": "contains",
@@ -11623,9 +11623,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L180",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm",
-      "target": "llm_llm_validscenarioclaim",
-      "confidence_score": 1.0
+      "target": "llm_llm_validscenarioclaim"
     },
     {
       "relation": "contains",
@@ -11643,9 +11643,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm",
-      "target": "llm_recommendationresponse",
-      "confidence_score": 1.0
+      "target": "llm_recommendationresponse"
     },
     {
       "relation": "references",
@@ -11676,9 +11676,9 @@
       "source_location": "L260",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_groundedexplanation",
-      "target": "llm_explanation",
-      "confidence_score": 1.0
+      "target": "llm_explanation"
     },
     {
       "relation": "references",
@@ -11709,9 +11709,9 @@
       "source_location": "L331",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_comparisonfacts",
-      "target": "llm_namedresult",
-      "confidence_score": 1.0
+      "target": "llm_namedresult"
     },
     {
       "relation": "references",
@@ -11753,9 +11753,9 @@
       "source_location": "L216",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_explanationfacts",
-      "target": "apps_api_internal_llm_llm_go_result",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_go_result"
     },
     {
       "relation": "references",
@@ -11764,9 +11764,9 @@
       "source_location": "L260",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_groundedexplanation",
-      "target": "apps_api_internal_llm_llm_go_result",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_go_result"
     },
     {
       "relation": "references",
@@ -11775,9 +11775,9 @@
       "source_location": "L308",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_recommendationoptions",
-      "target": "apps_api_internal_llm_llm_go_result",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_go_result"
     },
     {
       "relation": "references",
@@ -11935,9 +11935,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L71",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_client_explain",
-      "target": "llm_llm_explanationfacts",
-      "confidence_score": 1.0
+      "target": "llm_llm_explanationfacts"
     },
     {
       "relation": "calls",
@@ -11946,9 +11946,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L73",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_client_explain",
-      "target": "llm_llm_groundedexplanation",
-      "confidence_score": 1.0
+      "target": "llm_llm_groundedexplanation"
     },
     {
       "relation": "calls",
@@ -11957,9 +11957,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L70",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_client_explain",
-      "target": "llm_llm_recommendationoptions",
-      "confidence_score": 1.0
+      "target": "llm_llm_recommendationoptions"
     },
     {
       "relation": "calls",
@@ -11968,9 +11968,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L72",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_client_explain",
-      "target": "llm_llm_validrecommendations",
-      "confidence_score": 1.0
+      "target": "llm_llm_validrecommendations"
     },
     {
       "relation": "references",
@@ -12034,9 +12034,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L88",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_client_compare",
-      "target": "llm_llm_comparisonfacts",
-      "confidence_score": 1.0
+      "target": "llm_llm_comparisonfacts"
     },
     {
       "relation": "calls",
@@ -12045,9 +12045,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L88",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_client_compare",
-      "target": "llm_llm_validscenarioclaim",
-      "confidence_score": 1.0
+      "target": "llm_llm_validscenarioclaim"
     },
     {
       "relation": "calls",
@@ -12100,9 +12100,9 @@
       "source_file": "apps/api/internal/llm/llm.go",
       "source_location": "L181",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_validscenarioclaim",
-      "target": "llm_llm_validplaintext",
-      "confidence_score": 1.0
+      "target": "llm_llm_validplaintext"
     },
     {
       "relation": "calls",
@@ -12154,9 +12154,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L156",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test",
-      "target": "llm_llm_test_testcomparesendsverifiedfactsonly",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testcomparesendsverifiedfactsonly"
     },
     {
       "relation": "contains",
@@ -12174,9 +12174,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L68",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test",
-      "target": "llm_llm_test_testexplainfallsbackafterungroundedretries",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testexplainfallsbackafterungroundedretries"
     },
     {
       "relation": "contains",
@@ -12184,9 +12184,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test",
-      "target": "llm_llm_test_testexplainretriesungroundedtext",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testexplainretriesungroundedtext"
     },
     {
       "relation": "contains",
@@ -12194,9 +12194,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L82",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test",
-      "target": "llm_llm_test_testexplanationfactscriticalpairsnotdistricts",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testexplanationfactscriticalpairsnotdistricts"
     },
     {
       "relation": "contains",
@@ -12204,9 +12204,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L89",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test",
-      "target": "llm_llm_test_testgroundedexplanationdoesnotassigncriticalindicatorstoweakestdistrict",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testgroundedexplanationdoesnotassigncriticalindicatorstoweakestdistrict"
     },
     {
       "relation": "contains",
@@ -12214,9 +12214,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test",
-      "target": "llm_llm_test_testnewfromenvusesopenaidefaults",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testnewfromenvusesopenaidefaults"
     },
     {
       "relation": "contains",
@@ -12224,9 +12224,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L101",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test",
-      "target": "llm_llm_test_testrecommendationoptionskeepcriticalindicatorsseparatefromdistrict",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testrecommendationoptionskeepcriticalindicatorsseparatefromdistrict"
     },
     {
       "relation": "contains",
@@ -12234,9 +12234,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L125",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test",
-      "target": "llm_llm_test_testrecommendationschemarequiresoneortwoitems",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testrecommendationschemarequiresoneortwoitems"
     },
     {
       "relation": "contains",
@@ -12244,9 +12244,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L182",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test",
-      "target": "llm_llm_test_testresult",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testresult"
     },
     {
       "relation": "contains",
@@ -12254,9 +12254,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L139",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test",
-      "target": "llm_llm_test_testscenarioclaimsrejectimplementedworkandunsupportedbudgetjudgment",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testscenarioclaimsrejectimplementedworkandunsupportedbudgetjudgment"
     },
     {
       "relation": "contains",
@@ -12264,9 +12264,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L116",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test",
-      "target": "llm_llm_test_testvalidplaintextallowsvaguequantity",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testvalidplaintextallowsvaguequantity"
     },
     {
       "relation": "references",
@@ -12275,9 +12275,9 @@
       "source_location": "L14",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testnewfromenvusesopenaidefaults",
-      "target": "apps_api_internal_llm_llm_test_go_t",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_test_go_t"
     },
     {
       "relation": "references",
@@ -12286,9 +12286,9 @@
       "source_location": "L156",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testcomparesendsverifiedfactsonly",
-      "target": "apps_api_internal_llm_llm_test_go_t",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_test_go_t"
     },
     {
       "relation": "references",
@@ -12308,9 +12308,9 @@
       "source_location": "L68",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testexplainfallsbackafterungroundedretries",
-      "target": "apps_api_internal_llm_llm_test_go_t",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_test_go_t"
     },
     {
       "relation": "references",
@@ -12319,9 +12319,9 @@
       "source_location": "L39",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testexplainretriesungroundedtext",
-      "target": "apps_api_internal_llm_llm_test_go_t",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_test_go_t"
     },
     {
       "relation": "references",
@@ -12330,9 +12330,9 @@
       "source_location": "L82",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testexplanationfactscriticalpairsnotdistricts",
-      "target": "apps_api_internal_llm_llm_test_go_t",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_test_go_t"
     },
     {
       "relation": "references",
@@ -12341,9 +12341,9 @@
       "source_location": "L89",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testgroundedexplanationdoesnotassigncriticalindicatorstoweakestdistrict",
-      "target": "apps_api_internal_llm_llm_test_go_t",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_test_go_t"
     },
     {
       "relation": "references",
@@ -12352,9 +12352,9 @@
       "source_location": "L101",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testrecommendationoptionskeepcriticalindicatorsseparatefromdistrict",
-      "target": "apps_api_internal_llm_llm_test_go_t",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_test_go_t"
     },
     {
       "relation": "references",
@@ -12363,9 +12363,9 @@
       "source_location": "L125",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testrecommendationschemarequiresoneortwoitems",
-      "target": "apps_api_internal_llm_llm_test_go_t",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_test_go_t"
     },
     {
       "relation": "references",
@@ -12374,9 +12374,9 @@
       "source_location": "L139",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testscenarioclaimsrejectimplementedworkandunsupportedbudgetjudgment",
-      "target": "apps_api_internal_llm_llm_test_go_t",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_test_go_t"
     },
     {
       "relation": "references",
@@ -12385,9 +12385,9 @@
       "source_location": "L116",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testvalidplaintextallowsvaguequantity",
-      "target": "apps_api_internal_llm_llm_test_go_t",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_test_go_t"
     },
     {
       "relation": "calls",
@@ -12396,9 +12396,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L62",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testexplainretriesungroundedtext",
-      "target": "llm_llm_test_testresult",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testresult"
     },
     {
       "relation": "calls",
@@ -12407,9 +12407,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L76",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testexplainfallsbackafterungroundedretries",
-      "target": "llm_llm_test_testresult",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testresult"
     },
     {
       "relation": "calls",
@@ -12418,9 +12418,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L83",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testexplanationfactscriticalpairsnotdistricts",
-      "target": "llm_llm_test_testresult",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testresult"
     },
     {
       "relation": "calls",
@@ -12429,9 +12429,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L90",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testgroundedexplanationdoesnotassigncriticalindicatorstoweakestdistrict",
-      "target": "llm_llm_test_testresult",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testresult"
     },
     {
       "relation": "calls",
@@ -12440,9 +12440,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L102",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testrecommendationoptionskeepcriticalindicatorsseparatefromdistrict",
-      "target": "llm_llm_test_testresult",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testresult"
     },
     {
       "relation": "calls",
@@ -12451,9 +12451,9 @@
       "source_file": "apps/api/internal/llm/llm_test.go",
       "source_location": "L175",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testcomparesendsverifiedfactsonly",
-      "target": "llm_llm_test_testresult",
-      "confidence_score": 1.0
+      "target": "llm_llm_test_testresult"
     },
     {
       "relation": "references",
@@ -12462,9 +12462,9 @@
       "source_location": "L182",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "llm_llm_test_testresult",
-      "target": "apps_api_internal_llm_llm_test_go_result",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_llm_llm_test_go_result"
     },
     {
       "relation": "contains",
@@ -12814,9 +12814,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_deck",
-      "confidence_score": 1.0
+      "target": "real_deck"
     },
     {
       "relation": "contains",
@@ -12824,9 +12824,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_engine",
-      "confidence_score": 1.0
+      "target": "real_engine"
     },
     {
       "relation": "contains",
@@ -12834,9 +12834,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_explainer",
-      "confidence_score": 1.0
+      "target": "real_explainer"
     },
     {
       "relation": "contains",
@@ -12844,9 +12844,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_services_decisions",
-      "confidence_score": 1.0
+      "target": "real_services_decisions"
     },
     {
       "relation": "contains",
@@ -12854,9 +12854,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L68",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_services_districts",
-      "confidence_score": 1.0
+      "target": "real_services_districts"
     },
     {
       "relation": "contains",
@@ -12864,9 +12864,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L133",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_services_explanation",
-      "confidence_score": 1.0
+      "target": "real_services_explanation"
     },
     {
       "relation": "contains",
@@ -12874,9 +12874,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L75",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_services_initiatives",
-      "confidence_score": 1.0
+      "target": "real_services_initiatives"
     },
     {
       "relation": "contains",
@@ -12884,9 +12884,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L48",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_services_newdeck",
-      "confidence_score": 1.0
+      "target": "real_services_newdeck"
     },
     {
       "relation": "contains",
@@ -12894,9 +12894,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_services_newengine",
-      "confidence_score": 1.0
+      "target": "real_services_newengine"
     },
     {
       "relation": "contains",
@@ -12904,9 +12904,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_services_newexplainer",
-      "confidence_score": 1.0
+      "target": "real_services_newexplainer"
     },
     {
       "relation": "contains",
@@ -12914,9 +12914,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L89",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_services_result",
-      "confidence_score": 1.0
+      "target": "real_services_result"
     },
     {
       "relation": "contains",
@@ -12924,9 +12924,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_services_toscoringdecisions",
-      "confidence_score": 1.0
+      "target": "real_services_toscoringdecisions"
     },
     {
       "relation": "contains",
@@ -12934,9 +12934,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L111",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_services_toscoringresult",
-      "confidence_score": 1.0
+      "target": "real_services_toscoringresult"
     },
     {
       "relation": "contains",
@@ -12944,9 +12944,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L82",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services",
-      "target": "real_services_violations",
-      "confidence_score": 1.0
+      "target": "real_services_violations"
     },
     {
       "relation": "method",
@@ -12954,9 +12954,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_engine",
-      "target": "real_engine_catalog",
-      "confidence_score": 1.0
+      "target": "real_engine_catalog"
     },
     {
       "relation": "method",
@@ -12964,9 +12964,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_engine",
-      "target": "real_engine_optimum",
-      "confidence_score": 1.0
+      "target": "real_engine_optimum"
     },
     {
       "relation": "method",
@@ -12974,9 +12974,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_engine",
-      "target": "real_engine_simulate",
-      "confidence_score": 1.0
+      "target": "real_engine_simulate"
     },
     {
       "relation": "references",
@@ -12985,9 +12985,9 @@
       "source_location": "L16",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_services_newengine",
-      "target": "real_engine",
-      "confidence_score": 1.0
+      "target": "real_engine"
     },
     {
       "relation": "calls",
@@ -13007,9 +13007,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_engine_catalog",
-      "target": "apps_api_internal_real_services_go_catalog",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_catalog"
     },
     {
       "relation": "calls",
@@ -13018,9 +13018,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_engine_catalog",
-      "target": "real_services_districts",
-      "confidence_score": 1.0
+      "target": "real_services_districts"
     },
     {
       "relation": "calls",
@@ -13029,9 +13029,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_engine_catalog",
-      "target": "real_services_initiatives",
-      "confidence_score": 1.0
+      "target": "real_services_initiatives"
     },
     {
       "relation": "references",
@@ -13040,9 +13040,9 @@
       "source_location": "L21",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "real_engine_simulate",
-      "target": "apps_api_internal_real_services_go_decision",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_decision"
     },
     {
       "relation": "references",
@@ -13051,9 +13051,9 @@
       "source_location": "L21",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_engine_simulate",
-      "target": "apps_api_internal_real_services_go_result",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_result"
     },
     {
       "relation": "references",
@@ -13062,9 +13062,9 @@
       "source_location": "L21",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_engine_simulate",
-      "target": "apps_api_internal_real_services_go_violation",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_violation"
     },
     {
       "relation": "calls",
@@ -13073,9 +13073,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_engine_simulate",
-      "target": "real_services_result",
-      "confidence_score": 1.0
+      "target": "real_services_result"
     },
     {
       "relation": "calls",
@@ -13084,9 +13084,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_engine_simulate",
-      "target": "real_services_toscoringdecisions",
-      "confidence_score": 1.0
+      "target": "real_services_toscoringdecisions"
     },
     {
       "relation": "calls",
@@ -13095,9 +13095,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_engine_simulate",
-      "target": "real_services_violations",
-      "confidence_score": 1.0
+      "target": "real_services_violations"
     },
     {
       "relation": "references",
@@ -13106,9 +13106,9 @@
       "source_location": "L33",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "real_explainer_explain",
-      "target": "apps_api_internal_real_services_go_decision",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_decision"
     },
     {
       "relation": "references",
@@ -13117,9 +13117,9 @@
       "source_location": "L61",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_services_decisions",
-      "target": "apps_api_internal_real_services_go_decision",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_decision"
     },
     {
       "relation": "references",
@@ -13128,9 +13128,9 @@
       "source_location": "L54",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_services_toscoringdecisions",
-      "target": "apps_api_internal_real_services_go_decision",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_decision"
     },
     {
       "relation": "references",
@@ -13139,9 +13139,9 @@
       "source_location": "L33",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "real_explainer_explain",
-      "target": "apps_api_internal_real_services_go_result",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_result"
     },
     {
       "relation": "references",
@@ -13150,9 +13150,9 @@
       "source_location": "L89",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_services_result",
-      "target": "apps_api_internal_real_services_go_result",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_result"
     },
     {
       "relation": "references",
@@ -13161,9 +13161,9 @@
       "source_location": "L111",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_services_toscoringresult",
-      "target": "apps_api_internal_real_services_go_result",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_result"
     },
     {
       "relation": "references",
@@ -13172,9 +13172,9 @@
       "source_location": "L82",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_services_violations",
-      "target": "apps_api_internal_real_services_go_violation",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_violation"
     },
     {
       "relation": "references",
@@ -13183,9 +13183,9 @@
       "source_location": "L25",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_engine_optimum",
-      "target": "apps_api_internal_real_services_go_optimumresult",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_optimumresult"
     },
     {
       "relation": "calls",
@@ -13194,9 +13194,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L27",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_engine_optimum",
-      "target": "real_services_decisions",
-      "confidence_score": 1.0
+      "target": "real_services_decisions"
     },
     {
       "relation": "method",
@@ -13204,9 +13204,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_explainer",
-      "target": "real_explainer_compare",
-      "confidence_score": 1.0
+      "target": "real_explainer_compare"
     },
     {
       "relation": "method",
@@ -13214,9 +13214,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_explainer",
-      "target": "real_explainer_explain",
-      "confidence_score": 1.0
+      "target": "real_explainer_explain"
     },
     {
       "relation": "references",
@@ -13225,9 +13225,9 @@
       "source_location": "L32",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_services_newexplainer",
-      "target": "real_explainer",
-      "confidence_score": 1.0
+      "target": "real_explainer"
     },
     {
       "relation": "references",
@@ -13236,9 +13236,9 @@
       "source_location": "L33",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "real_explainer_explain",
-      "target": "apps_api_internal_real_services_go_context",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_context"
     },
     {
       "relation": "references",
@@ -13247,9 +13247,9 @@
       "source_location": "L33",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_explainer_explain",
-      "target": "apps_api_internal_real_services_go_explanation",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_explanation"
     },
     {
       "relation": "calls",
@@ -13258,9 +13258,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_explainer_explain",
-      "target": "real_services_explanation",
-      "confidence_score": 1.0
+      "target": "real_services_explanation"
     },
     {
       "relation": "calls",
@@ -13269,9 +13269,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L34",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_explainer_explain",
-      "target": "real_services_toscoringdecisions",
-      "confidence_score": 1.0
+      "target": "real_services_toscoringdecisions"
     },
     {
       "relation": "calls",
@@ -13280,9 +13280,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L34",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_explainer_explain",
-      "target": "real_services_toscoringresult",
-      "confidence_score": 1.0
+      "target": "real_services_toscoringresult"
     },
     {
       "relation": "references",
@@ -13291,9 +13291,9 @@
       "source_location": "L37",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "real_explainer_compare",
-      "target": "apps_api_internal_real_services_go_context",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_context"
     },
     {
       "relation": "references",
@@ -13302,9 +13302,9 @@
       "source_location": "L133",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_services_explanation",
-      "target": "apps_api_internal_real_services_go_explanation",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_explanation"
     },
     {
       "relation": "references",
@@ -13313,9 +13313,9 @@
       "source_location": "L37",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_explainer_compare",
-      "target": "apps_api_internal_real_services_go_comparison",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_comparison"
     },
     {
       "relation": "references",
@@ -13324,9 +13324,9 @@
       "source_location": "L37",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "real_explainer_compare",
-      "target": "apps_api_internal_real_services_go_namedresult",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_namedresult"
     },
     {
       "relation": "calls",
@@ -13335,9 +13335,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L40",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_explainer_compare",
-      "target": "real_services_toscoringresult",
-      "confidence_score": 1.0
+      "target": "real_services_toscoringresult"
     },
     {
       "relation": "method",
@@ -13345,9 +13345,9 @@
       "source_file": "apps/api/internal/real/services.go",
       "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_deck",
-      "target": "real_deck_draw",
-      "confidence_score": 1.0
+      "target": "real_deck_draw"
     },
     {
       "relation": "references",
@@ -13356,9 +13356,9 @@
       "source_location": "L48",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_services_newdeck",
-      "target": "real_deck",
-      "confidence_score": 1.0
+      "target": "real_deck"
     },
     {
       "relation": "references",
@@ -13367,9 +13367,9 @@
       "source_location": "L49",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_deck_draw",
-      "target": "apps_api_internal_real_services_go_event",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_event"
     },
     {
       "relation": "references",
@@ -13378,9 +13378,9 @@
       "source_location": "L68",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_services_districts",
-      "target": "apps_api_internal_real_services_go_district",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_district"
     },
     {
       "relation": "references",
@@ -13389,9 +13389,9 @@
       "source_location": "L75",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "real_services_initiatives",
-      "target": "apps_api_internal_real_services_go_initiative",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_go_initiative"
     },
     {
       "relation": "contains",
@@ -13399,9 +13399,9 @@
       "source_file": "apps/api/internal/real/services_test.go",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "real_services_test",
-      "target": "real_services_test_testrealadapterpreservesexplanationfacts",
-      "confidence_score": 1.0
+      "target": "real_services_test_testrealadapterpreservesexplanationfacts"
     },
     {
       "relation": "references",
@@ -13410,9 +13410,9 @@
       "source_location": "L9",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "real_services_test_testrealadapterpreservesexplanationfacts",
-      "target": "apps_api_internal_real_services_test_go_t",
-      "confidence_score": 1.0
+      "target": "apps_api_internal_real_services_test_go_t"
     },
     {
       "relation": "contains",
@@ -13721,9 +13721,9 @@
       "source_location": "L67",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "scoring_result",
-      "target": "scoring_synergy",
-      "confidence_score": 1.0
+      "target": "scoring_synergy"
     },
     {
       "relation": "references",
@@ -13732,9 +13732,9 @@
       "source_location": "L106",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "scoring_rules",
-      "target": "scoring_synergy",
-      "confidence_score": 1.0
+      "target": "scoring_synergy"
     },
     {
       "relation": "references",
@@ -15839,9 +15839,9 @@
       "source_file": "apps/web/src/components/scenario-compare.tsx",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_scenario_compare",
-      "target": "components_scenario_compare_scenariocompare",
-      "confidence_score": 1.0
+      "target": "components_scenario_compare_scenariocompare"
     },
     {
       "relation": "imports_from",
@@ -15850,9 +15850,9 @@
       "source_file": "apps/web/src/components/scenario-compare.tsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_scenario_compare",
-      "target": "lib_api_client",
-      "confidence_score": 1.0
+      "target": "lib_api_client"
     },
     {
       "relation": "imports",
@@ -15861,9 +15861,9 @@
       "source_file": "apps/web/src/components/scenario-compare.tsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_scenario_compare",
-      "target": "lib_api_client_api",
-      "confidence_score": 1.0
+      "target": "lib_api_client_api"
     },
     {
       "relation": "imports_from",
@@ -15872,9 +15872,9 @@
       "source_file": "apps/web/src/components/scenario-compare.tsx",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_scenario_compare",
-      "target": "lib_types",
-      "confidence_score": 1.0
+      "target": "lib_types"
     },
     {
       "relation": "imports",
@@ -15883,9 +15883,9 @@
       "source_file": "apps/web/src/components/scenario-compare.tsx",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_scenario_compare",
-      "target": "lib_types_compareresponse",
-      "confidence_score": 1.0
+      "target": "lib_types_compareresponse"
     },
     {
       "relation": "imports",
@@ -15894,9 +15894,9 @@
       "source_file": "apps/web/src/components/scenario-compare.tsx",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_scenario_compare",
-      "target": "lib_types_savedscenario",
-      "confidence_score": 1.0
+      "target": "lib_types_savedscenario"
     },
     {
       "relation": "imports_from",
@@ -15905,9 +15905,9 @@
       "source_file": "apps/web/src/components/scenario-compare.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_scenario_compare",
-      "target": "ui_badge",
-      "confidence_score": 1.0
+      "target": "ui_badge"
     },
     {
       "relation": "imports",
@@ -15916,9 +15916,9 @@
       "source_file": "apps/web/src/components/scenario-compare.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_scenario_compare",
-      "target": "ui_badge_badge",
-      "confidence_score": 1.0
+      "target": "ui_badge_badge"
     },
     {
       "relation": "imports_from",
@@ -15927,9 +15927,9 @@
       "source_file": "apps/web/src/components/scenario-compare.tsx",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_scenario_compare",
-      "target": "ui_button",
-      "confidence_score": 1.0
+      "target": "ui_button"
     },
     {
       "relation": "imports",
@@ -15938,9 +15938,9 @@
       "source_file": "apps/web/src/components/scenario-compare.tsx",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_scenario_compare",
-      "target": "ui_button_button",
-      "confidence_score": 1.0
+      "target": "ui_button_button"
     },
     {
       "relation": "imports_from",
@@ -15949,9 +15949,9 @@
       "source_file": "apps/web/src/components/simulator.tsx",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_simulator",
-      "target": "components_scenario_compare",
-      "confidence_score": 1.0
+      "target": "components_scenario_compare"
     },
     {
       "relation": "imports",
@@ -15960,9 +15960,9 @@
       "source_file": "apps/web/src/components/simulator.tsx",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_simulator",
-      "target": "components_scenario_compare_scenariocompare",
-      "confidence_score": 1.0
+      "target": "components_scenario_compare_scenariocompare"
     },
     {
       "relation": "contains",
@@ -16204,9 +16204,9 @@
       "source_file": "apps/web/src/components/simulator.tsx",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_simulator",
-      "target": "lib_types_savedscenario",
-      "confidence_score": 1.0
+      "target": "lib_types_savedscenario"
     },
     {
       "relation": "imports",
@@ -17242,9 +17242,9 @@
       "source_file": "apps/web/src/lib/api-client.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_api_client",
-      "target": "lib_types_compareresponse",
-      "confidence_score": 1.0
+      "target": "lib_types_compareresponse"
     },
     {
       "relation": "imports",
@@ -17371,9 +17371,9 @@
       "source_file": "apps/web/src/lib/types.ts",
       "source_location": "L94",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_types",
-      "target": "lib_types_compareresponse",
-      "confidence_score": 1.0
+      "target": "lib_types_compareresponse"
     },
     {
       "relation": "contains",
@@ -17381,9 +17381,9 @@
       "source_file": "apps/web/src/lib/types.ts",
       "source_location": "L88",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_types",
-      "target": "lib_types_comparescenarioresult",
-      "confidence_score": 1.0
+      "target": "lib_types_comparescenarioresult"
     },
     {
       "relation": "contains",
@@ -17491,9 +17491,9 @@
       "source_file": "apps/web/src/lib/types.ts",
       "source_location": "L78",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_types",
-      "target": "lib_types_savedscenario",
-      "confidence_score": 1.0
+      "target": "lib_types_savedscenario"
     },
     {
       "relation": "contains",
@@ -17511,9 +17511,9 @@
       "source_file": "apps/web/src/lib/types.ts",
       "source_location": "L86",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_types",
-      "target": "lib_types_simulationresult",
-      "confidence_score": 1.0
+      "target": "lib_types_simulationresult"
     },
     {
       "relation": "contains",
@@ -17962,9 +17962,9 @@
       "source_file": ".ai/STATUS.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ai_status",
-      "target": "ai_status_status_demo_readiness",
-      "confidence_score": 1.0
+      "target": "ai_status_status_demo_readiness"
     },
     {
       "relation": "contains",
@@ -18122,9 +18122,9 @@
       "source_file": "DEMO.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "demo",
-      "target": "demo_\u0434\u0435\u043c\u043e_\u0437\u0430_60_\u0441\u0435\u043a\u0443\u043d\u0434_\u0430\u043a\u0438\u043c_\u043d\u0430_5_\u0447\u0430\u0441\u043e\u0432",
-      "confidence_score": 1.0
+      "target": "demo_\u0434\u0435\u043c\u043e_\u0437\u0430_60_\u0441\u0435\u043a\u0443\u043d\u0434_\u0430\u043a\u0438\u043c_\u043d\u0430_5_\u0447\u0430\u0441\u043e\u0432"
     },
     {
       "relation": "contains",
@@ -18132,9 +18132,9 @@
       "source_file": "DEMO.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "demo_\u0434\u0435\u043c\u043e_\u0437\u0430_60_\u0441\u0435\u043a\u0443\u043d\u0434_\u0430\u043a\u0438\u043c_\u043d\u0430_5_\u0447\u0430\u0441\u043e\u0432",
-      "target": "demo_\u043f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430_\u043d\u0435_\u0432\u0445\u043e\u0434\u0438\u0442_\u0432_\u043c\u0438\u043d\u0443\u0442\u0443",
-      "confidence_score": 1.0
+      "target": "demo_\u043f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430_\u043d\u0435_\u0432\u0445\u043e\u0434\u0438\u0442_\u0432_\u043c\u0438\u043d\u0443\u0442\u0443"
     },
     {
       "relation": "contains",
@@ -18142,9 +18142,9 @@
       "source_file": "DEMO.md",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "demo_\u0434\u0435\u043c\u043e_\u0437\u0430_60_\u0441\u0435\u043a\u0443\u043d\u0434_\u0430\u043a\u0438\u043c_\u043d\u0430_5_\u0447\u0430\u0441\u043e\u0432",
-      "target": "demo_\u0440\u0435\u0447\u044c_\u0438_\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f",
-      "confidence_score": 1.0
+      "target": "demo_\u0440\u0435\u0447\u044c_\u0438_\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f"
     },
     {
       "relation": "contains",
@@ -18152,9 +18152,9 @@
       "source_file": "DEMO.md",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "demo_\u0434\u0435\u043c\u043e_\u0437\u0430_60_\u0441\u0435\u043a\u0443\u043d\u0434_\u0430\u043a\u0438\u043c_\u043d\u0430_5_\u0447\u0430\u0441\u043e\u0432",
-      "target": "demo_\u0447\u0442\u043e_\u043f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c_\u043f\u0440\u044f\u043c\u043e_\u043f\u0435\u0440\u0435\u0434_\u0432\u044b\u0445\u043e\u0434\u043e\u043c",
-      "confidence_score": 1.0
+      "target": "demo_\u0447\u0442\u043e_\u043f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c_\u043f\u0440\u044f\u043c\u043e_\u043f\u0435\u0440\u0435\u0434_\u0432\u044b\u0445\u043e\u0434\u043e\u043c"
     },
     {
       "relation": "references",
@@ -20163,5 +20163,5 @@
       "weight": 1.0
     }
   ],
-  "built_at_commit": "8095662a739b91629fb52c76d4bd1483192b1fa5"
+  "built_at_commit": "fa9ac0aa80a5b3b0814dd9e8b04c4d31e6f65486"
 }
