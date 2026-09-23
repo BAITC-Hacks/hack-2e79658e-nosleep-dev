@@ -1,6 +1,6 @@
-DONE: PR #10 merged; main synced. make dev bootstraps npm; web image packages shared JSON; README and STATUS updated.
-ON BRANCH / MERGED: be/demo-readiness pushed; PR #13 open against main.
-TESTED HOW: Go suite, npm lint/build, verify.py; full Compose API healthy/web 200; three browser rehearsals incl. cached badge, optimum, compare; fresh make dev auto npm ci; Docker context 451 kB.
-BROKEN / RISKY: main Compose web stays HTTP 500 until this PR merges.
-NEEDS (from whom): AI+data and frontend review shared README/STATUS; one peer approval.
-NEXT: collect peer approval on PR #13, merge, rehearse merged main.
+DONE: OpenAI key verified; schema now requires nonempty explanation lists and permits grounded vague quantities.
+ON BRANCH / MERGED: codex/openai-api-default; PR creation pending.
+TESTED HOW: OpenAI auth/chat HTTP 200; /explain and /compare HTTP 200 source=live; go test ./... passed.
+BROKEN / RISKY: Existing port 8000 process may need restart to load the key and new code; missing/invalid key still returns cached.
+NEEDS (from whom): User/team to open PR (GitHub connector 404; credential workaround rejected by auto-review); AI+data review and peer approval.
+NEXT: Push fix, restart make dev, merge reviewed PR.

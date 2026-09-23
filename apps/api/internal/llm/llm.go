@@ -47,11 +47,15 @@ func NewFromEnv() *Client {
 	if n, err := strconv.Atoi(os.Getenv("LLM_TIMEOUT_SECONDS")); err == nil && n > 0 {
 		timeout = time.Duration(n) * time.Second
 	}
-	base := os.Getenv("LLM_BASE_URL")
+	base := strings.TrimSpace(os.Getenv("LLM_BASE_URL"))
 	if base == "" {
-		base = "https://integrate.api.nvidia.com/v1"
+		base = "https://api.openai.com/v1"
 	}
-	return &Client{baseURL: strings.TrimRight(base, "/"), apiKey: os.Getenv("LLM_API_KEY"), model: os.Getenv("LLM_MODEL"), demo: strings.EqualFold(os.Getenv("DEMO_MODE"), "true"), http: &http.Client{Timeout: timeout}}
+	model := strings.TrimSpace(os.Getenv("LLM_MODEL"))
+	if model == "" {
+		model = "gpt-4.1-mini"
+	}
+	return &Client{baseURL: strings.TrimRight(base, "/"), apiKey: strings.TrimSpace(os.Getenv("OPENAI_API_KEY")), model: model, demo: strings.EqualFold(os.Getenv("DEMO_MODE"), "true"), http: &http.Client{Timeout: timeout}}
 }
 
 func (c *Client) Explain(ctx context.Context, _ []scoring.Decision, result *scoring.Result) Explanation {
@@ -141,9 +145,9 @@ func jsonSchema(out any) map[string]any {
 	required := []string{"summary"}
 	if _, ok := out.(*Explanation); ok {
 		items := map[string]string{"type": "string"}
-		properties["strengths"] = map[string]any{"type": "array", "items": items}
-		properties["risks"] = map[string]any{"type": "array", "items": items}
-		properties["recommendations"] = map[string]any{"type": "array", "items": items}
+		properties["strengths"] = map[string]any{"type": "array", "items": items, "minItems": 1}
+		properties["risks"] = map[string]any{"type": "array", "items": items, "minItems": 1}
+		properties["recommendations"] = map[string]any{"type": "array", "items": items, "minItems": 1}
 		required = append(required, "strengths", "risks", "recommendations")
 	}
 	return map[string]any{"type": "json_schema", "json_schema": map[string]any{"name": "city_explanation", "strict": true, "schema": map[string]any{"type": "object", "properties": properties, "required": required, "additionalProperties": false}}}
@@ -172,7 +176,7 @@ func validPlainText(s string) bool {
 	}
 	for _, word := range strings.FieldsFunc(strings.ToLower(s), func(r rune) bool { return !unicode.IsLetter(r) }) {
 		switch word {
-		case "один", "одна", "одно", "две", "два", "двух", "три", "трёх", "трех", "четыре", "четырёх", "четырех", "пять", "пяти", "несколько", "нескольких":
+		case "один", "одна", "одно", "две", "два", "двух", "три", "трёх", "трех", "четыре", "четырёх", "четырех", "пять", "пяти":
 			return false
 		}
 	}
