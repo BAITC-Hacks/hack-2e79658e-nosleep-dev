@@ -1,0 +1,6 @@
+[
+  {"id":"heating-failure-almaty","title":"Авария теплосети","description":"В старом квартале Алматы произошёл прорыв магистрали; часть домов временно осталась без тепла и горячей воды.","districtId":"almaty","shocks":{"C1":-15,"E2":-3},"budgetDelta":-10},
+  {"id":"smog-saryarka","title":"Неделя сильного смога","description":"Безветренная погода усилила загрязнение воздуха в районе частного сектора.","districtId":"saryarka","shocks":{"E1":-12,"E2":-8},"budgetDelta":0},
+  {"id":"school-overload-yesil","title":"Переполнение школ","description":"После ввода новых ЖК нагрузка на школы Есиля резко выросла.","districtId":"yesil","shocks":{"S1":-10,"T1":-3},"budgetDelta":-5},
+  {"id":"bridge-closure-nura","title":"Ремонт моста","description":"Внеплановый ремонт ограничил движение через ключевой мост Нуры.","districtId":"nura","shocks":{"T1":-12,"T2":-8},"budgetDelta":-8}
+]
