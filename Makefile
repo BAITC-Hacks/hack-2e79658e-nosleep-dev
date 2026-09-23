@@ -5,6 +5,7 @@ dev:
 	@test -f apps/web/package.json || (echo "apps/web/package.json is not present yet."; exit 1)
 	@set -eu; \
 	  set -a; . ./.env; set +a; \
+	  if [ -n "$${DATA_DIR:-}" ]; then case "$$DATA_DIR" in /*) ;; *) DATA_DIR="$$(pwd)/$$DATA_DIR"; export DATA_DIR;; esac; fi; \
 	  (cd apps/api && go run ./cmd/server) & api_pid=$$!; \
 	  (cd apps/web && npm run dev -- --hostname 0.0.0.0) & web_pid=$$!; \
 	  trap 'kill $$api_pid $$web_pid 2>/dev/null || true; wait $$api_pid $$web_pid 2>/dev/null || true' EXIT INT TERM; \

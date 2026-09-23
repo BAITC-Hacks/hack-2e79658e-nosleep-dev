@@ -1,6 +1,6 @@
-DONE: Gin API, health/CORS, error envelope, fixture services for all routes, validation, tests, Makefile, Compose, Dockerfiles.
-ON BRANCH / MERGED: be/api-bootstrap; commit 8b5be3f pushed to origin.
-TESTED HOW: `go test ./...`, `go vet ./...`, and built binary `/health` smoke check pass.
-BROKEN / RISKY: `apps/web/package.json` is not present yet; `make dev` and Compose await the frontend scaffold.
-NEEDS (from whom): AI+data to confirm shared DTO ownership; HTTP mirrors the Go interface locally pending real package types.
-NEXT: swap the fixture service constructor after AI/data services land; adapt the HTTP DTO boundary if their concrete types differ.
+DONE: Resolved DATA_DIR for make dev; packaged data for Compose; passed full scenario facts to LLM; extended frontend explain timeout.
+ON BRANCH / MERGED: be/startup-integration in an isolated worktree; PR pending.
+TESTED HOW: Go suite, frontend lint/build, make dev, seven API paths and web 200 in DEMO_MODE=true; Compose API healthy with event data.
+BROKEN / RISKY: no known runtime blocker from these checks.
+NEEDS (from whom): AI+data review internal/real adapter; frontend review api-client timeout in the PR.
+NEXT: push PR for AI+data and frontend review, then merge after approval.
