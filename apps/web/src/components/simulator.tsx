@@ -1,16 +1,18 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ArrowRight, Check, ChevronRight, CircleAlert, LoaderCircle, RotateCcw, X } from "lucide-react";
+import { ArrowRight, BookmarkPlus, Check, ChevronRight, CircleAlert, LoaderCircle, RotateCcw, X } from "lucide-react";
 
 import { CityMap } from "@/components/city-map";
+import { ScenarioCompare } from "@/components/scenario-compare";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { api, USE_MOCKS } from "@/lib/api-client";
-import type { CatalogResponse, Decision, ExplainResponse, OptimumResponse, SimulationResponse } from "@/lib/types";
+import type { CatalogResponse, Decision, ExplainResponse, OptimumResponse, SavedScenario, SimulationResponse } from "@/lib/types";
 
 const directionLabels = { transport: "Транспорт", ecology: "Экология", social: "Соцсфера", safety: "Безопасность", services: "Сервисы" };
+const SCENARIO_STORAGE_KEY = "akim-5h-scenarios-v1";
 
 export function Simulator() {
   const [catalog, setCatalog] = useState<CatalogResponse | null>(null);
@@ -25,6 +27,9 @@ export function Simulator() {
   const [optimum, setOptimum] = useState<OptimumResponse | null>(null);
   const [explaining, setExplaining] = useState(false);
   const [retryNonce, setRetryNonce] = useState(0);
+  const [savedScenarios, setSavedScenarios] = useState<SavedScenario[]>([]);
+  const [scenarioLabel, setScenarioLabel] = useState("Сценарий 1");
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -44,6 +49,22 @@ export function Simulator() {
     const timer = window.setTimeout(() => void load(), 0);
     return () => window.clearTimeout(timer);
   }, [load]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      try {
+        const stored = JSON.parse(window.localStorage.getItem(SCENARIO_STORAGE_KEY) ?? "[]");
+        if (Array.isArray(stored)) {
+          const next = stored.slice(0, 3) as SavedScenario[];
+          setSavedScenarios(next);
+          setScenarioLabel(`Сценарий ${next.length + 1}`);
+        }
+      } catch {
+        window.localStorage.removeItem(SCENARIO_STORAGE_KEY);
+      }
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (!catalog) return;
@@ -92,6 +113,34 @@ export function Simulator() {
     } finally { setExplaining(false); }
   }
 
+  function persistScenarios(next: SavedScenario[]) {
+    setSavedScenarios(next);
+    window.localStorage.setItem(SCENARIO_STORAGE_KEY, JSON.stringify(next));
+  }
+
+  function saveScenario() {
+    const label = scenarioLabel.trim();
+    const currentSimulation = simulation;
+    if (!currentSimulation?.submittable || !currentSimulation.score) return;
+    if (!label) { setSaveMessage("Добавьте название сценария"); return; }
+    if (savedScenarios.length >= 3) { setSaveMessage("Можно сохранить не более трёх сценариев"); return; }
+    const next = [...savedScenarios, {
+      id: window.crypto.randomUUID(),
+      label,
+      decisions: structuredClone(decisions),
+      result: structuredClone(currentSimulation),
+      createdAt: new Date().toISOString(),
+    }];
+    persistScenarios(next);
+    setScenarioLabel(`Сценарий ${next.length + 1}`);
+    setSaveMessage("Сценарий сохранён");
+  }
+
+  function removeScenario(id: string) {
+    persistScenarios(savedScenarios.filter((scenario) => scenario.id !== id));
+    setSaveMessage(null);
+  }
+
   if (loading) return <div className="loading-state"><LoaderCircle className="spin" /> Загружаем городские данные…</div>;
   if (!catalog || !simulation) {
     return <div className="empty-state"><p>{error ?? "Каталог пока пуст"}</p><Button onClick={() => void load()}>Повторить</Button></div>;
@@ -101,7 +150,7 @@ export function Simulator() {
     <>
       <nav className="nav-bar">
         <a className="wordmark" href="#top"><span />АКИМ / 5Ч</a>
-        <div className="nav-meta"><span className={`status-dot ${health}`} /> API {USE_MOCKS ? "mock" : health}<a href="#simulator">Симулятор</a></div>
+        <div className="nav-meta"><span className={`status-dot ${health}`} /> API {USE_MOCKS ? "mock" : health}<a href="#simulator">Симулятор</a>{savedScenarios.length > 0 && <a href="#compare">Сравнение</a>}</div>
       </nav>
 
       <header className="hero" id="top">
@@ -163,6 +212,19 @@ export function Simulator() {
           {optimum && simulation.score && <div className="result-benchmark"><div><span>От лучшего сценария</span><strong>{Math.min(100, (simulation.score / optimum.bestScore) * 100).toFixed(1)}%</strong></div><Progress value={Math.min(100, (simulation.score / optimum.bestScore) * 100)} /><p>Ваш результат {simulation.score.toFixed(2)} из оптимальных {optimum.bestScore.toFixed(2)}</p></div>}
           <p className="result-summary">{explanation.explanation.summary}</p>
           <div className="result-grid"><ResultColumn title="Что сработало" items={explanation.explanation.strengths} positive /><ResultColumn title="Риски" items={explanation.explanation.risks} /><ResultColumn title="Следующий шаг" items={explanation.explanation.recommendations} /></div>
+          <div className="save-scenario">
+            <div><span>Сохранить для сравнения</span><p>Сценарий останется только в этом браузере.</p></div>
+            <label><span className="sr-only">Название сценария</span><input value={scenarioLabel} onChange={(event) => { setScenarioLabel(event.target.value); setSaveMessage(null); }} maxLength={80} /></label>
+            <Button onClick={saveScenario} disabled={savedScenarios.length >= 3}><BookmarkPlus size={16} /> Сохранить</Button>
+            {saveMessage && <small>{saveMessage}</small>}
+          </div>
+        </section>
+      )}
+
+      {savedScenarios.length > 0 && (
+        <section className="compare-section" id="compare">
+          <div className="compare-heading"><div className="eyebrow dark">A/B/C / ЛОКАЛЬНЫЕ СЦЕНАРИИ</div><h2>Сравните решения</h2></div>
+          <ScenarioCompare scenarios={savedScenarios} onRemove={removeScenario} />
         </section>
       )}
     </>
