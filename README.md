@@ -181,6 +181,7 @@ flowchart LR
 ~~~bash
 python3 scripts/verify.py
 cd apps/api && go test ./...
+
 ~~~
 
 Ожидаемые опорные значения: `BASE Score=52.5650`, `EX Score=56.4851`. Go-тесты проверяют scoring, HTTP, LLM-клиент, optimizer и события. Проверены `npm run lint` и `npm run build` для веб-приложения.
