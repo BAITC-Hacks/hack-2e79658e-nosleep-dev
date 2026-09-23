@@ -1,6 +1,6 @@
-DONE:
-ON BRANCH / MERGED:
-TESTED HOW:
-BROKEN / RISKY:
-NEEDS (from whom):
-NEXT: implement internal/scoring exactly per contracts/scoring.md, loading data/districts.json, data/initiatives.json, data/rules.json via go:embed. Write it as a table-driven test over every case in data/fixtures/golden.json (9 invalid + 3 valid) — that's your acceptance bar for Checkpoint 1. Then internal/llm (NVIDIA NIM client, structured output, DEMO_MODE + 1-retry-then-cached-fallback per contracts/api.md). See .ai/PLAN.md's task table and .ai/prompts/ai-data.md if pasting into a fresh agent.
+DONE: scoring engine pushed (b9c86a5); LLM client added with JSON Schema, 2 attempts, 25s default timeout, stdout logs, DEMO_MODE/no-key cached response.
+ON BRANCH / MERGED: ai/scoring / not yet merged.
+TESTED HOW: GO111MODULE=off go test ./apps/api/internal/scoring (PASS); LLM compile pending apps/api/go.mod.
+BROKEN / RISKY: Go cannot go:embed root data/ from module apps/api; loader uses canonical root data/ and supports DATA_DIR.
+NEEDS (from whom): Backend: create apps/api/go.mod, wire scoring.New()/llm.NewFromEnv(), decide on mirrored embedded data assets.
+NEXT: push LLM, then optimizer/events only after backend wiring confirms types.
