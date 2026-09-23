@@ -11,6 +11,18 @@ import (
 	"akim5/api/internal/scoring"
 )
 
+func TestNewFromEnvUsesOpenAIDefaults(t *testing.T) {
+	t.Setenv("LLM_BASE_URL", "")
+	t.Setenv("LLM_MODEL", "")
+	t.Setenv("OPENAI_API_KEY", "test-key")
+	t.Setenv("DEMO_MODE", "false")
+
+	c := NewFromEnv()
+	if c.baseURL != "https://api.openai.com/v1" || c.model != "gpt-4.1-mini" || c.apiKey != "test-key" || c.demo {
+		t.Fatalf("unexpected OpenAI defaults: baseURL=%q model=%q keySet=%t demo=%t", c.baseURL, c.model, c.apiKey != "", c.demo)
+	}
+}
+
 func TestDemoModeNeverUsesNetworkAndIsClearlyCached(t *testing.T) {
 	c := NewFromEnv()
 	c.demo = true
