@@ -51,16 +51,16 @@ func TestExplainRetriesUngroundedText(t *testing.T) {
 		if len(body.Messages) != 2 || !strings.Contains(body.Messages[1].Content, "verifiedFacts") || strings.Contains(body.Messages[1].Content, "scoreAfter") {
 			t.Fatalf("provider received ungrounded input: %#v", body.Messages)
 		}
-		answer := `{"summary":"Показатель города вырос на 3.78%. Во двух районах остались проблемы.","strengths":["Показатель вырос"],"risks":["Риск"],"recommendations":["Продолжайте работу"]}`
+		answer := `{"recommendations":["Показатель города вырос на 3.78%."]}`
 		if requests == 2 {
-			answer = `{"summary":"Городской показатель улучшился.","strengths":["Критических показателей не осталось."],"risks":["Бюджет почти исчерпан."],"recommendations":["Уделите внимание самому слабому району."]}`
+			answer = `{"recommendations":["Проверьте показатели района Нура в альтернативном сценарии."]}`
 		}
 		_ = json.NewEncoder(w).Encode(map[string]any{"choices": []any{map[string]any{"message": map[string]string{"content": answer}}}})
 	}))
 	defer provider.Close()
 	c := &Client{baseURL: provider.URL, apiKey: "test", model: "test", http: provider.Client()}
 	got := c.Explain(context.Background(), nil, testResult())
-	if requests != 2 || got.Source != "live" || strings.Contains(got.Summary, "%") {
+	if requests != 2 || got.Source != "live" || strings.Contains(got.Summary, "%") || !strings.Contains(got.Summary, "критических показателей не осталось") {
 		t.Fatalf("want grounded live result after retry; requests=%d result=%#v", requests, got)
 	}
 }
@@ -69,7 +69,7 @@ func TestExplainFallsBackAfterUngroundedRetries(t *testing.T) {
 	requests := 0
 	provider := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		requests++
-		_, _ = w.Write([]byte(`{"choices":[{"message":{"content":"{\"summary\":\"Рост на 3.78%\",\"strengths\":[\"Хорошо\"],\"risks\":[\"Риск\"],\"recommendations\":[\"Продолжайте\"]}"}}]}`))
+		_, _ = w.Write([]byte(`{"choices":[{"message":{"content":"{\"recommendations\":[\"Рост на 3.78%\"]}"}}]}`))
 	}))
 	defer provider.Close()
 	c := &Client{baseURL: provider.URL, apiKey: "test", model: "test", http: provider.Client()}
@@ -86,6 +86,33 @@ func TestExplanationFactsCriticalPairsNotDistricts(t *testing.T) {
 	}
 }
 
+func TestGroundedExplanationDoesNotAssignCriticalIndicatorsToWeakestDistrict(t *testing.T) {
+	r := testResult()
+	r.CriticalAfter = 1
+	got := groundedExplanation(r)
+	if !strings.Contains(got.Summary, "критических показателей стало меньше") || strings.Contains(got.Summary, "Нура") {
+		t.Fatalf("summary must describe the calculation without inventing a district: %q", got.Summary)
+	}
+	if len(got.Risks) != 2 || !strings.Contains(got.Risks[0], "критические показатели") || !strings.Contains(got.Risks[1], "Нура") {
+		t.Fatalf("risks must keep critical indicators and weakest district separate: %#v", got.Risks)
+	}
+}
+
+func TestRecommendationOptionsKeepCriticalIndicatorsSeparateFromDistrict(t *testing.T) {
+	r := testResult()
+	r.CriticalAfter = 1
+	options := recommendationOptions(r)
+	joined := strings.Join(options, " ")
+	if !strings.Contains(joined, "критическими") || !strings.Contains(joined, "Нура") {
+		t.Fatalf("expected scenario options for remaining critical indicators and weakest district: %#v", options)
+	}
+	for _, option := range options {
+		if strings.Contains(option, "критическими") && strings.Contains(option, "Нура") {
+			t.Fatalf("option must not assign critical indicators to a district: %q", option)
+		}
+	}
+}
+
 func TestValidPlainTextAllowsVagueQuantity(t *testing.T) {
 	if !validPlainText("Для района выбраны несколько инициатив.") {
 		t.Fatal("a vague count of selected initiatives should not force a cached fallback")
@@ -95,15 +122,34 @@ func TestValidPlainTextAllowsVagueQuantity(t *testing.T) {
 	}
 }
 
-func TestExplanationSchemaRequiresNonemptyLists(t *testing.T) {
-	jsonSchemaBody := jsonSchema(&Explanation{})["json_schema"].(map[string]any)
+func TestRecommendationSchemaRequiresOneOrTwoItems(t *testing.T) {
+	jsonSchemaBody := jsonSchema(&recommendationResponse{allowed: []string{"A", "B"}})["json_schema"].(map[string]any)
 	schema := jsonSchemaBody["schema"].(map[string]any)
 	properties := schema["properties"].(map[string]any)
-	for _, field := range []string{"strengths", "risks", "recommendations"} {
-		list := properties[field].(map[string]any)
-		if list["minItems"] != 1 {
-			t.Fatalf("%s must have at least one item in the provider schema", field)
+	list := properties["recommendations"].(map[string]any)
+	if list["minItems"] != 1 || list["maxItems"] != 2 {
+		t.Fatalf("recommendations must have one or two items in the provider schema: %#v", list)
+	}
+	items := list["items"].(map[string]any)
+	if len(items["enum"].([]string)) != 2 {
+		t.Fatalf("provider schema must constrain recommendations to verified options: %#v", items)
+	}
+}
+
+func TestScenarioClaimsRejectImplementedWorkAndUnsupportedBudgetJudgment(t *testing.T) {
+	for _, phrase := range []string{
+		"Цифровая платформа уже внедрена.",
+		"В районе реализуются выбранные проекты.",
+		"Почти весь бюджет использован эффективно.",
+		"Бюджет говорит о высокой активности.",
+		"Критические проблемы устранены.",
+	} {
+		if validScenarioClaim(phrase) {
+			t.Errorf("unsupported scenario claim accepted: %q", phrase)
 		}
+	}
+	if !validScenarioClaim("По расчёту в сценарии выбрана цифровая платформа, а бюджет почти распределён.") {
+		t.Fatal("a factual hypothetical claim must remain valid")
 	}
 }
 
