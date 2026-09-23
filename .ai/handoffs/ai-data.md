@@ -1,6 +1,6 @@
-DONE: scoring/LLM are merged; the demo script and fresh-clone QA are ready; live OpenAI explanations and comparisons work with the local ignored .env.
-ON BRANCH / MERGED: ai/demo-qa / PR #15 pending; OpenAI default and verification merged to main via PRs #16 and #17.
-TESTED HOW: fresh clone make dev + Compose web/API 200, three browser rehearsals, cached fallback, Go/verify.py/web lint/build green; root .env gave source=live for /explain (Score 56.54307) and /compare.
-BROKEN / RISKY: OpenAI key is local and must never be committed; frontend /compare timeout is 8s vs API LLM 25s. Unsaved picks reset on reload.
-NEEDS (from whom): teammate review of shared STATUS/demo docs; frontend owner to check live comparison latency.
-NEXT: merge PR #15 after approval, tag final main, and rehearse the judge demo with DEMO_MODE=true unless live key/network are verified immediately beforehand.
+DONE: scoring/LLM are merged; the demo script and fresh-clone QA are ready; live OpenAI explanations and comparisons work with the local ignored .env; real adapter wires scoring, LLM, optimizer and event deck into Gin; scoring synergy shape matches the API contract; invalid LLM structured output retries once (against grounded verifiedFacts) before fallback.
+ON BRANCH / MERGED: ai/demo-qa / PR #15 pending; OpenAI default and verification merged to main via PRs #16 and #17; ai/real-services adapter work merged alongside.
+TESTED HOW: fresh clone make dev + Compose web/API 200, three browser rehearsals, cached fallback, Go/verify.py/web lint/build green; root .env gave source=live for /explain (Score 56.54307) and /compare; cd apps/api && go test ./... (PASS); mock LLM test proves invalid structured output → retry → live answer; manual DEMO_MODE endpoint checks: /simulate=56.54307, /explain source=cached, /optimum, seeded /events/draw.
+BROKEN / RISKY: OpenAI key is local and must never be committed; frontend /compare timeout is 8s vs API LLM 25s. Unsaved picks reset on reload; root data and embedded Go assets must be kept in sync when authoring data.
+NEEDS (from whom): teammate review of shared STATUS/demo docs; frontend owner to check live comparison latency; backend review of the real-services adapter (intentionally preserves HTTP DTO ownership).
+NEXT: merge PR #15 after approval, tag final main, and rehearse the judge demo with DEMO_MODE=true unless live key/network are verified immediately beforehand; then validate frontend against live API.
