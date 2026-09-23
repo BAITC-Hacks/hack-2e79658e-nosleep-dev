@@ -1,6 +1,6 @@
-DONE: scoring + LLM are merged to main; added exhaustive optimizer Engine wrapper for GET /optimum.
-ON BRANCH / MERGED: ai/scoring / scoring+LLM merged, optimizer pending push/review.
-TESTED HOW: GO111MODULE=off go test ./apps/api/internal/scoring (PASS); optimizer/LLM compile pending apps/api/go.mod.
+DONE: scoring + LLM merged; optimizer PR #2 pushed; event deck + deterministic seeded draw added.
+ON BRANCH / MERGED: ai/scoring / scoring+LLM merged; optimizer/events pending review.
+TESTED HOW: GO111MODULE=off go test ./apps/api/internal/scoring and ./apps/api/internal/events (PASS); optimizer/LLM compile pending apps/api/go.mod.
 BROKEN / RISKY: Go cannot go:embed root data/ from module apps/api; loader uses canonical root data/ and supports DATA_DIR.
-NEEDS (from whom): Backend: create apps/api/go.mod; wire optimizer.New(scoring.MustNew()) and llm.NewFromEnv(); decide on mirrored embedded data assets.
-NEXT: push optimizer; then add optional event deck or fix integration issues once module lands.
+NEEDS (from whom): Backend: create apps/api/go.mod; wire optimizer.New(scoring.MustNew()), llm.NewFromEnv(), events.MustNew(); decide on mirrored embedded data assets.
+NEXT: push events and resolve full integration as soon as the backend module lands.
