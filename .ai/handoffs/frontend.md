@@ -1,6 +1,6 @@
-DONE:
-ON BRANCH / MERGED:
-TESTED HOW:
-BROKEN / RISKY:
-NEEDS (from whom):
-NEXT: scaffold apps/web (Next.js App Router + TS + Tailwind + shadcn/ui). Build the API client module (single USE_MOCKS switch reading contracts/examples/*.json vs. calling the real API). Get GET /health (mocked or real) rendering on the landing page. See contracts/api.md and .ai/PLAN.md's task table for the full sequence, and .ai/prompts/frontend.md if you're pasting into a fresh agent.
+DONE: Next 16 + TS + Tailwind + shadcn scaffold; editorial design; health/catalog/simulate/explain client; 5-pick flow; live SVG map + score.
+ON BRANCH / MERGED: fe/live-simulator (not merged)
+TESTED HOW: lint/build green; Playwright QA at 1280×1000 + 390×844; 5-pick submit/result flow passes.
+BROKEN / RISKY: OSM now has 6 Astana districts, mismatching the 5-district contract; using agreed stylized SVG fallback.
+NEEDS (from whom): Backend: keep /api/v1 response shapes aligned with contracts/api.md.
+NEXT: commit and push; open PR; then test NEXT_PUBLIC_USE_MOCKS=false against backend.
