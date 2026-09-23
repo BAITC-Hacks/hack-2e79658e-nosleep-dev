@@ -134,6 +134,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .violations, .api-error { margin: 0 20px 12px; padding: 10px 12px; border-radius: 6px; background: #241312; color: #ff9e96; font-size: 12px; }
 .violations p, .api-error { display: flex; align-items: center; gap: 7px; }
 .violations p { margin: 0; }
+.api-error span { flex: 1; }
+.api-error button { border: 0; background: transparent; color: white; font: 10px var(--font-plex-mono), monospace; text-transform: uppercase; cursor: pointer; }
 .submit-button { margin: 0 20px; width: calc(100% - 40px); height: 48px; border-radius: 999px; background: white; color: #0b0b0b; font-weight: 600; }
 .submit-button:hover { background: var(--brand); }
 .submit-button:disabled { background: #212121; color: #797979; opacity: 1; }
@@ -148,6 +150,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .result-score strong { margin: 8px 0 12px; font-size: 64px; line-height: 1; letter-spacing: -.06em; font-weight: 400; }
 .result-score [data-slot="badge"] { background: #212121; color: #b9b9b9; border: 1px solid #353535; border-radius: 999px; }
 .result-summary { max-width: 920px; margin: 80px 0; color: #b9b9b9; font-size: 24px; line-height: 1.45; letter-spacing: -.6px; }
+.result-benchmark { margin: 72px 0 0; max-width: 720px; }
+.result-benchmark > div { display: flex; align-items: end; justify-content: space-between; margin-bottom: 14px; }
+.result-benchmark span { color: #797979; font: 11px var(--font-plex-mono), monospace; text-transform: uppercase; }
+.result-benchmark strong { font-size: 34px; font-weight: 400; letter-spacing: -.04em; }
+.result-benchmark [data-slot="progress"] { height: 6px; background: #212121; }
+.result-benchmark [data-slot="progress-indicator"] { background: var(--brand); }
+.result-benchmark p { margin: 12px 0 0; color: #797979; font-size: 13px; }
 .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #353535; }
 .result-grid > div { padding: 28px 28px 0 0; }
 .result-grid > div + div { padding-left: 28px; border-left: 1px solid #353535; }
