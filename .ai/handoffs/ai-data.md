@@ -1,6 +1,6 @@
-DONE: scoring/optimizer/events remain green; LLM now gets concise verified facts, rejects numeric hallucinations, retries once, then returns honest cached fallback.
-ON BRANCH / MERGED: ai/llm-grounding / PR pending review.
-TESTED HOW: cd apps/api && go test ./...; local Ollama qwen3:4b-instruct returned source=live for /explain and /compare.
-BROKEN / RISKY: local Ollama model download and root .env are machine-local; DEMO_MODE=true remains the keyless fallback.
-NEEDS (from whom): teammate approval to merge; never commit credentials or machine-local .env.
-NEXT: merge PR, then rehearse demo with DEMO_MODE=true and optional local live AI.
+DONE: OpenAI chat-completions now returns grounded live explanations and comparisons; active local .env uses OpenAI, with the former config retained in an ignored backup.
+ON BRANCH / MERGED: codex/openai-verification / OpenAI default merged to main in PR #16.
+TESTED HOW: root .env + POST /explain returned source=live and Score 56.54307; /compare returned source=live with the contract examples; cd apps/api && go test ./... passed.
+BROKEN / RISKY: OpenAI key is local and must never be committed; DEMO_MODE=true remains the keyless fallback. Frontend comparison timeout (8s) is shorter than the API's LLM timeout (25s).
+NEEDS (from whom): teammate approval to merge this verification PR; frontend owner may want to align the compare timeout.
+NEXT: merge after approval; keep the judge demo on DEMO_MODE=true unless key/network are verified immediately beforehand.
