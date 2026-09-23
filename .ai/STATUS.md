@@ -1,13 +1,11 @@
-# STATUS
+# STATUS — demo readiness
 
-_Updated at every checkpoint by whoever merges last. Keep it short — this is read by teammates and their agents, not judges._
+_Updated 2026-09-23, Asia/Almaty. Keep this short for teammates and their agents._
 
-## T+0:00 — docs bootstrap
-**What works on `main`:** nothing runnable yet. `.ai/`, `contracts/`, `data/`, `scripts/verify.py`, root config (`.gitignore`, `.env.example`) are pushed. No `apps/web` or `apps/api` code exists yet — each owner scaffolds their own per `.ai/handoffs/`.
+**On `main`:** real Go scoring, catalog, explanation with labeled cached fallback, optimum, event deck, and web simulator with SVG map and scenario comparison are merged. PR #10 fixed local API startup and explanation data. Full Compose web startup still returns HTTP 500 because its image lacks root `contracts/` and `data/`.
 
-**Blockers:** none. All three people can start in parallel right now.
+**On `be/demo-readiness`:** `make dev` installs missing frontend dependencies on first run; the web image includes shared JSON assets; README quick start and feature status match the implementation.
 
-**Next 60 min (→ Checkpoint 1):**
-- FE: scaffold `apps/web` (Next.js + shadcn/ui), API client with `USE_MOCKS` reading `contracts/examples/*.json`.
-- BE: scaffold `apps/api` (Gin, `/health`, CORS, error middleware) with an in-memory fake `scoring.Engine`.
-- AI+data: start `internal/scoring` against `contracts/scoring.md`, aiming to pass `data/fixtures/golden.json` by end of hour 1.
+**Verified:** clean-worktree `docker compose up --build -d` starts healthy API and web (HTTP 200); three browser rehearsals with `DEMO_MODE=true` and no key reached Score 56.54, a labeled cached explanation, optimum gauge, and two-scenario comparison. Fresh-worktree `make dev` installed dependencies and served both apps. Web image rebuild after local `npm ci` kept Docker context near 451 kB.
+
+**Next:** get one teammate approval on PR #13, merge it, then tag and rehearse the merged `main` once more. The city-event endpoint has no web flow; keep it out of the 60-second demo.
