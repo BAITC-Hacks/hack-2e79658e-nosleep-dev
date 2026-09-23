@@ -112,9 +112,21 @@ func toScoringResult(in *httpapi.Result) *scoring.Result {
 	if in == nil {
 		return nil
 	}
-	out := &scoring.Result{BudgetUsed: in.BudgetUsed, BudgetRemaining: in.BudgetRemaining, DAvgBefore: in.DAvgBefore, DAvgAfter: in.DAvgAfter, MinDistrictID: in.MinDistrictID, MinDBefore: in.MinDBefore, MinDAfter: in.MinDAfter, CriticalBefore: in.CriticalBefore, CriticalAfter: in.CriticalAfter, Score: in.Score}
+	out := &scoring.Result{Submittable: in.Score != nil, BudgetUsed: in.BudgetUsed, BudgetRemaining: in.BudgetRemaining, DAvgBefore: in.DAvgBefore, DAvgAfter: in.DAvgAfter, MinDistrictID: in.MinDistrictID, MinDBefore: in.MinDBefore, MinDAfter: in.MinDAfter, CriticalBefore: in.CriticalBefore, CriticalAfter: in.CriticalAfter, Score: in.Score}
+	out.Districts = make([]scoring.DistrictResult, len(in.Districts))
+	for i, district := range in.Districts {
+		out.Districts[i] = scoring.DistrictResult{ID: district.ID, Name: district.Name, ScoreBefore: district.ScoreBefore, ScoreAfter: district.ScoreAfter}
+		out.Districts[i].Indicators = make([]scoring.Indicator, len(district.Indicators))
+		for j, indicator := range district.Indicators {
+			out.Districts[i].Indicators[j] = scoring.Indicator{Indicator: indicator.Indicator, Before: indicator.Before, After: indicator.After, Delta: indicator.Delta}
+		}
+	}
 	for _, s := range in.Synergies {
 		out.Synergies = append(out.Synergies, scoring.Synergy{Label: s.Label, DistrictID: s.DistrictID})
+	}
+	out.Contributions = make([]scoring.Contribution, len(in.Contributions))
+	for i, contribution := range in.Contributions {
+		out.Contributions[i] = scoring.Contribution{InitiativeID: contribution.InitiativeID, Name: contribution.Name, Direction: contribution.Direction, DistrictID: contribution.DistrictID, Cost: contribution.Cost, Lag: contribution.Lag, RealizedFraction: contribution.RealizedFraction, EffectsApplied: contribution.EffectsApplied}
 	}
 	return out
 }

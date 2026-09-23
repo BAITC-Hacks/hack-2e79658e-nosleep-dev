@@ -10,15 +10,17 @@ import type { CatalogResponse, CompareResponse, Decision, DistrictResult, Explai
 const configuredApiUrl = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
 const API_URL = configuredApiUrl.endsWith("/api/v1") ? configuredApiUrl : `${configuredApiUrl}/api/v1`;
 export const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS !== "false";
+const DEFAULT_TIMEOUT_MS = 8_000;
+const EXPLAIN_TIMEOUT_MS = 35_000;
 const catalog = catalogExample as CatalogResponse;
 
 class ApiError extends Error {
   constructor(message: string, public readonly code = "REQUEST_FAILED") { super(message); }
 }
 
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
+async function request<T>(path: string, init?: RequestInit, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<T> {
   const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), 8_000);
+  const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(`${API_URL}${path}`, {
       ...init,
@@ -30,7 +32,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     return body as T;
   } catch (error) {
     if (error instanceof ApiError) throw error;
-    if (error instanceof DOMException && error.name === "AbortError") throw new ApiError("Сервис не ответил за 8 секунд", "TIMEOUT");
+    if (error instanceof DOMException && error.name === "AbortError") throw new ApiError(`Сервис не ответил за ${Math.ceil(timeoutMs / 1_000)} секунд`, "TIMEOUT");
     throw new ApiError("Не удалось связаться с API. Проверьте, запущен ли backend.");
   } finally {
     window.clearTimeout(timeout);
@@ -104,7 +106,7 @@ export const api = {
   health: async (): Promise<HealthResponse> => USE_MOCKS ? { status: "ok" } : request<HealthResponse>("/health"),
   catalog: async (): Promise<CatalogResponse> => USE_MOCKS ? structuredClone(catalog) : request<CatalogResponse>("/catalog"),
   simulate: async (decisions: Decision[]): Promise<SimulationResponse> => USE_MOCKS ? mockSimulation(decisions) : request<SimulationResponse>("/simulate", { method: "POST", body: JSON.stringify({ decisions }) }),
-  explain: async (decisions: Decision[]): Promise<ExplainResponse> => USE_MOCKS ? (structuredClone(explainExample.response) as unknown as ExplainResponse) : request<ExplainResponse>("/explain", { method: "POST", body: JSON.stringify({ decisions }) }),
+  explain: async (decisions: Decision[]): Promise<ExplainResponse> => USE_MOCKS ? (structuredClone(explainExample.response) as unknown as ExplainResponse) : request<ExplainResponse>("/explain", { method: "POST", body: JSON.stringify({ decisions }) }, EXPLAIN_TIMEOUT_MS),
   optimum: async (reveal = false): Promise<OptimumResponse> => USE_MOCKS
     ? structuredClone(reveal ? optimumExample.revealed : optimumExample.default)
     : request<OptimumResponse>(`/optimum${reveal ? "?reveal=true" : ""}`),
