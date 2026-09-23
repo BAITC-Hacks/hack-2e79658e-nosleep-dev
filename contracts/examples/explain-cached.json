@@ -1,0 +1,33 @@
+{
+  "_comment": "POST /explain for the same 5 decisions as simulate-valid.json, with DEMO_MODE=true (or a live-call failure) — source is 'cached'. Text here is illustrative, written by hand, NOT a real model output; the real AI+data implementation generates it from the numbers.",
+  "request": {
+    "decisions": [
+      { "initiativeId": "M7", "districtId": "nura" },
+      { "initiativeId": "M8", "districtId": "nura" },
+      { "initiativeId": "M10", "districtId": "nura" },
+      { "initiativeId": "M12" },
+      { "initiativeId": "M5", "districtId": "saryarka" }
+    ]
+  },
+  "response": {
+    "result": "[ ...same as simulate-valid.json response, minus violations/submittable... ]",
+    "explanation": {
+      "summary": "Команда закрыла главный провал сценария — Нуру: соцсфера и безопасность района вышли из критической зоны, а Score вырос с 52.56 до 56.54 (+3.99).",
+      "strengths": [
+        "Оба критических показателя Нуры (S1=38, S2=35) подняты выше порога 40 — критических пар больше нет",
+        "Синергия M10+M12 добавила Нуре +2 к B1 бесплатно, сверх суммы отдельных эффектов",
+        "Единая цифровая платформа обращений (M12) — городская мера, C2 выросло во всех 5 районах"
+      ],
+      "risks": [
+        "Транспорт и экология Нуры не тронуты — T2=40 и E1=45 остаются слабыми местами района",
+        "Из 100 бюджета потрачено 95 — почти нет резерва, если после этого решения случится городское событие",
+        "Есиль (самый населённый и самый сильный район) не получил ни одной меры — весь сценарий сфокусирован на выравнивании, а не на росте лидера"
+      ],
+      "recommendations": [
+        "Следующий шаг для Нуры — мера по транспорту (M1 или M3), чтобы закрыть T2=40",
+        "5 оставшихся единиц бюджета недостаточно для любой меры — при новом раунде решений стоит закладывать резерв заранее"
+      ]
+    },
+    "source": "cached"
+  }
+}

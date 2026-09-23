@@ -1,0 +1,31 @@
+{
+  "_comment": "POST /compare with 2 scenarios — one valid, one invalid (shown to prove the shape handles both). AI comparison text is illustrative.",
+  "request": {
+    "scenarios": [
+      { "label": "Equity-first", "decisions": [
+        { "initiativeId": "M7", "districtId": "nura" },
+        { "initiativeId": "M8", "districtId": "nura" },
+        { "initiativeId": "M10", "districtId": "nura" },
+        { "initiativeId": "M12" },
+        { "initiativeId": "M5", "districtId": "saryarka" }
+      ] },
+      { "label": "Transport-heavy", "decisions": [
+        { "initiativeId": "M1", "districtId": "nura" },
+        { "initiativeId": "M2" },
+        { "initiativeId": "M9", "districtId": "nura" },
+        { "initiativeId": "M10", "districtId": "nura" },
+        { "initiativeId": "M12" }
+      ] }
+    ]
+  },
+  "response": {
+    "scenarios": [
+      { "label": "Equity-first", "result": "[ ...same shape as simulate-valid.json response... ]" },
+      { "label": "Transport-heavy", "result": "[ ...same shape, different numbers... ]" }
+    ],
+    "comparison": {
+      "summary": "Equity-first сильнее выравнивает соцсферу и безопасность Нуры и полностью убирает критические значения; Transport-heavy дешевле (66 против 95) и точечно бьёт по T1/T2, но оставляет S1/S2 Нуры в критической зоне.",
+      "source": "cached"
+    }
+  }
+}

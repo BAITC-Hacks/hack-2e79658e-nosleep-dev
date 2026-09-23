@@ -1,0 +1,12 @@
+{
+  "_comment": "POST /events/draw. Illustrative — data/events.json (authored by AI+data, not part of this docs push) is the source of truth for real events.",
+  "request": { "seed": 42 },
+  "response": {
+    "id": "heating-failure-almaty",
+    "title": "Авария теплосети",
+    "description": "В Алматы прорвало магистральную теплосеть в разгар отопительного сезона. Надёжность ЖКХ района падает, часть бюджета уходит на аварийные работы.",
+    "districtId": "almaty",
+    "shocks": { "C1": -15 },
+    "budgetDelta": -10
+  }
+}

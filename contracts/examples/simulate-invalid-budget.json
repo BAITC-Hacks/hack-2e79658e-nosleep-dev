@@ -1,0 +1,22 @@
+{
+  "_comment": "5 decisions, all individually valid, but the total cost exceeds the budget. Matches data/fixtures/golden.json:budget_exceeded.",
+  "request": {
+    "decisions": [
+      { "initiativeId": "M3", "districtId": "yesil" },
+      { "initiativeId": "M13", "districtId": "almaty" },
+      { "initiativeId": "M7", "districtId": "nura" },
+      { "initiativeId": "M8", "districtId": "nura" },
+      { "initiativeId": "M5", "districtId": "saryarka" }
+    ]
+  },
+  "response": {
+    "submittable": false,
+    "violations": [
+      { "code": "BUDGET_EXCEEDED", "message": "бюджет превышен: 127 из 100" }
+    ],
+    "budgetUsed": 127,
+    "budgetRemaining": -27,
+    "score": null,
+    "districts": "[ ...same shape as simulate-valid.json, still computed for display, budget is a UI-level block not a math-level one... ]"
+  }
+}

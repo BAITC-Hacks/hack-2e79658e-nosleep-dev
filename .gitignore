@@ -1,0 +1,24 @@
+# env
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Go
+apps/api/bin/
+apps/api/*.exe
+apps/api/vendor/
+
+# Node / Next.js
+node_modules/
+apps/web/.next/
+apps/web/out/
+apps/web/.turbo/
+apps/web/next-env.d.ts
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+*.swp
+.vscode/
+.idea/

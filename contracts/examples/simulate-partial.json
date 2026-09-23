@@ -1,0 +1,39 @@
+{
+  "_comment": "POST /simulate with only 2 of 5 decisions — the live-preview case while the player is still picking.",
+  "request": {
+    "decisions": [
+      { "initiativeId": "M7", "districtId": "nura" },
+      { "initiativeId": "M12" }
+    ]
+  },
+  "response": {
+    "submittable": false,
+    "violations": [ { "code": "DECISION_COUNT", "message": "нужно ровно 5 решений, получено 2" } ],
+    "budgetUsed": 38,
+    "budgetRemaining": 62,
+    "districts": [
+      { "id": "yesil", "name": "Есиль", "scoreBefore": 62.99, "scoreAfter": 63.4275 },
+      { "id": "almaty", "name": "Алматы", "scoreBefore": 57.06, "scoreAfter": 57.4975 },
+      { "id": "saryarka", "name": "Сарыарка", "scoreBefore": 54.65, "scoreAfter": 55.0875 },
+      { "id": "baikonur", "name": "Байконур", "scoreBefore": 56.63, "scoreAfter": 57.0675 },
+      { "id": "nura", "name": "Нура", "scoreBefore": 49.18, "scoreAfter": 50.7175,
+        "indicators": [
+          { "indicator": "S1", "before": 38, "after": 48, "delta": 10 },
+          { "indicator": "C2", "before": 50, "after": 54.375, "delta": 4.375 }
+        ] }
+    ],
+    "dAvgBefore": 56.8624,
+    "dAvgAfter": 57.32,
+    "minDistrictId": "nura",
+    "minDBefore": 49.18,
+    "minDAfter": 50.7175,
+    "criticalBefore": 2,
+    "criticalAfter": 1,
+    "score": null,
+    "synergies": [],
+    "contributions": [
+      { "initiativeId": "M7", "name": "Школа + детсад (модульное строительство)", "direction": "social", "districtId": "nura", "cost": 24, "lag": 3, "realizedFraction": 0.625, "effectsApplied": { "S1": 10 } },
+      { "initiativeId": "M12", "name": "Единая цифровая платформа обращений", "direction": "services", "cost": 14, "lag": 1, "realizedFraction": 0.875, "effectsApplied": { "C2": 4.375 } }
+    ]
+  }
+}

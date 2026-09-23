@@ -1,0 +1,14 @@
+{
+  "_comment": "GET /optimum and GET /optimum?reveal=true. bestScore below is illustrative — AI+data's brute-force over all valid 5-sets computes the real value; do not hardcode this number in the frontend.",
+  "default": { "bestScore": 60.14 },
+  "revealed": {
+    "bestScore": 60.14,
+    "decisions": [
+      { "initiativeId": "M9", "districtId": "nura" },
+      { "initiativeId": "M10", "districtId": "nura" },
+      { "initiativeId": "M12" },
+      { "initiativeId": "M4", "districtId": "saryarka" },
+      { "initiativeId": "M1", "districtId": "nura" }
+    ]
+  }
+}

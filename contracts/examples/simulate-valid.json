@@ -1,0 +1,103 @@
+{
+  "_comment": "POST /simulate with the brief's own worked example (section 3) — 5 valid decisions, submittable. Reproduces the brief's 'Score ≈ 56.5 (+4.0)' claim exactly (56.5431 - 52.5577 = 3.99). Matches data/fixtures/golden.json:brief_example_set.",
+  "request": {
+    "decisions": [
+      { "initiativeId": "M7", "districtId": "nura" },
+      { "initiativeId": "M8", "districtId": "nura" },
+      { "initiativeId": "M10", "districtId": "nura" },
+      { "initiativeId": "M12" },
+      { "initiativeId": "M5", "districtId": "saryarka" }
+    ]
+  },
+  "response": {
+    "submittable": true,
+    "violations": [],
+    "budgetUsed": 95,
+    "budgetRemaining": 5,
+    "districts": [
+      { "id": "yesil", "name": "Есиль", "scoreBefore": 62.99, "scoreAfter": 63.4275,
+        "indicators": [
+          { "indicator": "T1", "before": 45, "after": 45, "delta": 0 },
+          { "indicator": "T2", "before": 62, "after": 62, "delta": 0 },
+          { "indicator": "E1", "before": 68, "after": 68, "delta": 0 },
+          { "indicator": "E2", "before": 72, "after": 72, "delta": 0 },
+          { "indicator": "S1", "before": 48, "after": 48, "delta": 0 },
+          { "indicator": "S2", "before": 55, "after": 55, "delta": 0 },
+          { "indicator": "B1", "before": 78, "after": 78, "delta": 0 },
+          { "indicator": "B2", "before": 60, "after": 60, "delta": 0 },
+          { "indicator": "C1", "before": 75, "after": 75, "delta": 0 },
+          { "indicator": "C2", "before": 70, "after": 74.375, "delta": 4.375 }
+        ] },
+      { "id": "almaty", "name": "Алматы", "scoreBefore": 57.06, "scoreAfter": 57.4975,
+        "indicators": [
+          { "indicator": "T1", "before": 40, "after": 40, "delta": 0 },
+          { "indicator": "T2", "before": 75, "after": 75, "delta": 0 },
+          { "indicator": "E1", "before": 50, "after": 50, "delta": 0 },
+          { "indicator": "E2", "before": 55, "after": 55, "delta": 0 },
+          { "indicator": "S1", "before": 60, "after": 60, "delta": 0 },
+          { "indicator": "S2", "before": 65, "after": 65, "delta": 0 },
+          { "indicator": "B1", "before": 62, "after": 62, "delta": 0 },
+          { "indicator": "B2", "before": 52, "after": 52, "delta": 0 },
+          { "indicator": "C1", "before": 50, "after": 50, "delta": 0 },
+          { "indicator": "C2", "before": 60, "after": 64.375, "delta": 4.375 }
+        ] },
+      { "id": "saryarka", "name": "Сарыарка", "scoreBefore": 54.65, "scoreAfter": 56.3,
+        "indicators": [
+          { "indicator": "T1", "before": 50, "after": 50, "delta": 0 },
+          { "indicator": "T2", "before": 70, "after": 70, "delta": 0 },
+          { "indicator": "E1", "before": 42, "after": 42, "delta": 0 },
+          { "indicator": "E2", "before": 40, "after": 48.75, "delta": 8.75 },
+          { "indicator": "S1", "before": 62, "after": 62, "delta": 0 },
+          { "indicator": "S2", "before": 68, "after": 68, "delta": 0 },
+          { "indicator": "B1", "before": 58, "after": 58, "delta": 0 },
+          { "indicator": "B2", "before": 55, "after": 55, "delta": 0 },
+          { "indicator": "C1", "before": 45, "after": 47.5, "delta": 2.5 },
+          { "indicator": "C2", "before": 55, "after": 59.375, "delta": 4.375 }
+        ] },
+      { "id": "baikonur", "name": "Байконур", "scoreBefore": 56.63, "scoreAfter": 57.0675,
+        "indicators": [
+          { "indicator": "T1", "before": 52, "after": 52, "delta": 0 },
+          { "indicator": "T2", "before": 68, "after": 68, "delta": 0 },
+          { "indicator": "E1", "before": 55, "after": 55, "delta": 0 },
+          { "indicator": "E2", "before": 50, "after": 50, "delta": 0 },
+          { "indicator": "S1", "before": 58, "after": 58, "delta": 0 },
+          { "indicator": "S2", "before": 60, "after": 60, "delta": 0 },
+          { "indicator": "B1", "before": 52, "after": 52, "delta": 0 },
+          { "indicator": "B2", "before": 58, "after": 58, "delta": 0 },
+          { "indicator": "C1", "before": 55, "after": 55, "delta": 0 },
+          { "indicator": "C2", "before": 58, "after": 62.375, "delta": 4.375 }
+        ] },
+      { "id": "nura", "name": "Нура", "scoreBefore": 49.18, "scoreAfter": 52.9625,
+        "indicators": [
+          { "indicator": "T1", "before": 55, "after": 55, "delta": 0 },
+          { "indicator": "T2", "before": 40, "after": 40, "delta": 0 },
+          { "indicator": "E1", "before": 45, "after": 45, "delta": 0 },
+          { "indicator": "E2", "before": 65, "after": 65, "delta": 0 },
+          { "indicator": "S1", "before": 38, "after": 48, "delta": 10 },
+          { "indicator": "S2", "before": 35, "after": 43.75, "delta": 8.75 },
+          { "indicator": "B1", "before": 55, "after": 67.5, "delta": 12.5 },
+          { "indicator": "B2", "before": 50, "after": 51.75, "delta": 1.75 },
+          { "indicator": "C1", "before": 60, "after": 60, "delta": 0 },
+          { "indicator": "C2", "before": 50, "after": 54.375, "delta": 4.375 }
+        ] }
+    ],
+    "dAvgBefore": 56.8624,
+    "dAvgAfter": 58.0776,
+    "minDistrictId": "nura",
+    "minDBefore": 49.18,
+    "minDAfter": 52.9625,
+    "criticalBefore": 2,
+    "criticalAfter": 0,
+    "score": 56.5431,
+    "synergies": [
+      { "label": "M10 + M12: B1 +2 в районе M10", "districtId": "nura" }
+    ],
+    "contributions": [
+      { "initiativeId": "M7", "name": "Школа + детсад (модульное строительство)", "direction": "social", "districtId": "nura", "cost": 24, "lag": 3, "realizedFraction": 0.625, "effectsApplied": { "S1": 10 } },
+      { "initiativeId": "M8", "name": "Центр семейного здоровья / поликлиника", "direction": "social", "districtId": "nura", "cost": 20, "lag": 3, "realizedFraction": 0.625, "effectsApplied": { "S2": 8.75 } },
+      { "initiativeId": "M10", "name": "Освещение и камеры (расширение Safe City)", "direction": "safety", "districtId": "nura", "cost": 12, "lag": 1, "realizedFraction": 0.875, "effectsApplied": { "B1": 10.5, "B2": 1.75 } },
+      { "initiativeId": "M12", "name": "Единая цифровая платформа обращений", "direction": "services", "cost": 14, "lag": 1, "realizedFraction": 0.875, "effectsApplied": { "C2": 4.375 } },
+      { "initiativeId": "M5", "name": "Перевод частного сектора на чистое топливо", "direction": "ecology", "districtId": "saryarka", "cost": 25, "lag": 3, "realizedFraction": 0.625, "effectsApplied": { "E2": 8.75, "C1": 2.5 } }
+    ]
+  }
+}

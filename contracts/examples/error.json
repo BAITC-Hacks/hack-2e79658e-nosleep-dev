@@ -1,0 +1,8 @@
+{
+  "_comment": "The generic error shape, used for every non-2xx response across all endpoints (e.g. /explain with an invalid decision set returns 422 with this body).",
+  "error": {
+    "code": "INCOMPATIBLE",
+    "message": "M1 и M3: либо BRT, либо ЛРТ, в любом районе",
+    "details": { "pair": ["M1", "M3"] }
+  }
+}
