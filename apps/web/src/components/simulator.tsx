@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { api, USE_MOCKS } from "@/lib/api-client";
-import type { CatalogResponse, Decision, ExplainResponse, SimulationResponse } from "@/lib/types";
+import type { CatalogResponse, Decision, ExplainResponse, OptimumResponse, SimulationResponse } from "@/lib/types";
 
 const directionLabels = { transport: "Транспорт", ecology: "Экология", social: "Соцсфера", safety: "Безопасность", services: "Сервисы" };
 
@@ -22,7 +22,9 @@ export function Simulator() {
   const [simulating, setSimulating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [explanation, setExplanation] = useState<ExplainResponse | null>(null);
+  const [optimum, setOptimum] = useState<OptimumResponse | null>(null);
   const [explaining, setExplaining] = useState(false);
+  const [retryNonce, setRetryNonce] = useState(0);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -57,7 +59,7 @@ export function Simulator() {
       } finally { if (active) setSimulating(false); }
     }, 120);
     return () => { active = false; window.clearTimeout(timer); };
-  }, [catalog, decisions]);
+  }, [catalog, decisions, retryNonce]);
 
   const selectedIds = useMemo(() => new Set(decisions.map((item) => item.initiativeId)), [decisions]);
 
@@ -66,11 +68,13 @@ export function Simulator() {
     const districtId = type === "district" ? districtDrafts[initiativeId] : undefined;
     if (type === "district" && !districtId) { setError("Сначала выберите район для этой меры"); return; }
     setExplanation(null);
+    setOptimum(null);
     setDecisions((current) => [...current, { initiativeId, districtId }]);
   }
 
   function removeDecision(initiativeId: string) {
     setExplanation(null);
+    setOptimum(null);
     setDecisions((current) => current.filter((item) => item.initiativeId !== initiativeId));
   }
 
@@ -79,7 +83,9 @@ export function Simulator() {
     setExplaining(true);
     setError(null);
     try {
-      setExplanation(await api.explain(decisions));
+      const [nextExplanation, nextOptimum] = await Promise.all([api.explain(decisions), api.optimum()]);
+      setExplanation(nextExplanation);
+      setOptimum(nextOptimum);
       window.setTimeout(() => document.getElementById("result")?.scrollIntoView({ behavior: "smooth" }), 0);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Не удалось получить разбор");
@@ -144,9 +150,9 @@ export function Simulator() {
             <CityMap districts={simulation.districts} />
             <div className="critical-strip"><span>Критические показатели</span><strong>{simulation.criticalBefore} → {simulation.criticalAfter}</strong></div>
             {simulation.violations.length > 0 && decisions.length > 0 && <div className="violations">{simulation.violations.map((violation) => <p key={violation.code}><CircleAlert size={15} />{violation.message}</p>)}</div>}
-            {error && <div className="api-error" role="alert"><CircleAlert size={16} />{error}</div>}
-            <Button className="submit-button" disabled={!simulation.submittable || explaining} onClick={() => void submit()}>{explaining ? <><LoaderCircle className="spin" /> Анализируем влияние…</> : <>Зафиксировать решения <ArrowRight /></>}</Button>
-            <button className="reset-button" onClick={() => { setDecisions([]); setExplanation(null); }} disabled={decisions.length === 0}><RotateCcw size={14} /> Сбросить сценарий</button>
+            {error && <div className="api-error" role="alert"><CircleAlert size={16} /><span>{error}</span><button onClick={() => setRetryNonce((value) => value + 1)}>Повторить</button></div>}
+            <Button className="submit-button" disabled={!simulation.submittable || explaining} onClick={() => void submit()}>{explaining ? <><LoaderCircle className="spin" /> Сверяем правила и готовим разбор…</> : <>Зафиксировать решения <ArrowRight /></>}</Button>
+            <button className="reset-button" onClick={() => { setDecisions([]); setExplanation(null); setOptimum(null); }} disabled={decisions.length === 0}><RotateCcw size={14} /> Сбросить сценарий</button>
           </aside>
         </section>
       </main>
@@ -154,6 +160,7 @@ export function Simulator() {
       {explanation && (
         <section className="result" id="result">
           <div className="result-top"><div><div className="eyebrow">AI / РАЗБОР СЦЕНАРИЯ</div><h2>Город стал<br />сильнее.</h2></div><div className="result-score"><span>Итоговый Score</span><strong>{simulation.score?.toFixed(2)}</strong><Badge>{explanation.source === "cached" ? "Кэшированный разбор" : "Live AI"}</Badge></div></div>
+          {optimum && simulation.score && <div className="result-benchmark"><div><span>От лучшего сценария</span><strong>{Math.min(100, (simulation.score / optimum.bestScore) * 100).toFixed(1)}%</strong></div><Progress value={Math.min(100, (simulation.score / optimum.bestScore) * 100)} /><p>Ваш результат {simulation.score.toFixed(2)} из оптимальных {optimum.bestScore.toFixed(2)}</p></div>}
           <p className="result-summary">{explanation.explanation.summary}</p>
           <div className="result-grid"><ResultColumn title="Что сработало" items={explanation.explanation.strengths} positive /><ResultColumn title="Риски" items={explanation.explanation.risks} /><ResultColumn title="Следующий шаг" items={explanation.explanation.recommendations} /></div>
         </section>

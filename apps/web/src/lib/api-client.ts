@@ -1,9 +1,10 @@
 import catalogExample from "../../../../contracts/examples/catalog.json";
 import explainExample from "../../../../contracts/examples/explain-cached.json";
+import optimumExample from "../../../../contracts/examples/optimum.json";
 import validExample from "../../../../contracts/examples/simulate-valid.json";
 import rules from "../../../../data/rules.json";
 
-import type { CatalogResponse, Decision, DistrictResult, ExplainResponse, HealthResponse, IndicatorCode, SimulationResponse, Violation } from "@/lib/types";
+import type { CatalogResponse, Decision, DistrictResult, ExplainResponse, HealthResponse, IndicatorCode, OptimumResponse, SimulationResponse, Violation } from "@/lib/types";
 
 const configuredApiUrl = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
 const API_URL = configuredApiUrl.endsWith("/api/v1") ? configuredApiUrl : `${configuredApiUrl}/api/v1`;
@@ -103,6 +104,9 @@ export const api = {
   catalog: async (): Promise<CatalogResponse> => USE_MOCKS ? structuredClone(catalog) : request<CatalogResponse>("/catalog"),
   simulate: async (decisions: Decision[]): Promise<SimulationResponse> => USE_MOCKS ? mockSimulation(decisions) : request<SimulationResponse>("/simulate", { method: "POST", body: JSON.stringify({ decisions }) }),
   explain: async (decisions: Decision[]): Promise<ExplainResponse> => USE_MOCKS ? (structuredClone(explainExample.response) as unknown as ExplainResponse) : request<ExplainResponse>("/explain", { method: "POST", body: JSON.stringify({ decisions }) }),
+  optimum: async (reveal = false): Promise<OptimumResponse> => USE_MOCKS
+    ? structuredClone(reveal ? optimumExample.revealed : optimumExample.default)
+    : request<OptimumResponse>(`/optimum${reveal ? "?reveal=true" : ""}`),
 };
 
 export { ApiError };

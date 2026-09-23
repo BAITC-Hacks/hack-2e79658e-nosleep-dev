@@ -64,6 +64,11 @@ export interface SimulationResponse {
 
 export interface HealthResponse { status: "ok" }
 
+export interface OptimumResponse {
+  bestScore: number;
+  decisions?: Decision[];
+}
+
 export interface ExplainResponse {
   result: unknown;
   explanation: { summary: string; strengths: string[]; risks: string[]; recommendations: string[] };
