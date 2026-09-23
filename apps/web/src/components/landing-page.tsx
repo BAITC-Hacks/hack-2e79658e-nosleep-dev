@@ -1,43 +1,31 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownRight, ArrowRight, MoveUpRight } from "lucide-react";
+import {
+  ArrowUpRight, ChartNoAxesCombined, Check,
+  LockKeyhole, ShieldCheck,
+} from "lucide-react";
 
-import { DottedGrid } from "@/components/block/dotted-grid";
-import { RectangularTextReveal } from "@/components/block/rectangular-text-reveal";
-import { ScoreCounter } from "@/components/score-counter";
-import { ScrollReveal } from "@/components/scroll-reveal";
-import { api, USE_MOCKS } from "@/lib/api-client";
+import { ArrowFillButton } from "@/components/block/arrow-fill-button";
+import { SiteHeader } from "@/components/site-header";
+import { api } from "@/lib/api-client";
 
-const EXAMPLE_HREF = "/play?d=M7:nura,M8:nura,M10:nura,M12,M5:saryarka";
+type Product = {
+  title: string;
+  body: string;
+  image: string;
+  accent?: boolean;
+};
 
-const stats = [
-  { value: "100", label: "budget units" },
-  { value: "05", label: "decisions" },
-  { value: "14", label: "initiatives" },
-  { value: "05", label: "districts" },
-];
-
-const steps = [
-  {
-    number: "01",
-    label: "Allocate",
-    title: "Build a five-part plan.",
-    body: "Spend one shared 100-unit budget across a catalog of measures. Every player starts with the same city and the same constraint.",
-  },
-  {
-    number: "02",
-    label: "Observe",
-    title: "Watch the map react.",
-    body: "Districts recolor with every pick. Critical indicators below 40 move from red toward green before you submit.",
-  },
-  {
-    number: "03",
-    label: "Understand",
-    title: "Read the tradeoffs.",
-    body: "A deterministic engine owns every number. AI turns the result into a plain-language read of strengths, risks, and compromises.",
-  },
+const products: Product[] = [
+  { title: "Пять решений", body: "Распределите единый бюджет между важными городскими инициативами.", image: "/brand/tools/budget.png", accent: true },
+  { title: "Город отвечает", body: "Сразу увидьте, как каждый выбор влияет на районы и качество жизни.", image: "/brand/tools/city-impact.png" },
+  { title: "Понятные выводы", body: "Получите ясное объяснение сильных сторон, рисков и компромиссов.", image: "/brand/tools/ai-analysis.png" },
+  { title: "Живая карта", body: "Следите за изменениями в шести районах Астаны после каждого решения.", image: "/brand/tools/district-map.png" },
+  { title: "Честный результат", body: "Все оценки рассчитывает открытая и воспроизводимая модель.", image: "/brand/tools/transparent-score.png" },
+  { title: "Ваш ход", body: "Соберите свой план и сравните его с другими сценариями.", image: "/brand/tools/scenario.png" },
 ];
 
 export function LandingPage() {
@@ -46,112 +34,120 @@ export function LandingPage() {
   useEffect(() => {
     let active = true;
     void api.health()
-      .then((response) => {
-        if (active) setHealth(response.status === "ok" ? "ok" : "error");
-      })
-      .catch(() => {
-        if (active) setHealth("error");
-      });
+      .then((response) => { if (active) setHealth(response.status === "ok" ? "ok" : "error"); })
+      .catch(() => { if (active) setHealth("error"); });
     return () => { active = false; };
   }, []);
 
   return (
-    <div className="landing-page">
-      <nav className="nav-bar" aria-label="Primary navigation">
-        <Link className="wordmark" href="#top"><span />MAYOR / 5H</Link>
-        <div className="nav-meta">
-          <span className={`status-dot ${health}`} /> API {USE_MOCKS ? "mock" : health}
-          <a href="#method">How it works</a>
-          <Link href="/play">Play</Link>
+    <div className="armeta-landing">
+      <SiteHeader page="landing" />
+
+      <header className="armeta-hero" id="top">
+        <video
+          className="armeta-hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/brand/hero-emerald-poster.jpg"
+          aria-hidden="true"
+        >
+          <source src="/brand/hero-emerald.mp4" type="video/mp4" />
+        </video>
+
+        <div className="armeta-hero-copy">
+          <p>AI CITY BUDGET SIMULATOR</p>
+          <h1><span>Решения, из которых</span><span>строится город.</span></h1>
+          <span>Управляйте бюджетом Астаны — прозрачно, наглядно и с реальными последствиями</span>
+          <ArrowFillButton
+            href="/play"
+            animated={false}
+            fillBgColor="#70d9b2"
+            fillTextColor="#082018"
+            hoverFillBgColor="#063d31"
+            hoverFillTextColor="#ffffff"
+            hoverArrowColor="#ffffff"
+          >
+            Распределить бюджет
+          </ArrowFillButton>
         </div>
-      </nav>
 
-      <main>
-        <header className="landing-hero" id="top">
-          <DottedGrid className="hero-grid" paused={false} />
-          <div className="hero-vignette" aria-hidden="true" />
-          <div className="landing-hero-inner">
-            <div className="eyebrow hero-eyebrow">CITY BUDGET LAB / ASTANA</div>
-            <RectangularTextReveal
-              as="h1"
-              className="landing-headline"
-              baseColor="#f36458"
-              overlayColor="#0b0b0b"
-              stagger={0.14}
-              playOnMount
-            >
-              Five choices.<br /><span>A city reacts.</span>
-            </RectangularTextReveal>
-            <div className="landing-hero-bottom">
-              <p>Shape one city with one shared budget. See the human cost of every tradeoff before the decision is final.</p>
-              <div className="hero-actions">
-                <Link className="hero-cta" href="/play">Start a scenario <ArrowRight size={18} /></Link>
-                <Link className="text-link" href={EXAMPLE_HREF}>See the worked example <MoveUpRight size={16} /></Link>
-              </div>
-            </div>
+        <div className="armeta-proof-row" aria-label="Ключевые факты">
+          <div className="armeta-partner-card">
+            <div className="armeta-seal">BS</div>
+            <p><strong>Пять часов у руля</strong><span>Проверьте свои решения</span></p>
           </div>
-          <a className="hero-scroll" href="#proof" aria-label="Scroll to key facts"><span>Scroll to proof</span><ArrowDownRight size={17} /></a>
-        </header>
+          <div className="armeta-stat-card">
+            <div><strong>100</strong><span>единиц общего бюджета</span></div>
+            <div><strong>05</strong><span>решений в каждом сценарии</span></div>
+            <div><strong>05</strong><span>районов на живой карте</span></div>
+          </div>
+        </div>
+      </header>
 
-        <ScrollReveal className="stats-strip" delay={60}>
-          <section id="proof" aria-label="Scenario facts">
-            {stats.map((stat) => (
-              <div className="stat" key={stat.label}>
-                <strong>{stat.value}</strong>
-                <span>{stat.label}</span>
-              </div>
+      <main className="armeta-main">
+        <section className="armeta-tools armeta-grid-section" id="tools" aria-labelledby="tools-title">
+          <div className="armeta-section-heading">
+            <span>ПРОДУКТОВАЯ ЛИНЕЙКА</span>
+            <h2 id="tools-title">Умные инструменты для<br />понятных городских решений</h2>
+          </div>
+          <div className="armeta-product-grid">
+            {products.map((product) => (
+              <Link className={`armeta-product-card${product.accent ? " is-accent" : ""}`} href="/play" key={product.title}>
+                <div className="armeta-product-copy">
+                  <h3>{product.title}</h3>
+                  <p>{product.body}</p>
+                  <span className="armeta-card-link">Попробовать бесплатно <ArrowUpRight size={16} /></span>
+                </div>
+                <Image className="armeta-product-art" src={product.image} alt="" width={960} height={640} aria-hidden="true" />
+              </Link>
             ))}
-          </section>
-        </ScrollReveal>
-
-        <section className="baseline-section" aria-labelledby="baseline-title">
-          <div className="baseline-copy">
-            <div className="eyebrow">BASELINE / BEFORE YOUR FIRST MOVE</div>
-            <h2 id="baseline-title">The city starts<br /><span>out of balance.</span></h2>
-            <p>Nura is the most exposed district, with two indicators below the critical line. The score makes that inequality impossible to hide.</p>
-            <Link className="text-link" href={EXAMPLE_HREF}>Follow the 56.54 scenario <MoveUpRight size={16} /></Link>
           </div>
-          <ScrollReveal className="baseline-score-card" delay={100}>
-            <div className="panel-heading"><span>City today</span><span className="live-label"><i className="pulse" /> Live baseline</span></div>
-            <div className="baseline-score">
-              <ScoreCounter value={52.56} />
-              <small>/ 100</small>
-            </div>
-            <div className="baseline-card-footer">
-              <span>Nura</span>
-              <strong><i /> 2 critical indicators</strong>
-            </div>
-          </ScrollReveal>
         </section>
 
-        <section className="method-section" id="method" aria-labelledby="method-title">
-          <div className="method-heading">
+        <section className="armeta-about armeta-grid-section" id="about" aria-labelledby="about-title">
+          <div className="armeta-section-heading">
+            <span>BES SHESHIM</span>
+            <h2 id="about-title">Локальный выбор. <em>Общий результат.</em></h2>
+            <p>BesSheshim превращает сложную городскую модель в понятный разговор о приоритетах. Каждое решение видно, каждое последствие можно объяснить.</p>
+          </div>
+          <div className="armeta-country-grid">
+            <article><span>ГОРОД</span><h3>Астана как единая система</h3><p>Пять районов связаны общим бюджетом и качеством жизни.</p></article>
+            <article><span>ЖИТЕЛИ</span><h3>Решения с человеческим масштабом</h3><p>Сценарий показывает, кто выигрывает и где остаются риски.</p></article>
+            <article><span>БУДУЩЕЕ</span><h3>Сравнивайте до того, как выбирать</h3><p>Пробуйте альтернативы и находите более устойчивый баланс.</p></article>
+          </div>
+          <p className="armeta-about-note">Одна модель для всех сценариев — <strong>единые правила, прозрачные расчёты и сопоставимые результаты.</strong></p>
+        </section>
+
+        <section className="armeta-security armeta-grid-section" id="security" aria-labelledby="security-title">
+          <div className="armeta-security-intro">
             <div>
-              <div className="eyebrow">HOW IT WORKS / THREE MOVES</div>
-              <h2 id="method-title">Decide. Watch.<br />Understand.</h2>
+              <span className="armeta-pill">ПРИНЦИПЫ</span>
+              <h2 id="security-title">Прозрачность модели —<br />наш главный приоритет</h2>
+              <p>Числа рассчитываются детерминированным движком. ИИ не меняет результат — он помогает объяснить его простым языком.</p>
+              <Link href="/play">Проверить на своём сценарии</Link>
             </div>
-            <p>A short simulation with a visible chain of cause and effect—from budget allocation to district-level impact.</p>
+            <div className="armeta-trust-lockup"><ShieldCheck size={54} /><span>ПРОВЕРЯЕМО<br /><strong>И ПОНЯТНО</strong></span></div>
           </div>
-          <div className="method-grid">
-            {steps.map((step, index) => (
-              <ScrollReveal className="method-card" delay={index * 90} key={step.number}>
-                <div className="method-card-top"><span>{step.number}</span><span>{step.label}</span></div>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </ScrollReveal>
-            ))}
-          </div>
-        </section>
-
-        <section className="closing-cta" aria-labelledby="cta-title">
-          <div className="eyebrow">YOUR FIVE HOURS START HERE</div>
-          <h2 id="cta-title">What would you<br /><span>change first?</span></h2>
-          <div className="closing-row">
-            <p>One budget. Five decisions. A city that answers back immediately.</p>
-            <Link className="hero-cta closing-button" href="/play">Run the city <ArrowRight size={18} /></Link>
+          <div className="armeta-principles">
+            <article><Check size={19} /><h3>Единые правила</h3><p>Каждый сценарий проходит через одну и ту же формулу оценки.</p></article>
+            <article><LockKeyhole size={19} /><h3>Без скрытых решений</h3><p>ИИ объясняет расчёт, но не подменяет его своими выводами.</p></article>
+            <article><ChartNoAxesCombined size={19} /><h3>Сравнимые результаты</h3><p>Изменения видны на общей шкале и по каждому району отдельно.</p></article>
           </div>
         </section>
       </main>
+
+      <footer className="armeta-footer" id="footer">
+        <div className="armeta-footer-top">
+          <div><Link className="armeta-logo footer-logo" href="#top"><span className="armeta-logo-mark">BS/5</span><span>BES SHESHIM</span></Link><p>Решения, из которых строится город.<br />AI city budget simulator.</p></div>
+          <div><span>ПРОДУКТ</span><Link href="/play">Симулятор</Link><a href="#about">Как это работает</a><a href="#security">Принципы</a></div>
+          <div><span>СИСТЕМА</span><p className={`armeta-system ${health}`}><i /> API {health}</p><a href="#tools">Инициативы</a><a href="#about">О модели</a></div>
+          <div><span>КОНТАКТ</span><a href="mailto:hello@bessheshim.kz">hello@bessheshim.kz</a><p>Астана, Казахстан</p></div>
+        </div>
+        <div className="armeta-footer-bottom"><span>© 2026 BesSheshim</span><span>Five decisions. One city.</span></div>
+      </footer>
     </div>
   );
 }

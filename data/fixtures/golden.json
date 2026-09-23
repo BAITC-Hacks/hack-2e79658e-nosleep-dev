@@ -1,110 +1,279 @@
 {
-  "note": "Verified by running the exact scoring formula in scripts/verify.py (Score/D_avg/minD/Ncrit reproduced to 4 decimal places). Use these as the Go test table for internal/scoring.",
+  "note": "Verified by running the scoring formula in scripts/verify.py against the six-district data. Values reproduced to four decimal places.",
   "valid": [
     {
       "name": "base_no_decisions",
       "decisions": [],
-      "expected": { "dAvg": 56.8624, "minDistrict": "nura", "minD": 49.18, "nCrit": 2, "score": 52.5577 }
+      "expected": {
+        "dAvg": 56.872912,
+        "minDistrict": "nura",
+        "minD": 49.18,
+        "nCrit": 2,
+        "score": 52.565038
+      }
     },
     {
       "name": "brief_example_set",
       "decisions": [
-        { "initiativeId": "M7", "districtId": "nura" },
-        { "initiativeId": "M8", "districtId": "nura" },
-        { "initiativeId": "M10", "districtId": "nura" },
-        { "initiativeId": "M12" },
-        { "initiativeId": "M5", "districtId": "saryarka" }
+        {
+          "initiativeId": "M7",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M8",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M10",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M12"
+        },
+        {
+          "initiativeId": "M5",
+          "districtId": "saryarka"
+        }
       ],
       "expectedBudgetUsed": 95,
-      "expectedSynergies": ["M10+M12"],
-      "expected": { "dAvg": 58.0776, "minDistrict": "nura", "minD": 52.9625, "nCrit": 0, "score": 56.5431 }
+      "expectedSynergies": [
+        "M10+M12"
+      ],
+      "expected": {
+        "dAvg": 57.994788,
+        "minDistrict": "nura",
+        "minD": 52.9625,
+        "nCrit": 0,
+        "score": 56.485102
+      }
     },
     {
       "name": "cheapest_valid_set",
       "decisions": [
-        { "initiativeId": "M9", "districtId": "nura" },
-        { "initiativeId": "M11", "districtId": "nura" },
-        { "initiativeId": "M10", "districtId": "nura" },
-        { "initiativeId": "M12" },
-        { "initiativeId": "M4", "districtId": "nura" }
+        {
+          "initiativeId": "M9",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M11",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M10",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M12"
+        },
+        {
+          "initiativeId": "M4",
+          "districtId": "nura"
+        }
       ],
       "expectedBudgetUsed": 61
+    },
+    {
+      "name": "sarayzhyk_playable",
+      "decisions": [
+        {
+          "initiativeId": "M4",
+          "districtId": "sarayzhyk"
+        },
+        {
+          "initiativeId": "M8",
+          "districtId": "sarayzhyk"
+        },
+        {
+          "initiativeId": "M10",
+          "districtId": "sarayzhyk"
+        },
+        {
+          "initiativeId": "M12"
+        },
+        {
+          "initiativeId": "M2"
+        }
+      ],
+      "expectedBudgetUsed": 83,
+      "expected": {
+        "dAvg": 58.225412,
+        "minDistrict": "nura",
+        "minD": 50.12,
+        "nCrit": 2,
+        "score": 53.793788
+      }
     }
   ],
   "invalid": [
     {
       "name": "wrong_decision_count",
       "decisions": [
-        { "initiativeId": "M1", "districtId": "yesil" },
-        { "initiativeId": "M4", "districtId": "yesil" },
-        { "initiativeId": "M9", "districtId": "yesil" },
-        { "initiativeId": "M10", "districtId": "yesil" }
+        {
+          "initiativeId": "M1",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M4",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M9",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M10",
+          "districtId": "yesil"
+        }
       ],
       "expectedCode": "DECISION_COUNT"
     },
     {
       "name": "unknown_initiative",
       "decisions": [
-        { "initiativeId": "M99", "districtId": "yesil" },
-        { "initiativeId": "M4", "districtId": "yesil" },
-        { "initiativeId": "M9", "districtId": "yesil" },
-        { "initiativeId": "M10", "districtId": "yesil" },
-        { "initiativeId": "M12" }
+        {
+          "initiativeId": "M99",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M4",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M9",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M10",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M12"
+        }
       ],
       "expectedCode": "UNKNOWN_INITIATIVE"
     },
     {
       "name": "duplicate_initiative",
       "decisions": [
-        { "initiativeId": "M1", "districtId": "yesil" },
-        { "initiativeId": "M1", "districtId": "almaty" },
-        { "initiativeId": "M9", "districtId": "yesil" },
-        { "initiativeId": "M10", "districtId": "yesil" },
-        { "initiativeId": "M12" }
+        {
+          "initiativeId": "M1",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M1",
+          "districtId": "almaty"
+        },
+        {
+          "initiativeId": "M9",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M10",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M12"
+        }
       ],
       "expectedCode": "DUPLICATE_INITIATIVE"
     },
     {
       "name": "district_required",
       "decisions": [
-        { "initiativeId": "M1" },
-        { "initiativeId": "M4", "districtId": "yesil" },
-        { "initiativeId": "M9", "districtId": "yesil" },
-        { "initiativeId": "M10", "districtId": "yesil" },
-        { "initiativeId": "M12" }
+        {
+          "initiativeId": "M1"
+        },
+        {
+          "initiativeId": "M4",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M9",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M10",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M12"
+        }
       ],
       "expectedCode": "DISTRICT_REQUIRED"
     },
     {
       "name": "city_initiative_has_district",
       "decisions": [
-        { "initiativeId": "M2", "districtId": "yesil" },
-        { "initiativeId": "M4", "districtId": "yesil" },
-        { "initiativeId": "M9", "districtId": "yesil" },
-        { "initiativeId": "M10", "districtId": "yesil" },
-        { "initiativeId": "M12" }
+        {
+          "initiativeId": "M2",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M4",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M9",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M10",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M12"
+        }
       ],
       "expectedCode": "CITY_INITIATIVE_HAS_DISTRICT"
     },
     {
       "name": "unknown_district",
       "decisions": [
-        { "initiativeId": "M1", "districtId": "almaty_center" },
-        { "initiativeId": "M4", "districtId": "yesil" },
-        { "initiativeId": "M9", "districtId": "yesil" },
-        { "initiativeId": "M10", "districtId": "yesil" },
-        { "initiativeId": "M12" }
+        {
+          "initiativeId": "M1",
+          "districtId": "almaty_center"
+        },
+        {
+          "initiativeId": "M4",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M9",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M10",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M12"
+        }
       ],
       "expectedCode": "UNKNOWN_DISTRICT"
     },
     {
       "name": "budget_exceeded",
       "decisions": [
-        { "initiativeId": "M3", "districtId": "yesil" },
-        { "initiativeId": "M13", "districtId": "almaty" },
-        { "initiativeId": "M7", "districtId": "nura" },
-        { "initiativeId": "M8", "districtId": "nura" },
-        { "initiativeId": "M5", "districtId": "saryarka" }
+        {
+          "initiativeId": "M3",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M13",
+          "districtId": "almaty"
+        },
+        {
+          "initiativeId": "M7",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M8",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M5",
+          "districtId": "saryarka"
+        }
       ],
       "expectedCode": "BUDGET_EXCEEDED",
       "note": "cost = 30+28+24+20+25 = 127 > 100"
@@ -112,11 +281,25 @@
     {
       "name": "direction_limit_exceeded",
       "decisions": [
-        { "initiativeId": "M7", "districtId": "nura" },
-        { "initiativeId": "M8", "districtId": "nura" },
-        { "initiativeId": "M9", "districtId": "nura" },
-        { "initiativeId": "M10", "districtId": "nura" },
-        { "initiativeId": "M12" }
+        {
+          "initiativeId": "M7",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M8",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M9",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M10",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M12"
+        }
       ],
       "expectedCode": "DIRECTION_LIMIT_EXCEEDED",
       "note": "M7+M8+M9 are all 'social' = 3 > max 2"
@@ -124,11 +307,25 @@
     {
       "name": "incompatible_m1_m3",
       "decisions": [
-        { "initiativeId": "M1", "districtId": "yesil" },
-        { "initiativeId": "M3", "districtId": "almaty" },
-        { "initiativeId": "M9", "districtId": "nura" },
-        { "initiativeId": "M10", "districtId": "nura" },
-        { "initiativeId": "M12" }
+        {
+          "initiativeId": "M1",
+          "districtId": "yesil"
+        },
+        {
+          "initiativeId": "M3",
+          "districtId": "almaty"
+        },
+        {
+          "initiativeId": "M9",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M10",
+          "districtId": "nura"
+        },
+        {
+          "initiativeId": "M12"
+        }
       ],
       "expectedCode": "INCOMPATIBLE",
       "note": "M1 and M3 conflict regardless of district"

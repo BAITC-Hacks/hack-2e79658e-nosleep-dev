@@ -1,23 +1,22 @@
 import catalogExample from "../../../../contracts/examples/catalog.json";
 import explainExample from "../../../../contracts/examples/explain-cached.json";
 import optimumExample from "../../../../contracts/examples/optimum.json";
-import validExample from "../../../../contracts/examples/simulate-valid.json";
 import rules from "../../../../data/rules.json";
 
 import type { CatalogResponse, Decision, DistrictResult, ExplainResponse, HealthResponse, IndicatorCode, OptimumResponse, SimulationResponse, Violation } from "@/lib/types";
 
-const configuredApiUrl = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
+const configuredApiUrl = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const API_URL = configuredApiUrl.endsWith("/api/v1") ? configuredApiUrl : `${configuredApiUrl}/api/v1`;
-export const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS !== "false";
+export const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS === "true";
 const catalog = catalogExample as CatalogResponse;
 
 class ApiError extends Error {
   constructor(message: string, public readonly code = "REQUEST_FAILED") { super(message); }
 }
 
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
+async function request<T>(path: string, init?: RequestInit, timeoutMs = 8_000): Promise<T> {
   const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), 8_000);
+  const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(`${API_URL}${path}`, {
       ...init,
@@ -29,7 +28,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     return body as T;
   } catch (error) {
     if (error instanceof ApiError) throw error;
-    if (error instanceof DOMException && error.name === "AbortError") throw new ApiError("Сервис не ответил за 8 секунд", "TIMEOUT");
+    if (error instanceof DOMException && error.name === "AbortError") throw new ApiError("Сервис не ответил вовремя", "TIMEOUT");
     throw new ApiError("Не удалось связаться с API. Проверьте, запущен ли backend.");
   } finally {
     window.clearTimeout(timeout);
@@ -57,7 +56,6 @@ function mockSimulation(decisions: Decision[]): SimulationResponse {
   });
   const budgetUsed = selected.reduce((sum, item) => sum + item.initiative.cost, 0);
   const weights = rules.indicatorWeights as Record<IndicatorCode, number>;
-  const beforeScores = new Map((validExample.response.districts as DistrictResult[]).map((district) => [district.id, district.scoreBefore]));
 
   const districts = catalog.districts.map((district): DistrictResult => {
     const indicators = Object.entries(district.indicators).map(([code, before]) => {
@@ -72,11 +70,15 @@ function mockSimulation(decisions: Decision[]): SimulationResponse {
       return { indicator, before, after, delta: after - before };
     });
     const scoreAfter = indicators.reduce((sum, item) => sum + item.after * weights[item.indicator], 0);
-    return { id: district.id, name: district.name, scoreBefore: beforeScores.get(district.id) ?? scoreAfter, scoreAfter, indicators };
+    const scoreBefore = indicators.reduce((sum, item) => sum + item.before * weights[item.indicator], 0);
+    return { id: district.id, name: district.name, scoreBefore, scoreAfter, indicators };
   });
 
+  const dAvgBefore = districts.reduce((sum, district) => sum + district.scoreBefore * (catalog.districts.find((item) => item.id === district.id)?.population ?? 0), 0);
   const dAvgAfter = districts.reduce((sum, district) => sum + district.scoreAfter * (catalog.districts.find((item) => item.id === district.id)?.population ?? 0), 0);
+  const baselineWorst = [...districts].sort((a, b) => a.scoreBefore - b.scoreBefore)[0];
   const worst = [...districts].sort((a, b) => a.scoreAfter - b.scoreAfter)[0];
+  const criticalBefore = districts.reduce((count, district) => count + (district.indicators?.filter((indicator) => indicator.before < 40).length ?? 0), 0);
   const criticalAfter = districts.reduce((count, district) => count + (district.indicators?.filter((indicator) => indicator.after < 40).length ?? 0), 0);
   const violations = validate(decisions);
   const score = 0.7 * dAvgAfter + 0.3 * worst.scoreAfter - criticalAfter;
@@ -86,12 +88,12 @@ function mockSimulation(decisions: Decision[]): SimulationResponse {
     budgetUsed,
     budgetRemaining: catalog.budget - budgetUsed,
     districts,
-    dAvgBefore: 56.8624,
+    dAvgBefore,
     dAvgAfter,
     minDistrictId: worst.id,
-    minDBefore: 49.18,
+    minDBefore: baselineWorst.scoreBefore,
     minDAfter: worst.scoreAfter,
-    criticalBefore: 2,
+    criticalBefore,
     criticalAfter,
     score: violations.length === 0 ? score : null,
     synergies: [],
@@ -103,7 +105,7 @@ export const api = {
   health: async (): Promise<HealthResponse> => USE_MOCKS ? { status: "ok" } : request<HealthResponse>("/health"),
   catalog: async (): Promise<CatalogResponse> => USE_MOCKS ? structuredClone(catalog) : request<CatalogResponse>("/catalog"),
   simulate: async (decisions: Decision[]): Promise<SimulationResponse> => USE_MOCKS ? mockSimulation(decisions) : request<SimulationResponse>("/simulate", { method: "POST", body: JSON.stringify({ decisions }) }),
-  explain: async (decisions: Decision[]): Promise<ExplainResponse> => USE_MOCKS ? (structuredClone(explainExample.response) as unknown as ExplainResponse) : request<ExplainResponse>("/explain", { method: "POST", body: JSON.stringify({ decisions }) }),
+  explain: async (decisions: Decision[]): Promise<ExplainResponse> => USE_MOCKS ? (structuredClone(explainExample.response) as unknown as ExplainResponse) : request<ExplainResponse>("/explain", { method: "POST", body: JSON.stringify({ decisions }) }, 35_000),
   optimum: async (reveal = false): Promise<OptimumResponse> => USE_MOCKS
     ? structuredClone(reveal ? optimumExample.revealed : optimumExample.default)
     : request<OptimumResponse>(`/optimum${reveal ? "?reveal=true" : ""}`),

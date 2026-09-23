@@ -18,7 +18,7 @@ Look at **armeta.kz/ru**'s hero for *structure* only: a large centered/stacked h
 
 ## Language
 
-English, for now (Russian comes later — don't hardcode strings in a way that makes future i18n painful, but don't build an i18n system either, just keep copy in one place per component). Write **fresh English copy** from the product facts below — don't translate the existing Russian lines (`"Пять решений. Один город."` etc.) literally, that reads stiff in English.
+English, for now (Russian comes later — don't hardcode strings in a way that makes future i18n painful, but don't build an i18n system either, just keep copy in one place per component). Write **fresh English copy** from the product facts below — don't translate the existing Russian lines (`"Решения, из которых строится город."` etc.) literally, that reads stiff in English.
 
 **Facts to build copy from:**
 - One shared virtual budget: 100 units, identical for every player.

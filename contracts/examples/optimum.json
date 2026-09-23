@@ -1,14 +1,29 @@
 {
-  "_comment": "GET /optimum and GET /optimum?reveal=true. bestScore below is illustrative — AI+data's brute-force over all valid 5-sets computes the real value; do not hardcode this number in the frontend.",
-  "default": { "bestScore": 60.14 },
+  "_comment": "GET /optimum and GET /optimum?reveal=true. Exhaustive result from the six-district Go scoring engine.",
+  "default": {
+    "bestScore": 57.1930718
+  },
   "revealed": {
-    "bestScore": 60.14,
+    "bestScore": 57.1930718,
     "decisions": [
-      { "initiativeId": "M9", "districtId": "nura" },
-      { "initiativeId": "M10", "districtId": "nura" },
-      { "initiativeId": "M12" },
-      { "initiativeId": "M4", "districtId": "saryarka" },
-      { "initiativeId": "M1", "districtId": "nura" }
+      {
+        "initiativeId": "M2"
+      },
+      {
+        "initiativeId": "M3",
+        "districtId": "nura"
+      },
+      {
+        "initiativeId": "M8",
+        "districtId": "nura"
+      },
+      {
+        "initiativeId": "M9",
+        "districtId": "nura"
+      },
+      {
+        "initiativeId": "M14"
+      }
     ]
   }
 }

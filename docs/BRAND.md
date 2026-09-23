@@ -8,7 +8,7 @@
 - **Descriptor:** AI city budget simulator
 - **English tagline:** Five decisions. One city.
 - **Kazakh tagline:** Бес шешім. Бір қала.
-- **Russian tagline:** Пять решений. Один город.
+- **Russian tagline:** Решения, из которых строится город.
 - **Demo campaign:** «Аким на 5 часов»
 
 ## Name usage

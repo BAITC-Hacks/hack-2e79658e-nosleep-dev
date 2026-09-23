@@ -87,7 +87,10 @@ func (s *FixtureServices) Simulate(decisions []Decision) (*Result, []Violation) 
 	} else if len(decisions) == s.catalog.RequiredDecisions {
 		// Unknown combinations use the baseline score as a visible placeholder;
 		// known demo scenarios above always return their exact fixture numbers.
-		value := 52.5577
+		value := 52.565038
+		if s.baseline.Score != nil {
+			value = *s.baseline.Score
+		}
 		result.Score = &value
 	}
 	return result, violations
@@ -232,8 +235,6 @@ func (s *FixtureServices) makeBaseline() *Result {
 	result := &Result{
 		BudgetRemaining: s.catalog.Budget,
 		Districts:       make([]DistrictResult, 0, len(s.catalog.Districts)),
-		DAvgBefore:      56.8624,
-		DAvgAfter:       56.8624,
 		MinDistrictID:   "nura",
 		MinDBefore:      49.18,
 		MinDAfter:       49.18,
@@ -244,6 +245,7 @@ func (s *FixtureServices) makeBaseline() *Result {
 	}
 	for _, district := range s.catalog.Districts {
 		score := baselineDistrictScore(district.ID)
+		result.DAvgBefore += score * district.Population
 		indicators := make([]IndicatorResult, 0, len(district.Indicators))
 		for _, id := range []string{"T1", "T2", "E1", "E2", "S1", "S2", "B1", "B2", "C1", "C2"} {
 			if value, ok := district.Indicators[id]; ok {
@@ -252,6 +254,7 @@ func (s *FixtureServices) makeBaseline() *Result {
 		}
 		result.Districts = append(result.Districts, DistrictResult{ID: district.ID, Name: district.Name, ScoreBefore: score, ScoreAfter: score, Indicators: indicators})
 	}
+	result.DAvgAfter = result.DAvgBefore
 	return result
 }
 
@@ -267,6 +270,8 @@ func baselineDistrictScore(id string) float64 {
 		return 56.63
 	case "nura":
 		return 49.18
+	case "sarayzhyk":
+		return 56.95
 	default:
 		return 0
 	}

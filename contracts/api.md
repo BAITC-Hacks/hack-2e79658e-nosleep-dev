@@ -41,7 +41,7 @@ Response `200` (always 200 even when invalid — the UI reads `submittable` and 
   "budgetUsed": 34, "budgetRemaining": 66,
   "districts": [ { "id": "nura", "name": "Нура", "scoreBefore": 49.18, "scoreAfter": 51.02,
     "indicators": [ { "indicator": "S1", "before": 38, "after": 40, "delta": 2 }, "... 9 more ..." ] }, "... 4 more districts ..." ],
-  "dAvgBefore": 56.8624, "dAvgAfter": 57.10,
+  "dAvgBefore": 56.8729, "dAvgAfter": 57.10,
   "minDistrictId": "nura", "minDBefore": 49.18, "minDAfter": 51.02,
   "criticalBefore": 2, "criticalAfter": 1,
   "score": null,

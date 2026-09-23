@@ -1,0 +1,147 @@
+.obsidian-arrow-fill-btn {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  height: 3.5rem;
+  padding-right: 4rem;
+  padding-left: 1.65rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1000px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  cursor: pointer;
+  font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 650;
+  text-decoration: none;
+  text-rendering: geometricPrecision;
+  white-space: nowrap;
+}
+
+.obsidian-arrow-fill-btn__text {
+  position: relative;
+  z-index: 1;
+}
+
+.obsidian-arrow-fill-btn__circle {
+  position: absolute;
+  z-index: 2;
+  inset: -1px;
+  display: flex;
+  padding-right: 4rem;
+  padding-left: 1.65rem;
+  align-items: center;
+  border-radius: 1000px;
+  background-color: var(--btn-fill-bg);
+  clip-path: inset(0.45rem 0.45rem 0.45rem calc(100% - 2.65rem) round 2rem);
+  color: var(--btn-fill-text);
+  transition:
+    clip-path 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),
+    background-color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),
+    color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.obsidian-arrow-fill-btn__circle-text {
+  display: flex;
+  width: 100%;
+  padding-right: 1px;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+.obsidian-arrow-fill-btn__icon {
+  position: absolute;
+  right: 1.15rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  flex: 0 0 auto;
+  overflow: hidden;
+  color: var(--btn-arrow);
+}
+
+.obsidian-arrow-fill-btn__path {
+  fill: currentColor;
+  transform-origin: center;
+  transition: transform 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.obsidian-arrow-fill-btn__path:first-child {
+  transform: translateX(-120%) scale(0);
+}
+
+.obsidian-arrow-fill-btn:is(:hover, :focus-visible) .obsidian-arrow-fill-btn__circle {
+  background-color: var(--btn-fill-bg-hover);
+  clip-path: inset(0 round 2rem);
+  color: var(--btn-fill-text-hover);
+}
+
+.obsidian-arrow-fill-btn:is(:hover, :focus-visible) .obsidian-arrow-fill-btn__icon {
+  color: var(--btn-arrow-hover);
+}
+
+.obsidian-arrow-fill-btn:is(:hover, :focus-visible) .obsidian-arrow-fill-btn__path:first-child {
+  transform: translateX(0) scale(1);
+}
+
+.obsidian-arrow-fill-btn:is(:hover, :focus-visible) .obsidian-arrow-fill-btn__path:last-child {
+  transform: translateX(120%) scale(0);
+}
+
+.obsidian-arrow-fill-btn.is-static .obsidian-arrow-fill-btn__circle,
+.obsidian-arrow-fill-btn.is-static .obsidian-arrow-fill-btn__path {
+  transition: none;
+}
+
+.obsidian-arrow-fill-btn.is-static:is(:hover, :focus-visible) .obsidian-arrow-fill-btn__circle {
+  background-color: var(--btn-fill-bg);
+  clip-path: inset(0.45rem 0.45rem 0.45rem calc(100% - 2.65rem) round 2rem);
+  color: var(--btn-fill-text);
+}
+
+.obsidian-arrow-fill-btn.is-static:is(:hover, :focus-visible) .obsidian-arrow-fill-btn__icon {
+  color: var(--btn-arrow);
+}
+
+.obsidian-arrow-fill-btn.is-static:is(:hover, :focus-visible) .obsidian-arrow-fill-btn__path:first-child {
+  transform: translateX(-120%) scale(0);
+}
+
+.obsidian-arrow-fill-btn.is-static:is(:hover, :focus-visible) .obsidian-arrow-fill-btn__path:last-child {
+  transform: translateX(0) scale(1);
+}
+
+.obsidian-arrow-fill-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.armeta-landing .obsidian-arrow-fill-btn {
+  margin: 32px auto 0;
+  color: var(--btn-text);
+}
+
+@media (max-width: 700px) {
+  .armeta-landing .obsidian-arrow-fill-btn {
+    height: 3.25rem;
+    margin-top: 28px;
+    padding-right: 3.75rem;
+    padding-left: 1.4rem;
+    font-size: 0.8125rem;
+  }
+
+  .armeta-landing .obsidian-arrow-fill-btn__circle {
+    padding-right: 3.75rem;
+    padding-left: 1.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obsidian-arrow-fill-btn__circle,
+  .obsidian-arrow-fill-btn__path {
+    transition: none;
+  }
+}

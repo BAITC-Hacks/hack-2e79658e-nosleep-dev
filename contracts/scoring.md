@@ -4,7 +4,7 @@ This is the exact algorithm `internal/scoring` (owned by AI+data) must implement
 
 ## Inputs
 
-- `districts`: 5 entries, each with `population` (share, sums to 1.0) and 10 `indicators` (0–100, higher is always better) — see `data/districts.json`.
+- `districts`: 6 entries, each with `population` (share, sums to 1.0) and 10 `indicators` (0–100, higher is always better) — see `data/districts.json`.
 - `initiatives`: 14 measures, each with `direction`, `type` (`district` | `city`), `cost`, `lag` (quarters), and `effects` (indicator → full-strength delta) — see `data/initiatives.json`.
 - `decisions`: exactly 5 `{initiativeId, districtId?}` pairs. `districtId` is required for `type: district` and forbidden for `type: city`.
 
@@ -12,7 +12,7 @@ This is the exact algorithm `internal/scoring` (owned by AI+data) must implement
 
 1. **Validate** the decision set (see violation codes in `contracts/api.md`). An invalid set is never scored.
 2. **Realized fraction.** Horizon `H = 8` quarters. For an initiative with lag `L`, `realized = (H - L) / H`. This scales every effect of that initiative (not just some).
-3. **Accumulate deltas per district.** For a `district`-type initiative, its (realized) effects apply only to its `districtId`. For a `city`-type initiative, its (realized) effects apply to all 5 districts identically.
+3. **Accumulate deltas per district.** For a `district`-type initiative, its (realized) effects apply only to its `districtId`. For a `city`-type initiative, its (realized) effects apply to all 6 districts identically.
 4. **Synergies** (from `data/rules.json.synergies`): if both members of a pair are selected, add the *fixed* bonus (not scaled by lag) to the given indicator, in the district of the `anchor` initiative (always the district-type member of the pair).
 5. **New indicator value.** `I'_dk = clip(I_dk + Σ deltas_dk, 0, 100)` for every district `d` and indicator `k` (districts/indicators nobody touched keep their original value).
 6. **District score.** `D_d = Σ_k w_k * I'_dk` using `indicatorWeights` from `data/rules.json` (sums to 1.0).
@@ -35,8 +35,8 @@ Compute this twice per request: once with all deltas at zero (the **before** bas
 
 | Scenario | Decisions | Cost | D_avg | min D (district) | N_crit | Score |
 |---|---|---|---|---|---|---|
-| Base (no decisions) | — | 0 | 56.8624 | 49.18 (nura) | 2 (S1, S2 in Nura) | **52.5577** |
-| Brief's example | M7→nura, M8→nura, M10→nura, M12, M5→saryarka | 95 | 58.0776 | 52.9625 (nura) | 0 | **56.5431** (M10+M12 synergy fires) |
+| Base (no decisions) | — | 0 | 56.8729 | 49.18 (nura) | 2 (S1, S2 in Nura) | **52.5650** |
+| Brief's example | M7→nura, M8→nura, M10→nura, M12, M5→saryarka | 95 | 57.9948 | 52.9625 (nura) | 0 | **56.4851** (M10+M12 synergy fires) |
 | Cheapest valid | M9→nura, M11→nura, M10→nura, M12, M4→nura | 61 | — | — | — | valid, not scored above |
 
-The brief states the base score as `52.56` and the example as `≈56.5 (+4.0)`; both reproduce exactly once rounded to 2 decimals (`56.5431 − 52.5577 = 3.99`).
+The six-district model keeps the worked example near its original target: `56.4851 − 52.5650 = 3.92`. District indicator values are scenario inputs, not measured conditions.

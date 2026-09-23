@@ -1,0 +1,12 @@
+.git
+.ai
+.env
+.env.*
+!.env.example
+**/node_modules
+**/.next
+**/.turbo
+graphify-out
+docs
+*.log
+.DS_Store

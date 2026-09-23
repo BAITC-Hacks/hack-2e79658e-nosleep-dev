@@ -32,8 +32,7 @@ func main() {
 		config.LLMTimeout = time.Duration(seconds) * time.Second
 	}
 
-	// Replace this fixture service constructor when the AI/data packages land.
-	services, err := httpapi.NewFixtureServices(os.Getenv("CONTRACTS_DIR"))
+	engine, explainer, deck, err := httpapi.NewLiveServices()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -45,7 +44,7 @@ func main() {
 	}
 	server := &http.Server{
 		Addr:              ":" + port,
-		Handler:           httpapi.NewRouter(services, services, services, config),
+		Handler:           httpapi.NewRouter(engine, explainer, deck, config),
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 

@@ -1,32 +1,12 @@
 services:
-  api:
-    build:
-      context: .
-      dockerfile: dockerfile
-    env_file:
-      - .env
+  app:
+    build: .
     environment:
-      API_PORT: "8000"
-      CONTRACTS_DIR: /app/contracts
+      DEMO_MODE: ${DEMO_MODE:-false}
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://integrate.api.nvidia.com/v1}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+      LLM_TIMEOUT_SECONDS: ${LLM_TIMEOUT_SECONDS:-25}
     ports:
-      - "8000:8000"
-    healthcheck:
-      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8000/health"]
-      interval: 10s
-      timeout: 3s
-      retries: 3
-  web:
-    build:
-      context: ./apps/web
-      dockerfile: Dockerfile
-    env_file:
-      - .env
-    environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8000
-      NEXT_PUBLIC_USE_MOCKS: "false"
-      HOSTNAME: 0.0.0.0
-    ports:
-      - "3000:3000"
-    depends_on:
-      api:
-        condition: service_healthy
+      - "${APP_BIND:-0.0.0.0}:${APP_PORT:-3000}:3000"
+    restart: unless-stopped
