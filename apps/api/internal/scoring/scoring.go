@@ -2,11 +2,18 @@
 package scoring
 
 import (
+	"embed"
 	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
 )
+
+// embeddedData keeps the API runnable without a working-directory dependency.
+// DATA_DIR is deliberately retained as an explicit override for tests/tools.
+//
+//go:embed data/districts.json data/initiatives.json data/rules.json
+var embeddedData embed.FS
 
 type Decision struct {
 	InitiativeID string `json:"initiativeId"`
@@ -114,23 +121,19 @@ type engine struct {
 	districts   map[string]District
 }
 
-// New loads the repository's canonical JSON data. DATA_DIR may point to an
-// alternate data directory in integration tests or deployments.
+// New loads embedded production data. DATA_DIR may point to an alternate
+// directory in integration tests or data-authoring tools.
 func New() (*engine, error) {
-	dir, err := dataDir()
-	if err != nil {
-		return nil, err
-	}
 	var districts []District
 	var initiatives []Initiative
 	var r rules
-	if err := decode(filepath.Join(dir, "districts.json"), &districts); err != nil {
+	if err := loadJSON("districts.json", &districts); err != nil {
 		return nil, err
 	}
-	if err := decode(filepath.Join(dir, "initiatives.json"), &initiatives); err != nil {
+	if err := loadJSON("initiatives.json", &initiatives); err != nil {
 		return nil, err
 	}
-	if err := decode(filepath.Join(dir, "rules.json"), &r); err != nil {
+	if err := loadJSON("rules.json", &r); err != nil {
 		return nil, err
 	}
 	e := &engine{catalog: Catalog{Budget: r.Budget, RequiredDecisions: r.RequiredDecisions, Districts: districts, Initiatives: initiatives}, rules: r, initiatives: map[string]Initiative{}, districts: map[string]District{}}
@@ -151,33 +154,18 @@ func MustNew() *engine {
 }
 func (e *engine) Catalog() Catalog           { return e.catalog }
 func (e *engine) Optimum(bool) OptimumResult { return OptimumResult{} }
-func decode(path string, out any) error {
-	b, err := os.ReadFile(path)
+func loadJSON(name string, out any) error {
+	var b []byte
+	var err error
+	if dir := os.Getenv("DATA_DIR"); dir != "" {
+		b, err = os.ReadFile(filepath.Join(dir, name))
+	} else {
+		b, err = embeddedData.ReadFile(filepath.Join("data", name))
+	}
 	if err != nil {
-		return fmt.Errorf("read %s: %w", path, err)
+		return fmt.Errorf("read %s: %w", name, err)
 	}
 	return json.Unmarshal(b, out)
-}
-func dataDir() (string, error) {
-	if d := os.Getenv("DATA_DIR"); d != "" {
-		return d, nil
-	}
-	wd, err := os.Getwd()
-	if err != nil {
-		return "", err
-	}
-	for {
-		candidate := filepath.Join(wd, "data", "rules.json")
-		if _, err := os.Stat(candidate); err == nil {
-			return filepath.Dir(candidate), nil
-		}
-		parent := filepath.Dir(wd)
-		if parent == wd {
-			break
-		}
-		wd = parent
-	}
-	return "", fmt.Errorf("data directory not found; set DATA_DIR")
 }
 
 func (e *engine) Simulate(decisions []Decision) (*Result, []Violation) {
