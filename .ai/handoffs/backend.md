@@ -1,6 +1,6 @@
-DONE: PR #10 merged; main synced. make dev bootstraps npm; web image packages shared JSON; README and STATUS updated.
-ON BRANCH / MERGED: be/demo-readiness pushed; PR #13 open against main.
-TESTED HOW: Go suite, npm lint/build, verify.py; full Compose API healthy/web 200; three browser rehearsals incl. cached badge, optimum, compare; fresh make dev auto npm ci; Docker context 451 kB.
-BROKEN / RISKY: main Compose web stays HTTP 500 until this PR merges.
-NEEDS (from whom): AI+data and frontend review shared README/STATUS; one peer approval.
-NEXT: collect peer approval on PR #13, merge, rehearse merged main.
+DONE: OpenAI API is now the default LLM endpoint; OPENAI_API_KEY is the only secret needed and gpt-4.1-mini is the default model.
+ON BRANCH / MERGED: codex/openai-api-default; PR pending.
+TESTED HOW: Go packages compile with go build ./...; no live call without a user key.
+BROKEN / RISKY: A missing or invalid OpenAI key returns the honestly labeled cached fallback.
+NEEDS (from whom): AI+data review of its internal/llm change; one teammate approval before merge.
+NEXT: open PR, insert key locally, restart make dev, confirm /explain reports source=live.

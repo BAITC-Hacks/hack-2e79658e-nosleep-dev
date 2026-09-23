@@ -47,11 +47,15 @@ func NewFromEnv() *Client {
 	if n, err := strconv.Atoi(os.Getenv("LLM_TIMEOUT_SECONDS")); err == nil && n > 0 {
 		timeout = time.Duration(n) * time.Second
 	}
-	base := os.Getenv("LLM_BASE_URL")
+	base := strings.TrimSpace(os.Getenv("LLM_BASE_URL"))
 	if base == "" {
-		base = "https://integrate.api.nvidia.com/v1"
+		base = "https://api.openai.com/v1"
 	}
-	return &Client{baseURL: strings.TrimRight(base, "/"), apiKey: os.Getenv("LLM_API_KEY"), model: os.Getenv("LLM_MODEL"), demo: strings.EqualFold(os.Getenv("DEMO_MODE"), "true"), http: &http.Client{Timeout: timeout}}
+	model := strings.TrimSpace(os.Getenv("LLM_MODEL"))
+	if model == "" {
+		model = "gpt-4.1-mini"
+	}
+	return &Client{baseURL: strings.TrimRight(base, "/"), apiKey: strings.TrimSpace(os.Getenv("OPENAI_API_KEY")), model: model, demo: strings.EqualFold(os.Getenv("DEMO_MODE"), "true"), http: &http.Client{Timeout: timeout}}
 }
 
 func (c *Client) Explain(ctx context.Context, _ []scoring.Decision, result *scoring.Result) Explanation {
