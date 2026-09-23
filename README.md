@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/Gin-Web%20Framework-008ECF" alt="Gin" />
   <img src="https://img.shields.io/badge/Next.js-App%20Router-000000?logo=nextdotjs&logoColor=white" alt="Next.js" />
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/LLM-NVIDIA%20NIM-76B900" alt="NVIDIA NIM" />
+  <img src="https://img.shields.io/badge/LLM-OpenAI%20API-412991" alt="OpenAI API" />
   <img src="https://img.shields.io/badge/DEMO__MODE-без ключей-4ade80" alt="DEMO_MODE" />
   <img src="https://img.shields.io/badge/BAITC-Hackathon%202026-6366f1" alt="BAITC Hackathon 2026" />
 </p>
@@ -96,7 +96,7 @@ flowchart LR
     end
 
     Data[("data/*.json<br/>районы, мероприятия, правила")]
-    Provider["NVIDIA NIM / OpenAI"]
+    Provider["OpenAI API"]
 
     UI -- "POST /simulate (на каждый выбор)" --> HTTP
     UI -- "POST /explain (по кнопке отправить)" --> HTTP
@@ -124,6 +124,8 @@ make dev            # установит npm-зависимости при пе�
 
 Открыть [http://localhost:3000](http://localhost:3000).
 
+Для живого AI-разбора создайте [секретный ключ OpenAI API](https://platform.openai.com/api-keys), вставьте его в `.env` как `OPENAI_API_KEY=...`, установите `DEMO_MODE=false` и перезапустите `make dev` (или Compose). `LLM_BASE_URL` и `LLM_MODEL` уже заполнены. Ключ используется только бэкендом; не добавляйте его в `NEXT_PUBLIC_*` и не коммитьте `.env`.
+
 **Проверка:**
 ```bash
 curl http://localhost:8000/health        # {"status":"ok"}
@@ -138,15 +140,15 @@ cd apps/api && go test ./...              # тесты API, движка и LLM-
 | `API_PORT` | нет, по умолчанию 8000 | — |
 | `WEB_ORIGIN` | нет | — |
 | `DATA_DIR` | нет | — |
-| `LLM_BASE_URL` | нет, по умолчанию NVIDIA NIM | [build.nvidia.com](https://build.nvidia.com) |
-| `LLM_API_KEY` | для живого AI-разбора | бесплатный ключ на build.nvidia.com, либо ключ OpenAI |
-| `LLM_MODEL` | для живого AI-разбора | зависит от провайдера |
+| `LLM_BASE_URL` | нет, по умолчанию `https://api.openai.com/v1` | менять только для совместимого прокси |
+| `OPENAI_API_KEY` | для живого AI-разбора | [ключ OpenAI API](https://platform.openai.com/api-keys) |
+| `LLM_MODEL` | нет, по умолчанию `gpt-4.1-mini` | [модель OpenAI](https://developers.openai.com/api/docs/models/gpt-4.1-mini) |
 | `LLM_TIMEOUT_SECONDS` | нет, по умолчанию 25 | — |
-| `DEMO_MODE` | нет, по умолчанию false | `true` — работает вообще без ключей и модели |
+| `DEMO_MODE` | нет, по умолчанию false | `true` — работает без ключа и вызовов OpenAI API |
 | `NEXT_PUBLIC_API_URL` | нет | — |
 | `NEXT_PUBLIC_USE_MOCKS` | нет | `true` — фронт работает по `contracts/examples/*.json` без бэкенда |
 
-Если не заданы одновременно `LLM_API_KEY`, `LLM_MODEL` и `DEMO_MODE=false`, `/explain` и `/compare` автоматически отдают кэшированный ответ — это не ошибка, а расчётный fallback.
+Если `OPENAI_API_KEY` пуст или `DEMO_MODE=true`, `/explain` и `/compare` отдают кэшированный ответ. При ошибке или таймауте OpenAI API они также честно переключаются на кэш.
 
 ## AI и DEMO_MODE
 

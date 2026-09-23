@@ -11,6 +11,18 @@ import (
 	"akim5/api/internal/scoring"
 )
 
+func TestNewFromEnvUsesOpenAIDefaults(t *testing.T) {
+	t.Setenv("LLM_BASE_URL", "")
+	t.Setenv("LLM_MODEL", "")
+	t.Setenv("OPENAI_API_KEY", "test-key")
+	t.Setenv("DEMO_MODE", "false")
+
+	c := NewFromEnv()
+	if c.baseURL != "https://api.openai.com/v1" || c.model != "gpt-4.1-mini" || c.apiKey != "test-key" || c.demo {
+		t.Fatalf("unexpected OpenAI defaults: baseURL=%q model=%q keySet=%t demo=%t", c.baseURL, c.model, c.apiKey != "", c.demo)
+	}
+}
+
 func TestDemoModeNeverUsesNetworkAndIsClearlyCached(t *testing.T) {
 	c := NewFromEnv()
 	c.demo = true
@@ -71,6 +83,27 @@ func TestExplanationFactsCriticalPairsNotDistricts(t *testing.T) {
 	facts := strings.Join(explanationFacts(testResult()), " ")
 	if !strings.Contains(facts, "критических показателей не осталось") || strings.Contains(facts, "районах остались") {
 		t.Fatalf("incorrect critical-pair description: %s", facts)
+	}
+}
+
+func TestValidPlainTextAllowsVagueQuantity(t *testing.T) {
+	if !validPlainText("Для района выбраны несколько инициатив.") {
+		t.Fatal("a vague count of selected initiatives should not force a cached fallback")
+	}
+	if validPlainText("Выбраны пять инициатив.") {
+		t.Fatal("exact counts remain excluded from AI prose")
+	}
+}
+
+func TestExplanationSchemaRequiresNonemptyLists(t *testing.T) {
+	jsonSchemaBody := jsonSchema(&Explanation{})["json_schema"].(map[string]any)
+	schema := jsonSchemaBody["schema"].(map[string]any)
+	properties := schema["properties"].(map[string]any)
+	for _, field := range []string{"strengths", "risks", "recommendations"} {
+		list := properties[field].(map[string]any)
+		if list["minItems"] != 1 {
+			t.Fatalf("%s must have at least one item in the provider schema", field)
+		}
 	}
 }
 

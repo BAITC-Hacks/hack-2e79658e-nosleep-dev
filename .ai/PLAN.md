@@ -27,7 +27,7 @@
 ## Stack & architecture
 - **Backend:** Go 1.26 + Gin, one binary (`apps/api`), split into packages by owner (`contracts/go-interfaces.md`). No database — `data/*.json` is embedded via `go:embed` and is the single source of truth for both the engine and the frontend catalog.
 - **Frontend:** Next.js (App Router, TypeScript), shadcn/ui + Tailwind as the base, 2–3 ObsidianUI components for the Score reveal and hero. A real geo map (Leaflet/MapLibre, OSM-sourced GeoJSON) with a stylized-SVG fallback if the boundaries aren't clean.
-- **AI:** one OpenAI-compatible client (`internal/llm`), NVIDIA NIM by default, switchable to OpenAI via env. Structured output only (tool calling / JSON schema). Called on submit and on compare — never on every pick, never from the frontend.
+- **AI:** one OpenAI-compatible client (`internal/llm`), OpenAI API by default. Structured output only (tool calling / JSON schema). Called on submit and on compare — never on every pick, never from the frontend.
 - **No lead.** Three peers (FE / BE / AI+data), PR + one-approval merges to `main`. Details in `.ai/WORKFLOW.md`.
 
 ## Task list
